@@ -1,0 +1,78 @@
+<?php
+session_start();
+include_once '../includes/db.php';
+
+// Vérifier si l'utilisateur est connecté et est administrateur
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'admin') {
+    header("Location: connexion_admin.php");
+    exit();
+}
+
+// Récupérer le contenu actuel et l'objet de l'email depuis la base de données
+$template_name = 'formulaire_garage';
+$stmt = $db->prepare("SELECT subject, content FROM email_templates WHERE template_name = ?");
+$stmt->execute([$template_name]);
+$email_template = $stmt->fetch(PDO::FETCH_ASSOC);
+$subject = $email_template['subject'];
+$content = $email_template['content'];
+
+// Définir un contenu par défaut si l'entrée n'existe pas
+if (!$content) {
+    $content = "<p>Votre contenu par défaut ici</p>";
+}
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier l'Email</title>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <style>
+        #emailContent {
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Modifier l'Email</h1>
+    <?php if (isset($_SESSION['success_message'])): ?>
+        <p style="color: green;"><?php echo htmlspecialchars($_SESSION['success_message']); ?></p>
+        <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+    <?php if (isset($_SESSION['error_message'])): ?>
+        <p style="color: red;"><?php echo htmlspecialchars($_SESSION['error_message']); ?></p>
+        <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
+
+    <form method="post" action="save_email.php">
+        <input type="hidden" name="template_name" value="formulaire_garage">
+        <label for="emailSubject">Objet de l'email :</label><br>
+        <input type="text" id="emailSubject" name="emailSubject" value="<?php echo htmlspecialchars($subject); ?>" required><br><br>
+        <label for="emailContent">Contenu de l'email :</label><br>
+        <textarea id="emailContent" name="emailContent" rows="15" cols="80"><?php echo htmlspecialchars($content); ?></textarea>
+        <br>
+        <button type="submit">Enregistrer</button>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $('#emailContent').summernote({
+                height: 400,
+                minHeight: 200,
+                maxHeight: 600,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear', 'italic']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', [ 'codeview', 'help']]
+                ]
+            }).parent().css('width', '80%');
+        });
+    </script>
+</body>
+</html>
