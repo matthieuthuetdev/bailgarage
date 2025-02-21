@@ -1,5 +1,6 @@
 <?php
 require "./models/Database.php";
+require "./models/Users.php";
 require "./controllers/HomepageController.php";
 require "./controllers/UserController.php";
 require "./vue/header.php";
