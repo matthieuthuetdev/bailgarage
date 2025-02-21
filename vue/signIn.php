@@ -1,12 +1,19 @@
+<?php
+if(isset($_POST["email"],$_POST["password"])){
+    $user = new Users();
+    $result = $user->signIn($_POST["email"],$_POST["password"]);
+    if (condition) {
+        echo "connexion échouer";
+    }
+}
+?>
+
 <form action="" method="POST">
     <div class="input-group">
-        <i class="fas fa-envelope"></i>
         <input type="email" name="email" placeholder="Email" required>
     </div>
     <div class="input-group">
-        <i class="fas fa-lock"></i>
         <input type="password" name="password" placeholder="Mot de passe" required>
     </div>
-    <input type="hidden" name="user_role" value="admin">
     <input type="submit" name="login-submit" value="Se connecter">
 </form>

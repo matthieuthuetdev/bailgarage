@@ -2,19 +2,19 @@
 class Users
 {
     private PDO $connection;
-    public function __construct(PDO $_connection)
+    public function __construct()
     {
         $this->connection = Database::getInstance();
     }
     public function signIn(string $_userName, string $_password): array
     {
-        $request = "SELECT utilisateurs.id_utilisateur, utilisateurs.nom_utilisateur, utilisateurs.prenom_utilisateur, utilisateurs.mail_utilisateur, utilisateurs.pass_utilisateur, habilitations.libelle_niveau FROM utilisateurs INNER JOIN habilitations ON utilisateurs.id_niveau = habilitations.id_niveau WHERE mail_utilisateur= :username";
+        $request = "SELECT user.user_id, user.email, user.prenom,user.nom, user.email, user.password,  FROM user WHERE email = ";
         $rq = $this->connection->prepare($request);
-        $rq->bindParam(":username", $_userName, PDO::PARAM_STR);
+        $rq->bindParam(":email", $_email, PDO::PARAM_STR);
         $rq->execute();
         $result = $rq->fetchAll(PDO::FETCH_ASSOC);
         if (count($result) == 1) {
-            $succes = password_verify($_password, $result[0]["pass_utilisateur"]);
+            $succes = password_verify($_password, $result[0]["password"]);
             if ($succes) {
                 return $result[0];
             } else {
@@ -24,5 +24,4 @@ class Users
             return [];
         }
     }
-
 }
