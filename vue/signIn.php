@@ -1,10 +1,9 @@
 <?php
 if(isset($_POST["email"],$_POST["password"])){
+    var_dump($_POST);
     $user = new Users();
     $result = $user->signIn($_POST["email"],$_POST["password"]);
-    if (condition) {
-        echo "connexion échouer";
-    }
+    var_dump($result);
 }
 ?>
 
