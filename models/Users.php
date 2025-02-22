@@ -6,17 +6,18 @@ class Users
     {
         $this->connection = Database::getInstance();
     }
-    public function signIn(string $_userName, string $_password): array
+    public function signIn(string $_email, string $_password): array
     {
-        $request = "SELECT user.user_id, user.email, user.prenom,user.nom, user.email, user.password,  FROM user WHERE email = ";
+        $request = "SELECT * FROM users WHERE users.email= :email";
         $rq = $this->connection->prepare($request);
-        $rq->bindParam(":email", $_email, PDO::PARAM_STR);
+        $rq->bindValue(":email", $_email, PDO::PARAM_STR);
         $rq->execute();
-        $result = $rq->fetchAll(PDO::FETCH_ASSOC);
+        $result = $rq->fetch(PDO::FETCH_ASSOC);
+        // return $result;
         if (count($result) == 1) {
-            $succes = password_verify($_password, $result[0]["password"]);
+            $succes = password_verify($_password, $result["password"]);
             if ($succes) {
-                return $result[0];
+                return $result;
             } else {
                 return [];
             }
