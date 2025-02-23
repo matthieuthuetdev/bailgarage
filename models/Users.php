@@ -14,7 +14,7 @@ class Users
         $rq->execute();
         $result = $rq->fetch(PDO::FETCH_ASSOC); 
         // return $result;
-        if (!empty($result) == 1) {
+        if (!empty($result)) {
             $succes = password_verify($_password, $result["password"]);
             if ($succes) {
                 return $result;
