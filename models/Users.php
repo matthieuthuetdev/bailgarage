@@ -12,9 +12,9 @@ class Users
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":email", $_email, PDO::PARAM_STR);
         $rq->execute();
-        $result = $rq->fetch(PDO::FETCH_ASSOC);
+        $result = $rq->fetch(PDO::FETCH_ASSOC); 
         // return $result;
-        if (count($result) == 1) {
+        if (!empty($result) == 1) {
             $succes = password_verify($_password, $result["password"]);
             if ($succes) {
                 return $result;
