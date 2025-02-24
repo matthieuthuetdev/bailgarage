@@ -1,8 +1,8 @@
 <?php
-class HomepageController
+class GarageController
 {
     public function __construct() {}
-    public function displayHome(): void {
-        require "./vue/homepage.php";
+    public function displayGarage(): void {
+        require "./vue/garage.php";
     }
 }
