@@ -1,4 +1,4 @@
-<h1>Liste des prpriétaires</h1>
+<h1>Liste des propriétaires</h1>
 <?php
 $message = $_SESSION["message"];
 $_SESSION["message"] = "";
