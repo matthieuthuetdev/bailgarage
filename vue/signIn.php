@@ -21,10 +21,10 @@ if (isset($_POST["email"], $_POST["password"])) {
 <script src="./js/signIn.js" type="module"></script>
 <form action="" method="POST">
     <div class="input-group">
-        <input type="email" name="email" placeholder="Email" id="email" required>
+        <input type="email" name="email" placeholder="Email" id="email" value="<?php echo isset($_POST["email"]) ? $_POST["email"] : ""; ?>" required>
     </div>
     <div class="input-group">
-        <input type="password" name="password" placeholder="Mot de passe" id="password" required>
+        <input type="password" name="password" placeholder="Mot de passe" id="password"  required>
     </div>
     <input type="submit" name="login-submit" value="Se connecter">
 </form>
