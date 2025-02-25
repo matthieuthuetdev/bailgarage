@@ -11,7 +11,7 @@ if (isset($_POST["email"], $_POST["password"])) {
             header("location:index.php?pageController=garage&action=display");
         } else {
             $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant qu'administrateur.</span>";
-            header("location: index.php?pageController=user&action=display");
+            header("location: index.php?pageController=owner&action=display");
         }
     } else {
         echo "adresse email ou le mot de passe incorect.";
