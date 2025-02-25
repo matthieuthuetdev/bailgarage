@@ -7,7 +7,7 @@ require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
 if (!empty($_SESSION) && $_SESSION["right"] == "admin") {
     require "./vue/adminMenu.php";
-} elseif (!empty($_SESSION) && $_SESSION["right"] == "admin") {
+} elseif (!empty($_SESSION) && $_SESSION["right"] == "proprietaire") {
     require "./vue/ownerMenu.php";
 } else {
 }
