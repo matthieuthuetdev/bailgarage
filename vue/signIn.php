@@ -2,7 +2,6 @@
 if (isset($_POST["email"], $_POST["password"])) {
     $user = new Users();
     $result = $user->signIn($_POST["email"], $_POST["password"]);
-    var_dump($result);
     if (!empty($result)) {
         $_SESSION["name"] = $result["nom"];
         $_SESSION["firstName"] = $result["prenom"];
