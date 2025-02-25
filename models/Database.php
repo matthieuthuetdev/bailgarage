@@ -12,6 +12,7 @@ class Database
             $config = self::getConfig();
             self::$BDD = new PDO($config["dsn"],$config["user"],$config["password"]);
             
+            
         }
         return self::$BDD;
     }
