@@ -6,10 +6,6 @@
 class UserController
 {
     public function __construct() {}
-    public function display(){
-        $pageName = "liste propriétaire";
-        require "./vue/owner.php";
-    }
     /**
      * cette fonction affiche le formulaire de connexion.
      */
