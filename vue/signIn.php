@@ -7,10 +7,10 @@ if (isset($_POST["email"], $_POST["password"])) {
         $_SESSION["firstName"] = $result["prenom"];
         $_SESSION["right"] = $result["role"];
         if ($_SESSION["right"] == "proprietaire") {
-            $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter ent tant que propriétaire.</span>";
+            $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant que propriétaire.</span>";
             header("location:index.php?pageController=garage&action=display");
         } else {
-            $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter ent tant qu'administrateur.</span>";
+            $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant qu'administrateur.</span>";
             header("location: index.php?pageController=user&action=display");
         }
     } else {
