@@ -5,6 +5,7 @@ require "./models/Users.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
+require "./controllers/OwnerController.php";
 if (!empty($_SESSION) && $_SESSION["right"] == "admin") {
     require "./vue/adminMenu.php";
 } elseif (!empty($_SESSION) && $_SESSION["right"] == "proprietaire") {
@@ -34,9 +35,6 @@ if (isset($_GET["pageController"])) {
                 $user->displaySignInForm();
             } elseif ($_GET["action"] == "signOut") {
                 $user->signOut();
-            } elseif ($_GET["action"] == "display") {
-                $page = new UserController();
-                $user->display();
             } elseif ($_GET["action"] == "profil") {
                 $user->displayProfil();
             } else {
@@ -60,6 +58,47 @@ if (isset($_GET["pageController"])) {
                 $page->displayPageNotFound();
             }
             break;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        case "owner":
+            $owner = new OwnerController();
+            if (empty($_GET["action"])) {
+                $page = new PageController();
+                $page->displayPageNotFound();
+            } elseif ($_GET["action"] == "display") {
+                $owner->displayOwner();
+            } else {
+                $page = new PageController();
+                $page->displayPageNotFound();
+            }
+            break;
+
+
+
+
+
+
+
+
+
+
 
 
 
