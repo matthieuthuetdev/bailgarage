@@ -1,6 +1,6 @@
 <ul>
     <li>
-        <a href="index.php?pageController=user&action=display">propriétaires</a>
+        <a href="index.php?pageController=owner&action=display">propriétaires</a>
     </li>
     <li>
         <a href="index.php?pageController=garage&action=display">Garage</a>
