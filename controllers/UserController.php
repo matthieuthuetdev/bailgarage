@@ -6,6 +6,10 @@
 class UserController
 {
     public function __construct() {}
+    public function display(){
+        $pageName = "liste propriétaire";
+        require "./vue/owner.php";
+    }
     /**
      * cette fonction affiche le formulaire de connexion.
      */
@@ -19,5 +23,11 @@ class UserController
     public function signOut(): void
     {
         session_destroy();
+        header("location:index.php?pageController=user&action=signIn");
     }
+    public function displayProfil(): void
+    {
+        require "./vue/profil.php";
+    }
+
 }
