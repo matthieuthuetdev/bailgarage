@@ -3,10 +3,10 @@ if (isset($_POST["email"], $_POST["password"])) {
     $user = new Users();
     $result = $user->signIn($_POST["email"], $_POST["password"]);
     if (!empty($result)) {
-        $_SESSION["name"] = $result["nom"];
-        $_SESSION["firstName"] = $result["prenom"];
-        $_SESSION["right"] = $result["role"];
-        if ($_SESSION["right"] == "proprietaire") {
+        $_SESSION["name"] = $result["name"];
+        $_SESSION["firstName"] = $result["firstName"];
+        $_SESSION["role"] = $result["roleName"];
+        if ($_SESSION["roleName"] == "proprietaire") {
             $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant que propriétaire.</span>";
             header("location:index.php?pageController=garage&action=display");
         } else {

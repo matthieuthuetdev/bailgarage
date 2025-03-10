@@ -6,9 +6,9 @@ require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
 require "./controllers/OwnerController.php";
-if (!empty($_SESSION) && $_SESSION["right"] == "admin") {
+if (!empty($_SESSION) && $_SESSION["role"] == "admin") {
     require "./vue/adminMenu.php";
-} elseif (!empty($_SESSION) && $_SESSION["right"] == "proprietaire") {
+} elseif (!empty($_SESSION) && $_SESSION["role"] == "owner") {
     require "./vue/ownerMenu.php";
 } else {
 }
@@ -112,7 +112,7 @@ if (isset($_GET["pageController"])) {
     if (empty($_SESSION)) {
         $user = new UserController();
         $user->displaySignInForm();
-    } elseif ($_SESSION["right"] == "prietaire") {
+    } elseif ($_SESSION["role"] == "prietaire") {
         $garage = new GarageController();
         $garage->displayGarage();
     } else {
