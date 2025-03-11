@@ -2,6 +2,7 @@
 require "./vue/header.php";
 require "./models/Database.php";
 require "./models/Users.php";
+require "./models/Owners.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
@@ -84,7 +85,9 @@ if (isset($_GET["pageController"])) {
                 $page->displayPageNotFound();
             } elseif ($_GET["action"] == "display") {
                 $owner->displayOwner();
-            } else {
+            } elseif ($_GET["action"] == "create") {
+                $owner->displayCreateForm();
+            } else{
                 $page = new PageController();
                 $page->displayPageNotFound();
             }
