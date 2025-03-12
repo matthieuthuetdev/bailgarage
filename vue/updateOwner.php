@@ -1,7 +1,8 @@
 <?php
 if (!empty($_POST)) {
     $owner = new Owners();
-    $success = $owner->create(
+    $success = $owner->update(
+        $_GET['id'],
         $_POST['name'],
         $_POST['firstName'],
         $_POST['email'],
@@ -14,8 +15,11 @@ if (!empty($_POST)) {
         $_POST['attachmentPath'],
         $_POST['gender']
     );
-    var_dump($success);
 }
+$owner = new Owners();
+$ownerInfo = $owner->read($_GET["id"]);
+var_dump($ownerInfo);
+
 ?>
 <form action="" method="post">
     <div>

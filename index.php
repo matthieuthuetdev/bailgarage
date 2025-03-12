@@ -80,14 +80,17 @@ if (isset($_GET["pageController"])) {
 
         case "owner":
             $owner = new OwnerController();
-            if (empty($_GET["action"])) {
-                $page = new PageController();
-                $page->displayPageNotFound();
-            } elseif ($_GET["action"] == "display") {
-                $owner->displayOwner();
-            } elseif ($_GET["action"] == "create") {
+            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
                 $owner->displayCreateForm();
-            } else{
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
+                $owner->displayOwner();
+            } elseif (empty($_GET["action"]) || empty($_GET["id"])) {
+                $owner->displayCreateForm();
+            } elseif ($_GET["action"] == "update") {
+                $owner->displayUpdateForm();
+            } elseif ($_GET["action"] == "delete") {
+                $owner->delete();
+            } else {
                 $page = new PageController();
                 $page->displayPageNotFound();
             }
