@@ -34,24 +34,24 @@ if (empty($_GET["id"])) {
         echo "<td><a href='index.php?pageController=owner&action=update&id=" . $row["id"] . "'>Modifier</a></td>";
         echo "<td><a href='index.php?pageController=owner&action=delete&id=" . $row["id"] . "'>Supprimer</a></td>";
         echo "</tr>";
-        echo "</tbody>";
-        echo "</table>";
-        echo "</div>";
     }
+    echo "</tbody>";
+    echo "</table>";
+    echo "</div>";
 } else {
     $ownerInfo = $owner->read($_GET["id"]);
 
     echo "<h2>information sur le propriétaire sélectionné :</h2>";
-    echo "Nom : ". $ownerInfo["name"]."<br>";
-    echo "Prénom : ". $ownerInfo["firstName"]."<br>";
-    echo "Email : ". $ownerInfo["email"]."<br>";
-    echo "Numéro de téléphone : ". $ownerInfo["phoneNumber"]."<br>";
-    echo "Nom de l'entreprise : ". $ownerInfo["company"]."<br>";
-    echo "Adresse : ". $ownerInfo["address"]."<br>";
-    echo "complément d'adresse : ". $ownerInfo["additionalAddress"]."<br>";
-    echo "IBAN : ". $ownerInfo["iban"]."<br>";
-    echo "BIC : ". $ownerInfo["bic"]."<br>";
-    echo "Pièce jointe : ". $ownerInfo["attachmentPath"]."<br>";
-    echo "genre : ". $ownerInfo["gender"]."<br>";
+    echo "Nom : " . $ownerInfo["name"] . "<br>";
+    echo "Prénom : " . $ownerInfo["firstName"] . "<br>";
+    echo "Email : " . $ownerInfo["email"] . "<br>";
+    echo "Numéro de téléphone : " . $ownerInfo["phoneNumber"] . "<br>";
+    echo "Nom de l'entreprise : " . $ownerInfo["company"] . "<br>";
+    echo "Adresse : " . $ownerInfo["address"] . "<br>";
+    echo "complément d'adresse : " . $ownerInfo["additionalAddress"] . "<br>";
+    echo "IBAN : " . $ownerInfo["iban"] . "<br>";
+    echo "BIC : " . $ownerInfo["bic"] . "<br>";
+    echo "Pièce jointe : " . $ownerInfo["attachmentPath"] . "<br>";
+    echo "genre : " . $ownerInfo["gender"] . "<br>";
 }
 ?>
