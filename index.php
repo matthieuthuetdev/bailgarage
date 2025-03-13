@@ -2,6 +2,7 @@
 require "./vue/header.php";
 require "./models/Database.php";
 require "./models/Users.php";
+require "./models/Owners.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
@@ -79,11 +80,16 @@ if (isset($_GET["pageController"])) {
 
         case "owner":
             $owner = new OwnerController();
-            if (empty($_GET["action"])) {
-                $page = new PageController();
-                $page->displayPageNotFound();
-            } elseif ($_GET["action"] == "display") {
+            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
+                $owner->displayCreateForm();
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
                 $owner->displayOwner();
+            } elseif (empty($_GET["action"]) || empty($_GET["id"])) {
+                $owner->displayCreateForm();
+            } elseif ($_GET["action"] == "update") {
+                $owner->displayUpdateForm();
+            } elseif ($_GET["action"] == "delete") {
+                $owner->delete();
             } else {
                 $page = new PageController();
                 $page->displayPageNotFound();

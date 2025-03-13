@@ -137,7 +137,7 @@ CREATE TABLE
         content TEXT,
         PRIMAR;Y KEY (name)
     );
-    USE bailgaragev2;
+    
 CREATE TABLE Citys (
     insee_code INT PRIMARY KEY,
     city_code VARCHAR(255),
