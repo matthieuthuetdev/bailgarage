@@ -21,6 +21,7 @@ $ownerInfo = $owner->read($_GET["id"]);
 var_dump($ownerInfo);
 
 ?>
+<h1>Modifier le propriétaire</h1>
 <form action="" method="post">
     <div>
         <label for="name">Nom :</label>

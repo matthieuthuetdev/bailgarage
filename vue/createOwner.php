@@ -17,6 +17,7 @@ if (!empty($_POST)) {
     var_dump($success);
 }
 ?>
+<h1>créé un propriétaire</h1>
 <form action="" method="post">
     <div>
         <label for="name">Nom :</label>
