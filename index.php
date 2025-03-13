@@ -84,7 +84,7 @@ if (isset($_GET["pageController"])) {
                 $owner->displayCreateForm();
             } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
                 $owner->displayOwner();
-            } elseif (empty($_GET["action"]) || empty($_GET["id"])) {
+            } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "admin" && empty($_GET["id"])) {
                 $owner->displayCreateForm();
             } elseif ($_GET["action"] == "update") {
                 $owner->displayUpdateForm();

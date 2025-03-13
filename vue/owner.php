@@ -5,7 +5,7 @@ $_SESSION["message"] = "";
 $owner = new Owners();
 $liste = $owner->read();
 ?>
-<a href="index.php?pageController=owner&action=create">Créé un propriétaire</a>
+<a href="index.php?pageController=owner&action=create" class="btnAction">Créé un propriétaire</a>
 <?php echo $message;
 if (empty($_GET["id"])) {
     echo "<div>";

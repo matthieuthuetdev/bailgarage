@@ -1,0 +1,19 @@
+html{
+    font-size: 62.5%;
+    font-size: 1.6rem;
+}
+table{
+    border: solid black 1px;
+    border-collapse: collapse;
+}
+td{
+    padding: 0.5rem;
+    border: solid black 1px;
+
+}
+.btnAction{
+text-decoration: none;
+color: black;
+border: solid black 1px;
+background-color: lightblue;
+}
