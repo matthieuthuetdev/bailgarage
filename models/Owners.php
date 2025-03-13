@@ -48,7 +48,7 @@ class Owners
             $rq->execute();
             $result = $rq->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            $request = "SELECT users.name, users.firstName, users.email, owners.company, owners.address, owners.additionalAddress,citys.label, owners.phoneNumber, owners.iban, owners.bic, owners.attachmentPath, owners.gender FROM owners INNER JOIN users ON owners.userId = users.id INNER JOIN citys ON owners.cityId = citys.id WHERE owners.id = :id";
+            $request = "SELECT users.name, users.firstName, users.email, owners.company, owners.address, owners.additionalAddress,citys.label, owners.phoneNumber, owners.iban, owners.bic, owners.attachmentPath, owners.gender FROM owners INNER JOIN users ON owners.userId = users.id INNER JOIN citys ON owners.cityId = citys.id WHERE users.id = :id";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":id", $_id, PDO::PARAM_INT);
             $rq->execute();
