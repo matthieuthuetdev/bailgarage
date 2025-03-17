@@ -14,7 +14,7 @@ class OwnerController
     public function delete(){
         $owner = new Owners();
         $succes = $owner->delete($_GET["id"]);
-        header("location:index.php?pageController=owner&action");
+        header("location:index.php?pageController=owner&action=display");
     }
 
 }

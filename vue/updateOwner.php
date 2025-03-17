@@ -50,12 +50,12 @@ var_dump($ownerInfo);
 
     <div>
         <label for="additionalAddress">Complément d'adresse :</label>
-        <input type="text" name="additionalAddress" id="additionalAddress" class="additionalAddress" value="<?php echo $ownerInfo['name']; ?>">
+        <input type="text" name="additionalAddress" id="additionalAddress" class="additionalAddress" value="<?php echo $ownerInfo['additionalAddress']; ?>">
     </div>
 
     <div>
         <label for="phoneNumber">Numéro de téléphone :</label>
-        <input type="tel" name="phoneNumber" id="phoneNumber" class="phoneNumber" required value="<?php echo $ownerInfo['additionalAddress'];?>">
+        <input type="tel" name="phoneNumber" id="phoneNumber" class="phoneNumber" required value="<?php echo $ownerInfo['phoneNumber'];?>">
     </div>
 
     <div>
