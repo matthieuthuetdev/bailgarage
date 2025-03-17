@@ -45,7 +45,7 @@ var_dump($ownerInfo);
 
     <div>
         <label for="address">Adresse :</label>
-        <input type="text" name="address" id="address" class="address" required value="<?php echo $ownerInfo['name']; ?>">
+        <input type="text" name="address" id="address" class="address" required value="<?php echo $ownerInfo['address']; ?>">
     </div>
 
     <div>
