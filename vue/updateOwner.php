@@ -1,6 +1,24 @@
 <?php
-if (!empty($_POST)) {
-    $owner = new Owners();
+    $message = "";
+
+    if (empty($_POST['name']) || !preg_match("/^[a-zA-ZÀ-ÿ' -]+$/", $_POST['name'])) {
+        $message = "Nom invalide.";
+    } elseif (empty($_POST['firstName']) || !preg_match("/^[a-zA-ZÀ-ÿ' -]+$/", $_POST['firstName'])) {
+        $message = "Prénom invalide.";
+    } elseif (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $message = "Email invalide.";
+    } elseif (empty($_POST['address'])) {
+        $message = "L'adresse est obligatoire.";
+    } elseif (empty($_POST['phoneNumber']) || !preg_match("/^\\+?[0-9\\s\\-\\(\\)]+$/", $_POST['phoneNumber'])) {
+        $message = "Numéro de téléphone invalide.";
+    } elseif (empty($_POST['iban']) || !preg_match("/^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/", $_POST['iban'])) {
+        $message = "IBAN invalide.";
+    } elseif (empty($_POST['bic']) || !preg_match("/^[A-Z0-9]{8,11}$/", $_POST['bic'])) {
+        $message = "BIC invalide.";
+    } elseif (empty($_POST['gender']) || !in_array($_POST['gender'], ["homme", "femme"])) {
+        $message = "Genre invalide.";
+    } else {
+        $owner = new Owners();
     $success = $owner->update(
         $_GET['id'],
         $_POST['name'],
@@ -22,6 +40,7 @@ var_dump($ownerInfo);
 
 ?>
 <h1>Modifier le propriétaire</h1>
+<?php echo $message;?>
 <form action="" method="post">
     <div>
         <label for="name">Nom :</label>
@@ -60,7 +79,7 @@ var_dump($ownerInfo);
 
     <div>
         <label for="iban">IBAN :</label>
-        <input type="text" name="iban" id="iban" class="iban" required value="<?php echo $ownerInfo['phoneNumber'];?>">
+        <input type="text" name="iban" id="iban" class="iban" required value="<?php echo $ownerInfo['iban'];?>">
     </div>
 
     <div>
