@@ -30,9 +30,9 @@ if (empty($_GET["id"])) {
         echo "<td>" . htmlspecialchars($row['firstName']) . "</td>";
         echo "<td>" . htmlspecialchars($row['phoneNumber']) . "</td>";
         echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-        echo "<td><a href='index.php?pageController=owner&action=display&id=" . $row["id"] . "'>plus d'info</a></td>";
-        echo "<td><a href='index.php?pageController=owner&action=update&id=" . $row["id"] . "'>Modifier</a></td>";
-        echo "<td><a href='index.php?pageController=owner&action=delete&id=" . $row["id"] . "'>Supprimer</a></td>";
+        echo "<td><a href='index.php?pageController=owner&action=display&id=" . $row["ownerId"] . "'>plus d'info</a></td>";
+        echo "<td><a href='index.php?pageController=owner&action=update&id=" . $row["ownerId"] . "'>Modifier</a></td>";
+        echo "<td><a href='index.php?pageController=owner&action=delete&id=" . $row["ownerId"] . "'>Supprimer</a></td>";
         echo "</tr>";
     }
     echo "</tbody>";

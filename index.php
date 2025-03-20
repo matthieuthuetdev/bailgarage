@@ -3,6 +3,7 @@ require "./vue/header.php";
 require "./models/Database.php";
 require "./models/Users.php";
 require "./models/Owners.php";
+require "./models/Garages.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
@@ -47,18 +48,6 @@ if (isset($_GET["pageController"])) {
 
 
 
-        case "garage":
-            $garage = new GarageController();
-            if (empty($_GET["action"])) {
-                $page = new PageController();
-                $page->displayPageNotFound();
-            } elseif ($_GET["action"] == "display") {
-                $garage->displayGarage();
-            } else {
-                $page = new PageController();
-                $page->displayPageNotFound();
-            }
-            break;
 
 
 
@@ -96,7 +85,25 @@ if (isset($_GET["pageController"])) {
             }
             break;
 
-
+            case "garage":
+                $garage = new GarageController();
+                if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                    $garage->displayCreateForm();
+                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                    $garage->displayGarage();
+                } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+                    $garage->displayCreateForm();
+                } elseif ($_GET["action"] == "update") {
+                    $garage->displayUpdateForm();
+                } elseif ($_GET["action"] == "delete") {
+                    $garage->delete();
+                } else {
+                    $page = new PageController();
+                    $page->displayPageNotFound();
+                }
+                break;
+    
+    
 
 
 
