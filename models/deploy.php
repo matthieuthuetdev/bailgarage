@@ -3,7 +3,7 @@ $fichier = __DIR__ . '/config.php';
 
 if (file_exists($fichier)) {
     if (unlink($fichier)) {
-        if(rename(__DIR__."/configbis.php",__DIR__."/config.php")){
+        if (rename(__DIR__ . "/configbis.php", __DIR__ . "/config.php")) {
             echo "déployement réussi !";
         }
     } else {
@@ -11,5 +11,7 @@ if (file_exists($fichier)) {
     }
 } else {
     echo "Le fichier 'config.php' n'existe pas.";
+    if (rename(__DIR__ . "/configbis.php", __DIR__ . "/config.php")) {
+        echo "déployement réussi !";
+    }
 }
-?>
