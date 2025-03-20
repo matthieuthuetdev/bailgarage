@@ -1,16 +1,10 @@
 <?php
 require "./vue/header.php";
-echo "header";
 require "./models/Database.php";
-echo "model databaser";
 require "./models/Users.php";
-echo "model user";
 require "./models/Owners.php";
-echo "model owner";
 require "./models/Garages.php";
-echo "model garage";
 require "./controllers/PageController.php";
-echo "header";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
 require "./controllers/OwnerController.php";
@@ -91,25 +85,27 @@ if (isset($_GET["pageController"])) {
             }
             break;
 
-            case "garage":
-                $garage = new GarageController();
-                if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
-                    $garage->displayCreateForm();
-                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
-                    $garage->displayGarage();
-                } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
-                    $garage->displayCreateForm();
-                } elseif ($_GET["action"] == "update") {
-                    $garage->displayUpdateForm();
-                } elseif ($_GET["action"] == "delete") {
-                    $garage->delete();
-                } else {
-                    $page = new PageController();
-                    $page->displayPageNotFound();
-                }
-                break;
-    
-    
+        case "garage":
+            $garage = new GarageController();
+            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                $garage->displayCreateForm();
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                $garage->displayGarage();
+            } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+                $garage->displayCreateForm();
+            } elseif ($_GET["action"] == "update") {
+                $garage->displayUpdateForm();
+            } elseif ($_GET["action"] == "delete") {
+                $garage->delete();
+            } elseif ($_GET["action"] == "duplicate") {
+                $garage->displayDuplicateForm();
+            } else {
+                $page = new PageController();
+                $page->displayPageNotFound();
+            }
+            break;
+
+
 
 
 

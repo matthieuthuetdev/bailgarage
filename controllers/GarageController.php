@@ -16,5 +16,8 @@ class GarageController
         $succes = $owner->delete($_GET["id"]);
         header("location:index.php?pageController=garage&action=display");
     }
+    public function displayDuplicateForm(){
+        require "./vue/duplicateGarage.php";
+    }
 
 }

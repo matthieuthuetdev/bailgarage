@@ -16,6 +16,7 @@ if (empty($_GET["id"])) {
     echo "<th>Adresse</th>";
     echo "<th>Complément d'adresse</th>";
     echo "<th>plus d'info</th>";
+    echo "<th>Dupliquer</th>";
     echo "<th>Modifier</th>";
     echo "<th>Supprimer</th>";
     echo "</tr>";
@@ -28,6 +29,7 @@ if (empty($_GET["id"])) {
         echo "<td>" . htmlspecialchars($row['address']) . "</td>";
         echo "<td>" . htmlspecialchars($row['additionalAddress']) . "</td>";
         echo "<td><a href='index.php?pageController=garage&action=display&id=" . $row["id"] . "'>plus d'info</a></td>";
+        echo "<td><a href='index.php?pageController=garage&action=duplicate&id=" . $row["id"] . "'>Dupliquer</a></td>";
         echo "<td><a href='index.php?pageController=garage&action=update&id=" . $row["id"] . "'>Modifier</a></td>";
         echo "<td><a href='index.php?pageController=garage&action=delete&id=" . $row["id"] . "'>Supprimer</a></td>";
         echo "</tr>";
