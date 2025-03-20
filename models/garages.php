@@ -6,89 +6,73 @@ class Garages
     {
         $this->connection = Database::getInstance();
     }
-    public function create($_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_phoneNumber, $_iban, $_bic, $_attachmentPath, $_gender)
+    public function create($_ownerId, $_address, $_additionalAddress, $_cityId, $_country, $_garageNumber, $_lotNumber, $_rentWithoutCharges, $_charges, $_surface, $_reference, $_attachmentName, $_trustee, $_caution, $_comment, $_ownerNote)
     {
-        $request = "INSERT INTO users (name,firstName,email,password,roleId) VALUE (:name, :firstName, :email, :password,2)";
+        $request = "INSERT INTO garages (ownerId, address, additionalAddress, cityId, country, garageNumber, lotNumber, rentWithoutCharges, charges, surface, reference, attachmentName, trustee, caution, comment, ownerNote) VALUES (:ownerId, :address, :additionalAddress, :cityId, :country, :garageNumber, :lotNumber, :rentWithoutCharges, :charges, :surface, :reference, :attachmentName, :trustee, :caution, :comment, :ownerNote)";
         $rq = $this->connection->prepare($request);
-        $rq->bindValue(":name", $_name, PDO::PARAM_STR);
-        $rq->bindValue(":firstName", $_firstName, PDO::PARAM_STR);
-        $rq->bindValue(":email", $_email, PDO::PARAM_STR);
-        $password = $_name . $_firstName . mt_rand(0, 1000);
-        $rq->bindValue(":password", password_hash($password, PASSWORD_ARGON2I), PDO::PARAM_STR);
-        if ($rq->execute()) {
-            $request = "SELECT users.id FROM users WHERE email = :email";
-            $rq = $this->connection->prepare($request);
-            $rq->bindValue(":email", $_email, PDO::PARAM_STR);
-            $rq->execute();
-            $userId = $rq->fetch(PDO::FETCH_ASSOC);
-            $request = "INSERT INTO owners (userId,company,address,additionalAddress,cityId,phoneNumber,iban,bic,attachmentPath,gender) VALUE (:userId, :company, :address, :additionalAddress, :cityId,:phoneNumber ,:iban, :bic, :attachmentPath, :gender)";
-            $rq = $this->connection->prepare($request);
-            $rq->bindValue(":userId", $userId["id"], PDO::PARAM_INT);
-            $rq->bindValue(":company", $_company, PDO::PARAM_STR);
-            $rq->bindValue(":address", $_address, PDO::PARAM_STR);
-            $rq->bindValue(":additionalAddress", $_additionalAddress, PDO::PARAM_STR);
-            $rq->bindValue(":cityId", 1, PDO::PARAM_INT);
-            $rq->bindValue(":phoneNumber", $_phoneNumber, PDO::PARAM_STR);
-            $rq->bindValue(":iban", $_iban, PDO::PARAM_STR);
-            $rq->bindValue(":bic", $_bic, PDO::PARAM_STR);
-            $rq->bindValue(":attachmentPath", $_attachmentPath, PDO::PARAM_STR);
-            $rq->bindValue(":gender", $_gender, PDO::PARAM_STR);
-            if ($rq->execute()) {
-                return "Bonjour $_firstName, vous trouverez ci dessou vos informations de connection a l'application Bailgarage : <br> adresse mail : $_email <br> $password";
-            }
-        } else {
-            return "le mail existe déjà dans la base de donnée.";
-        }
+        $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
+        $rq->bindValue(":address", $_address, PDO::PARAM_STR);
+        $rq->bindValue(":additionalAddress", $_additionalAddress, PDO::PARAM_STR);
+        $rq->bindValue(":cityId", $_cityId, PDO::PARAM_INT);
+        $rq->bindValue(":country", $_country, PDO::PARAM_STR);
+        $rq->bindValue(":garageNumber", $_garageNumber, PDO::PARAM_INT);
+        $rq->bindValue(":lotNumber", $_lotNumber, PDO::PARAM_INT);
+        $rq->bindValue(":rentWithoutCharges", $_rentWithoutCharges, PDO::PARAM_STR);
+        $rq->bindValue(":charges", $_charges, PDO::PARAM_STR);
+        $rq->bindValue(":surface", $_surface, PDO::PARAM_INT);
+        $rq->bindValue(":reference", $_reference, PDO::PARAM_STR);
+        $rq->bindValue(":attachmentName", $_attachmentName, PDO::PARAM_STR);
+        $rq->bindValue(":trustee", $_trustee, PDO::PARAM_STR);
+        $rq->bindValue(":caution", $_caution, PDO::PARAM_STR);
+        $rq->bindValue(":comment", $_comment, PDO::PARAM_STR);
+        $rq->bindValue(":ownerNote", $_ownerNote, PDO::PARAM_STR);
+        return $rq->execute();
     }
-    public function read($_id = null)
+    public function read($_ownerId, $_garageId = null)
     {
-        if (is_null($_id)) {
-            $request = "SELECT users.id, users.name, users.firstName, users.email, owners.company, owners.address, owners.additionalAddress,citys.label, owners.phoneNumber, owners.iban, owners.bic, owners.attachmentPath, owners.gender, roles.name AS roleName FROM owners INNER JOIN users ON owners.userId = users.id INNER JOIN citys ON owners.cityId = citys.id INNER JOIN roles ON users.roleId = roles.id ";
+        if (is_null($_garageId)) {
+            $request = "SELECT * FROM garages WHERE ownerId = :ownerId";
             $rq = $this->connection->prepare($request);
+            $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
             $rq->execute();
             $result = $rq->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            $request = "SELECT users.name, users.firstName, users.email, owners.company, owners.address, owners.additionalAddress,citys.label, owners.phoneNumber, owners.iban, owners.bic, owners.attachmentPath, owners.gender FROM owners INNER JOIN users ON owners.userId = users.id INNER JOIN citys ON owners.cityId = citys.id WHERE users.id = :id";
+            $request = "SELECT * FROM garages WHERE ownerId = :ownerId AND id = :garageId";
             $rq = $this->connection->prepare($request);
-            $rq->bindValue(":id", $_id, PDO::PARAM_INT);
+            $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
+            $rq->bindValue(":garageId", $_garageId, PDO::PARAM_INT);
             $rq->execute();
             $result = $rq->fetch(PDO::FETCH_ASSOC);
         }
         return $result;
     }
-    public function update($_userId, $_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_phoneNumber, $_iban, $_bic, $_attachmentPath, $_gender)
+    public function update($_garageId, $_ownerId, $_address, $_additionalAddress, $_cityId, $_country, $_garageNumber, $_lotNumber, $_rentWithoutCharges, $_charges, $_surface, $_reference, $_attachmentName, $_trustee, $_caution, $_comment, $_ownerNote)
     {
-        $request = "UPDATE users SET users.name = :name, users.firstName = :firstName, users.email = :email WHERE users.id = :userId";
+        $request = "UPDATE garages SET address = :address, additionalAddress = :additionalAddress, cityId = :cityId, country = :country, garageNumber = :garageNumber, lotNumber = :lotNumber, rentWithoutCharges = :rentWithoutCharges, charges = :charges, surface = :surface, reference = :reference, attachmentName = :attachmentName, trustee = :trustee, caution = :caution, comment = :comment, ownerNote = :ownerNote WHERE id = :garageId";
         $rq = $this->connection->prepare($request);
-        $rq->bindValue(":userId", $_userId, PDO::PARAM_INT);
-        $rq->bindValue(":email", $_email, PDO::PARAM_STR);
-        $rq->bindValue(":name", $_name, PDO::PARAM_STR);
-        $rq->bindValue(":firstName", $_firstName, PDO::PARAM_STR);
-        $rq->execute();
-
-        $request = "UPDATE owners SET company = :company, address = :address, additionalAddress = :additionalAddress, phoneNumber = :phoneNumber, iban = :iban, bic = :bic, attachmentPath = :attachmentPath, gender = :gender WHERE userId =  :userId";
-        $rq = $this->connection->prepare($request);
-        $rq->bindValue(":userId", $_userId, PDO::PARAM_INT);
-        $rq->bindValue(":company", $_company, PDO::PARAM_STR);
+        $rq->bindValue(":garageId", $_garageId, PDO::PARAM_INT);
         $rq->bindValue(":address", $_address, PDO::PARAM_STR);
         $rq->bindValue(":additionalAddress", $_additionalAddress, PDO::PARAM_STR);
-        $rq->bindValue(":phoneNumber", $_phoneNumber, PDO::PARAM_STR);
-        $rq->bindValue(":iban", $_iban, PDO::PARAM_STR);
-        $rq->bindValue(":bic", $_bic, PDO::PARAM_STR);
-        $rq->bindValue(":attachmentPath", $_attachmentPath, PDO::PARAM_STR);
-        $rq->bindValue(":gender", $_gender, PDO::PARAM_STR);
-
+        $rq->bindValue(":cityId", $_cityId, PDO::PARAM_INT);
+        $rq->bindValue(":country", $_country, PDO::PARAM_STR);
+        $rq->bindValue(":garageNumber", $_garageNumber, PDO::PARAM_INT);
+        $rq->bindValue(":lotNumber", $_lotNumber, PDO::PARAM_INT);
+        $rq->bindValue(":rentWithoutCharges", $_rentWithoutCharges, PDO::PARAM_STR);
+        $rq->bindValue(":charges", $_charges, PDO::PARAM_STR);
+        $rq->bindValue(":surface", $_surface, PDO::PARAM_INT);
+        $rq->bindValue(":reference", $_reference, PDO::PARAM_STR);
+        $rq->bindValue(":attachmentName", $_attachmentName, PDO::PARAM_STR);
+        $rq->bindValue(":trustee", $_trustee, PDO::PARAM_STR);
+        $rq->bindValue(":caution", $_caution, PDO::PARAM_STR);
+        $rq->bindValue(":comment", $_comment, PDO::PARAM_STR);
+        $rq->bindValue(":ownerNote", $_ownerNote, PDO::PARAM_STR);
         return $rq->execute();
     }
-    public function delete($_userid)
+    public function delete($_garageId)
     {
-        $request = "DELETE FROM owners WHERE userId = :id";
-        $rq =  $this->connection->prepare($request);
-        $rq->bindValue(":id", $_userid, PDO::PARAM_INT);
-        $rq->execute();
-        $request = "DELETE FROM users WHERE users.id = :id";
-        $rq =  $this->connection->prepare($request);
-        $rq->bindValue(":id", $_userid, PDO::PARAM_INT);
-$succes = $rq->execute();
+        $request = "DELETE FROM garages WHERE id = :garageId";
+        $rq = $this->connection->prepare($request);
+        $rq->bindValue(":garageId", $_garageId, PDO::PARAM_INT);
+        return $rq->execute();
     }
 }
