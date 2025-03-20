@@ -5,19 +5,21 @@ if (isset($_POST["email"], $_POST["password"])) {
     if (!empty($result)) {
         $_SESSION["name"] = $result["name"];
         $_SESSION["firstName"] = $result["firstName"];
-        $_SESSION["role"] = $result["roleName"];
-        $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant que propriétaire.</span>";
-        $owner = new Owners();
-        $ownerId = $owner->searchOwnerByUserId($result["id"]);
-        $_SESSION["ownerId"] = $ownerId["id"];
-        header("location:index.php?pageController=garage&action=display");
+        if ($result["roleName"] == "owner") {
+            $_SESSION["role"] = "owner";
+            $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant que propriétaire.</span>";
+            $owner = new Owners();
+            $ownerId = $owner->searchOwnerByUserId($result["id"]);
+            $_SESSION["ownerId"] = $ownerId["id"];
+            header("location:index.php?pageController=garage&action=display");
+        } else {
+            $_SESSION["role"] = "admin";
+            $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant qu'administrateur.</span>";
+            header("location: index.php?pageController=owner&action=display");
+        }
     } else {
-        $_SESSION["roleName"] = "admin";
-        $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant qu'administrateur.</span>";
-        header("location: index.php?pageController=owner&action=display");
+        echo "adresse email ou le mot de passe incorect.";
     }
-} else {
-    echo "adresse email ou le mot de passe incorect.";
 }
 
 ?>
