@@ -1,10 +1,16 @@
 <?php
 require "./vue/header.php";
+echo "header";
 require "./models/Database.php";
+echo "model databaser";
 require "./models/Users.php";
+echo "model user";
 require "./models/Owners.php";
+echo "model owner";
 require "./models/Garages.php";
+echo "model garage";
 require "./controllers/PageController.php";
+echo "header";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
 require "./controllers/OwnerController.php";
