@@ -6,17 +6,20 @@ if (isset($_POST["email"], $_POST["password"])) {
         $_SESSION["name"] = $result["name"];
         $_SESSION["firstName"] = $result["firstName"];
         $_SESSION["role"] = $result["roleName"];
-        if ($_SESSION["roleName"] == "proprietaire") {
-            $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant que propriétaire.</span>";
-            header("location:index.php?pageController=garage&action=display");
-        } else {
-            $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant qu'administrateur.</span>";
-            header("location: index.php?pageController=owner&action=display");
-        }
+        $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant que propriétaire.</span>";
+        $owner = new Owners();
+        $ownerId = $owner->searchOwnerByUserId($result["id"]);
+        $_SESSION["ownerId"] = $ownerId["id"];
+        header("location:index.php?pageController=garage&action=display");
     } else {
-        echo "adresse email ou le mot de passe incorect.";
+        $_SESSION["roleName"] = "admin";
+        $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant qu'administrateur.</span>";
+        header("location: index.php?pageController=owner&action=display");
     }
+} else {
+    echo "adresse email ou le mot de passe incorect.";
 }
+
 ?>
 <script src="./js/signIn.js" type="module"></script>
 <form action="" method="POST">
@@ -24,7 +27,7 @@ if (isset($_POST["email"], $_POST["password"])) {
         <input type="email" name="email" placeholder="Email" id="email" value="<?php echo isset($_POST["email"]) ? $_POST["email"] : ""; ?>" required>
     </div>
     <div class="input-group">
-        <input type="password" name="password" placeholder="Mot de passe" id="password"  required>
+        <input type="password" name="password" placeholder="Mot de passe" id="password" required>
     </div>
     <input type="submit" name="login-submit" value="Se connecter">
 </form>
