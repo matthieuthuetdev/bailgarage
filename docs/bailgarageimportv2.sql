@@ -108,6 +108,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 CREATE TABLE IF NOT EXISTS `tenants` (
   `id` int NOT NULL AUTO_INCREMENT,
+  'ownerId' int
   `name` varchar(100) DEFAULT NULL,
   `firstName` varchar(100) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
@@ -156,3 +157,5 @@ ALTER TABLE `payments` ADD CONSTRAINT `fk_payments_lease` FOREIGN KEY (`leaseId`
 ALTER TABLE `tenants` ADD CONSTRAINT `fk_tenants_city` FOREIGN KEY (`cityId`) REFERENCES `citys` (`id`);
 
 ALTER TABLE `users` ADD CONSTRAINT `fk_users_role` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`);
+
+ALTER TABLE `users` ADD CONSTRAINT `fk_tenant_owner` FOREIGN KEY (`ownerId`) REFERENCES `owners` (`id`);
