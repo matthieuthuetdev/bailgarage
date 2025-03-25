@@ -8,7 +8,7 @@ require "./models/Database.php";
 require "./models/Users.php";
 require "./models/Owners.php";
 require "./models/Garages.php";
-require "./models/Tenants.php";
+require "./models/Tenant.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
