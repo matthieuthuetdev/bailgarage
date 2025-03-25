@@ -8,12 +8,12 @@ require "./models/Database.php";
 require "./models/Users.php";
 require "./models/Owners.php";
 require "./models/Garages.php";
-require "./models/Tenant.php";
+require "./models/Tenants.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
 require "./controllers/OwnerController.php";
-require "./controllers/tenantsController.php";
+require "./controllers/tenantController.php";
 if (!empty($_SESSION) && $_SESSION["role"] == "admin") {
     require "./vue/adminMenu.php";
 } elseif (!empty($_SESSION) && $_SESSION["role"] == "owner") {
