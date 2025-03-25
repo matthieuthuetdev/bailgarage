@@ -1,13 +1,16 @@
 <?php
+mail("mattmatt.thuet@gmail.com", "test", "<h1>ceci est un test d'envois de mail en php ! </h1>");
 require "./vue/header.php";
 require "./models/Database.php";
 require "./models/Users.php";
 require "./models/Owners.php";
 require "./models/Garages.php";
+require "./models/Tenants.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
 require "./controllers/OwnerController.php";
+require "./controllers/tenantsController.php";
 if (!empty($_SESSION) && $_SESSION["role"] == "admin") {
     require "./vue/adminMenu.php";
 } elseif (!empty($_SESSION) && $_SESSION["role"] == "owner") {
@@ -107,7 +110,28 @@ if (isset($_GET["pageController"])) {
 
 
 
-
+            case "tenant":
+                $tenants = new TenantsController();
+                if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                    $tenants->displayCreateForm();
+                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                    $tenants->displayTenant();
+                } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+                    $tenants->displayCreateForm();
+                } elseif ($_GET["action"] == "update") {
+                    $tenants->displayUpdateForm();
+                } elseif ($_GET["action"] == "delete") {
+                    $tenants->delete();
+                } elseif ($_GET["action"] == "duplicate") {
+                    $tenants->displayDuplicateForm();
+                } else {
+                    $page = new PageController();
+                    $page->displayPageNotFound();
+                }
+                break;
+    
+    
+    
 
 
 
