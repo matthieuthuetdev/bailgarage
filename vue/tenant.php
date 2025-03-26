@@ -50,7 +50,7 @@ if (empty($_GET["id"])) {
     echo "RGPD : " . ($tenantInfo["rgpd"] ? "Accepté" : "Non accepté") . "<br>";
     echo "Pièce jointe : " . htmlspecialchars($tenantInfo["attachmentPath"]) . "<br>";
     echo "Genre : " . ($tenantInfo["gender"] ? "Femme" : "Homme") . "<br>";
-    echo "Reçu : " . ($tenantInfo["receipt"] ? "Oui" : "Non") . "<br>";
+    echo "Quittance : " . ($tenantInfo["receipt"] ? "Oui" : "Non") . "<br>";
     echo "Note du propriétaire : " . (!empty($tenantInfo["ownerNote"]) ? htmlspecialchars($tenantInfo["ownerNote"]) : "Aucune") . "<br>";
 }
 ?>
