@@ -159,3 +159,4 @@ ALTER TABLE `tenants` ADD CONSTRAINT `fk_tenants_city` FOREIGN KEY (`cityId`) RE
 ALTER TABLE `users` ADD CONSTRAINT `fk_users_role` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`);
 
 ALTER TABLE `tenants` ADD CONSTRAINT `fk_tenant_owner` FOREIGN KEY (`ownerId`) REFERENCES `owners` (`id`);
+ALTER TABLE `leases` ADD CONSTRAINT `fk_leases_owner` FOREIGN KEY (`ownerId`) REFERENCES `owners` (`id`);
