@@ -42,13 +42,13 @@ class Leases
     public function read($_ownerId, $_leaseId = null)
     {
         if (is_null($_leaseId)) {
-            $request = "SELECT * FROM leases WHERE leases.ownerId = :ownerId";
+            $request = "SELECT * FROM leases  WHERE leases.ownerId = :ownerId";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
             $rq->execute();
             $result = $rq->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            $request = "SELECT * FROM leases WHERE ownerId = :ownerId AND id = :leaseId";
+            $request = "SELECT leases.* FROM leases WHERE leases.ownerId = :ownerId AND leases.id = :leaseId ";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
             $rq->bindValue(":leaseId", $_leaseId, PDO::PARAM_INT);
@@ -58,9 +58,9 @@ class Leases
         return $result;
     }
 
-    public function update($_leaseId, $_tenantId, $_garageId, $_madeThe, $_madeIn, $_startDate, $_duration, $_rentAmount, $_rentAmountInLetter, $_chargesAmount, $_chargesAmountInLetter, $_totalAmountMonthly, $_totalAmountMonthlyInLetter, $_prorata, $_prorataInLetter, $_endProrata, $_caution, $_cautionInLetter, $_numberOfKey, $_numberOfBeep, $_status, $_attachmentPath, $_ownerNote)
+    public function update($_leaseId, $_tenantId, $_garageId, $_madeThe, $_madeIn, $_startDate, $_duration, $_rentAmount, $_rentAmountInLetter, $_chargesAmount, $_chargesAmountInLetter, $_totalAmountMonthly, $_totalAmountMonthlyInLetter, $_prorata, $_prorataInLetter, $_caution, $_cautionInLetter, $_numberOfKey, $_numberOfBeep, $_status, $_attachmentPath, $_ownerNote)
     {
-        $request = "UPDATE leases SET tenantId = :tenantId, garageId = :garageId, madeThe = :madeThe, madeIn = :madeIn, startDate = :startDate, duration = :duration, rentAmount = :rentAmount, rentAmountInLetter = :rentAmountInLetter, chargesAmount = :chargesAmount, chargesAmountInLetter = :chargesAmountInLetter, totalAmountMonthly = :totalAmountMonthly, totalAmountMonthlyInLetter = :totalAmountMonthlyInLetter, prorata = :prorata, prorataInLetter = :prorataInLetter, endProrata = :endProrata, caution = :caution, cautionInLetter = :cautionInLetter, numberOfKey = :numberOfKey, numberOfBeep = :numberOfBeep, status = :status, attachmentPath = :attachmentPath, ownerNote = :ownerNote WHERE id = :leaseId";
+        $request = "UPDATE leases SET tenantId = :tenantId, garageId = :garageId, madeThe = :madeThe, madeIn = :madeIn, startDate = :startDate, duration = :duration, rentAmount = :rentAmount, rentAmountInLetter = :rentAmountInLetter, chargesAmount = :chargesAmount, chargesAmountInLetter = :chargesAmountInLetter, totalAmountMonthly = :totalAmountMonthly, totalAmountMonthlyInLetter = :totalAmountMonthlyInLetter, prorata = :prorata, prorataInLetter = :prorataInLetter, caution = :caution, cautionInLetter = :cautionInLetter, numberOfKey = :numberOfKey, numberOfBeep = :numberOfBeep, status = :status, attachmentPath = :attachmentPath, ownerNote = :ownerNote WHERE id = :leaseId";
 
         $rq = $this->connection->prepare($request);
 
@@ -79,7 +79,6 @@ class Leases
         $rq->bindValue(":totalAmountMonthlyInLetter", $_totalAmountMonthlyInLetter, PDO::PARAM_STR);
         $rq->bindValue(":prorata", $_prorata, PDO::PARAM_STR);
         $rq->bindValue(":prorataInLetter", $_prorataInLetter, PDO::PARAM_STR);
-        $rq->bindValue(":endProrata", $_endProrata, PDO::PARAM_STR);
         $rq->bindValue(":caution", $_caution, PDO::PARAM_STR);
         $rq->bindValue(":cautionInLetter", $_cautionInLetter, PDO::PARAM_STR);
         $rq->bindValue(":numberOfKey", $_numberOfKey, PDO::PARAM_INT);
