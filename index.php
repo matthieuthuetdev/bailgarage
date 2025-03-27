@@ -9,11 +9,13 @@ require "./models/Users.php";
 require "./models/Owners.php";
 require "./models/Garages.php";
 require "./models/Tenants.php";
+require "./models/Leases.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
 require "./controllers/OwnerController.php";
 require "./controllers/TenantController.php";
+require "./controllers/LeasesController.php";
 if (!empty($_SESSION) && $_SESSION["role"] == "admin") {
     require "./vue/adminMenu.php";
 } elseif (!empty($_SESSION) && $_SESSION["role"] == "owner") {
@@ -113,27 +115,42 @@ if (isset($_GET["pageController"])) {
 
 
 
-            case "tenant":
-                $tenants = new TenantsController();
+        case "tenant":
+            $tenant = new TenantsController();
+            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                $tenant->displayCreateForm();
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                $tenant->displayTenant();
+            } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+                $tenant->displayCreateForm();
+            } elseif ($_GET["action"] == "update") {
+                $tenant->displayUpdateForm();
+            } elseif ($_GET["action"] == "delete") {
+                $tenant->delete();
+            } else {
+                $page = new PageController();
+                $page->displayPageNotFound();
+            }
+            break;
+
+
+            case "lease":
+                $lease = new LeaseController();
                 if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
-                    $tenants->displayCreateForm();
+                    $lease->displayCreateForm();
                 } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
-                    $tenants->displayTenant();
+                    $lease->displayTenant();
                 } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
-                    $tenants->displayCreateForm();
+                    $lease->displayCreateForm();
                 } elseif ($_GET["action"] == "update") {
-                    $tenants->displayUpdateForm();
+                    $lease->displayUpdateForm();
                 } elseif ($_GET["action"] == "delete") {
                     $tenants->delete();
-                } elseif ($_GET["action"] == "duplicate") {
-                    $tenants->displayDuplicateForm();
                 } else {
                     $page = new PageController();
                     $page->displayPageNotFound();
                 }
                 break;
-    
-    
     
 
 
