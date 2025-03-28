@@ -145,7 +145,7 @@ if (isset($_GET["pageController"])) {
                 } elseif ($_GET["action"] == "update") {
                     $lease->displayUpdateForm();
                 } elseif ($_GET["action"] == "delete") {
-                    $tenants->delete();
+                    $lease->delete();
                 } else {
                     $page = new PageController();
                     $page->displayPageNotFound();
