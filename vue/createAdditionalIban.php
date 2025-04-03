@@ -10,7 +10,7 @@ if (!empty($_POST)) {
         $message = "BIC supplémentaire invalide.";
     } else {
         $additionalIban = new additionalIbans();
-            $additionalIban->create($_GET["ownerId"], $_POST["additionalIbanName"], $_POST["additionalIban"], $_POST["additionalBic"]);
+            $additionalIban->create($_GET["id"], $_POST["additionalIbanName"], $_POST["additionalIban"], $_POST["additionalBic"]);
         $message = "IBAN ajouté avec succès !";
     }
     echo $message;
