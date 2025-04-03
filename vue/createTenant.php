@@ -75,7 +75,7 @@ if (!empty($_POST)) {
 
     <div>
         <input type="checkbox" name="rgpd" id="rgpd" <?php echo isset($_POST['rgpd']) ? 'checked' : ''; ?>>
-        <label for="rgpd">Une foie la location je souhaite que mes données personnelle soit supprimer. :</label>
+        <label for="rgpd">Une foie la location je souhaite que mes données personnelle soit Anonymiser. :</label>
     </div>
 
     <div>
