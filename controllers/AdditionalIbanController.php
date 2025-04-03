@@ -2,6 +2,7 @@
 class AdditionalIbanController
 {
     public function __construct() {}
+
     public function displayAdditionalIban(): void
     {
         require "./vue/additionalIban.php";
@@ -19,8 +20,6 @@ class AdditionalIbanController
     {
         $additionalIban = new additionalibans();
         $succes = $additionalIban->delete($_GET["id"]);
-        header("location:index.php?pageController=additionalIban&action=display&ownerId=".$_GET["ownerId"]);
+        header("location:index.php?pageController=additionalIban&action=display&ownerId=" . $_GET["ownerId"]);
     }
 }
-
-
