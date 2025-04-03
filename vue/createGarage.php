@@ -34,12 +34,15 @@ if (!empty($_POST)) {
             $_POST['trustee'],
             $_POST['caution'],
             "",
-            $_POST['ownerNote']
+            $_POST['ownerNote'],
+            $_POST["additionalIbanId"]
         );
         $message = $success ? "Garage créé avec succès." : "Erreur lors de la création du garage.";
     }
     echo "$message";
 }
+$additionalIban = new additionalibans();
+$liste = $additionalIban->read($_SESSION["ownerId"]);
 ?>
 <h1>Créer un garage</h1>
 <form action="" method="post">
@@ -107,6 +110,18 @@ if (!empty($_POST)) {
         <label for="ownerNote">Note du propriétaire :</label>
         <textarea name="ownerNote" id="ownerNote" rows="3"><?php echo isset($_POST['ownerNote']) ? htmlspecialchars($_POST['ownerNote']) : ''; ?></textarea>
     </div>
+    <div>
+        <label for="additionalIbanId">IBAN à utiliser pour ce garage:</label>
+        <select name="additionalIbanId" id="additionalIbanId" required>
+            <option value="0">Par défaut</option>
+            <?php foreach ($liste as $row): ?>
+                <option value="<?php echo $row['id']; ?>">
+                    <?php echo htmlspecialchars($row['name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
 
     <button type="submit">Enregistrer</button>
 </form>
