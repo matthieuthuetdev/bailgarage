@@ -3,6 +3,7 @@
 $message = $_SESSION["message"];
 $_SESSION["message"] = "";
 $garage = new Garages();
+$additionalIban = new additionalibans();
 $liste = $garage->read($_SESSION["ownerId"]);
 ?>
 <a href="index.php?pageController=garage&action=create" class="btnAction">Créer un garage</a>
@@ -39,6 +40,9 @@ if (empty($_GET["id"])) {
     echo "</div>";
 } else {
     $garageInfo = $garage->read($_SESSION["ownerId"], $_GET["id"]);
+    var_dump($garageInfo);
+    $additionalIbanInfo = $additionalIban->read($_SESSION["ownerId"],$garageInfo["additionalIbanId"]);
+    var_dump($additionalIbanInfo);
     echo "<h2>Informations sur le garage sélectionné :</h2>";
     echo "Adresse : " . $garageInfo["address"] . "<br>";
     echo "Complément d'adresse : " . $garageInfo["additionalAddress"] . "<br>";
@@ -52,6 +56,7 @@ if (empty($_GET["id"])) {
     echo "Pièce jointe : " . $garageInfo["attachmentName"] . "<br>";
     echo "Syndic : " . $garageInfo["trustee"] . "<br>";
     echo "Caution (€) : " . $garageInfo["caution"] . "<br>";
+    echo "IBAN à utiliser pour ce garage : " . $additionalIbanInfo["name"]  . "<br>";
     echo "Commentaire : " . (!empty($garageInfo["comment"]) ? $garageInfo["comment"] : "Aucun") . "<br>";
     echo "Note du propriétaire : " . (!empty($garageInfo["ownerNote"]) ? $garageInfo["ownerNote"] : "Aucune") . "<br>";
 
