@@ -2,7 +2,7 @@
 class LeaseController
 {
     public function __construct() {}
-    public function displayTenant(): void
+    public function displayLease(): void
     {
         require "./vue/lease.php";
     }
