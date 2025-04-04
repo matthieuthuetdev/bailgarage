@@ -2,7 +2,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-mail("mattmatt.thuet@gmail.com", "test", "<h1>ceci est un test d'envois de mail en php ! </h1>");
 require "./vue/header.php";
 require "./models/Database.php";
 require "./models/Users.php";
