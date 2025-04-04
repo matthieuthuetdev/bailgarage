@@ -56,7 +56,7 @@ if (empty($_GET["id"])) {
     echo "Pièce jointe : " . $garageInfo["attachmentName"] . "<br>";
     echo "Syndic : " . $garageInfo["trustee"] . "<br>";
     echo "Caution (€) : " . $garageInfo["caution"] . "<br>";
-    echo "IBAN à utiliser pour ce garage : " . $additionalIbanInfo["name"]  . "<br>";
+    echo "IBAN à utiliser pour ce garage : " . empty($additionalIbanInfo["name"]) ? "par défaut <br>" : $additionalIbanInfo["name"] . "<br>";
     echo "Commentaire : " . (!empty($garageInfo["comment"]) ? $garageInfo["comment"] : "Aucun") . "<br>";
     echo "Note du propriétaire : " . (!empty($garageInfo["ownerNote"]) ? $garageInfo["ownerNote"] : "Aucune") . "<br>";
 
