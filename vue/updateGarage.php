@@ -35,6 +35,7 @@ if (!empty($_POST)) {
             $_POST['attachmentName'],
             $_POST['trustee'],
             $_POST['caution'],
+            $_POST["additionalIbanId"] != 0 ? $_POST["additionalIbanId"] : null,
             "",
             $_POST['ownerNote']
         );
@@ -43,6 +44,8 @@ if (!empty($_POST)) {
     echo $message;
 }
 $garageInfo = $garage->read($_SESSION["ownerId"], $_GET["id"]);
+$additionalIban = new additionalibans();
+$liste = $additionalIban->read($_SESSION["ownerId"]);
 ?>
 <h1>Modifier le garage</h1>
 <form action="" method="post">
@@ -104,6 +107,17 @@ $garageInfo = $garage->read($_SESSION["ownerId"], $_GET["id"]);
     <div>
         <label for="caution">Caution (€) :</label>
         <input type="number" step="0.01" name="caution" id="caution" value="<?php echo isset($_POST['caution']) ? htmlspecialchars($_POST['caution']) : htmlspecialchars($garageInfo['caution']); ?>">
+    </div>
+    <div>
+        <label for="additionalIbanId">IBAN à utiliser pour ce garage:</label>
+        <select name="additionalIbanId" id="additionalIbanId">
+            <option value="0">Par défaut</option>
+            <?php foreach ($liste as $row): ?>
+                <option value="<?php echo $row['id']; ?>" <?php echo ($garageInfo['additionalIbanId'] == $row['id']) ? 'selected' : ''; ?>>
+                    <?php echo htmlspecialchars($row['name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
 
     <div>

@@ -43,7 +43,7 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    additionalIban (
+    additionalibans (
         id INT AUTO_INCREMENT,
         ownerId INT NOT NULL,
         iban VARCHAR(34),
@@ -158,7 +158,7 @@ ALTER TABLE Garages ADD CONSTRAINT fk_garages_city FOREIGN KEY (cityId) REFERENC
 
 ALTER TABLE users ADD CONSTRAINT fk_users_role FOREIGN KEY (roleId) REFERENCES roles (id);
 
-ALTER TABLE additionalIban ADD CONSTRAINT fk_additionalIban_owner FOREIGN KEY (ownerId) REFERENCES owner (id);
+ALTER TABLE additionalibans ADD CONSTRAINT fk_additionalibans_owner FOREIGN KEY (ownerId) REFERENCES owner (id);
 
 ALTER TABLE tenants ADD CONSTRAINT fk_tenants_city FOREIGN KEY (cityId) REFERENCES citys (id);
 

@@ -76,7 +76,7 @@ $tenantInfo = $tenant->read($_SESSION["ownerId"], $_GET["id"]);
 
     <div>
         <input type="checkbox" name="rgpd" id="rgpd" <?php echo isset($_POST['rgpd']) ? 'checked' : ($tenantInfo['rgpd'] ? 'checked' : ''); ?> >
-        <label for="rgpd">Une fois la location terminée, je souhaite que mes données personnelles soient supprimées.</label>
+        <label for="rgpd">Une fois la location terminée, je souhaite que mes données personnelles soient anonymisée.</label>
     </div>
 
     <div>
@@ -91,7 +91,7 @@ $tenantInfo = $tenant->read($_SESSION["ownerId"], $_GET["id"]);
             <option value="1" <?php echo (isset($_POST['gender']) && $_POST['gender'] == 1) ? 'selected' : ($tenantInfo['gender'] == 1 ? 'selected' : ''); ?>>Femme</option>
         </select>
     </div>
-
+ 
     <div>
         <input type="checkbox" name="receipt" id="receipt" <?php echo isset($_POST['receipt']) ? 'checked' : ($tenantInfo['receipt'] ? 'checked' : ''); ?> >
         <label for="receipt">Je souhaite recevoir une quittance de loyer chaque mois.</label>

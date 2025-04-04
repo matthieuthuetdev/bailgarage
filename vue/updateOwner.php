@@ -101,3 +101,4 @@ $ownerInfo = $owner->read($_GET["id"]);
 
     <button type="submit">Envoyer</button>
 </form>
+<a href="index.php?pageController=additionalIban&action=display&ownerId=<?php echo $_GET["id"]; ?>" class="btnAction"> Gérer les IBAN supplémentaires</a>

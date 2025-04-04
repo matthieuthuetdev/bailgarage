@@ -10,12 +10,14 @@ require "./models/Owners.php";
 require "./models/Garages.php";
 require "./models/Tenants.php";
 require "./models/Leases.php";
+require "./models/additionalibans.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
 require "./controllers/OwnerController.php";
 require "./controllers/TenantController.php";
 require "./controllers/LeasesController.php";
+require "./controllers/AdditionalIbanController.php";
 if (!empty($_SESSION) && $_SESSION["role"] == "admin") {
     require "./vue/adminMenu.php";
 } elseif (!empty($_SESSION) && $_SESSION["role"] == "owner") {
@@ -134,28 +136,44 @@ if (isset($_GET["pageController"])) {
             break;
 
 
-            case "lease":
-                $lease = new LeaseController();
-                if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
-                    $lease->displayCreateForm();
-                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
-                    $lease->displayTenant();
-                } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
-                    $lease->displayCreateForm();
-                } elseif ($_GET["action"] == "update") {
-                    $lease->displayUpdateForm();
-                } elseif ($_GET["action"] == "delete") {
-                    $lease->delete();
-                } else {
-                    $page = new PageController();
-                    $page->displayPageNotFound();
-                }
-                break;
-    
+        case "lease":
+            $lease = new LeaseController();
+            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                $lease->displayCreateForm();
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                $lease->displayLease();
+            } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+                $lease->displayCreateForm();
+            } elseif ($_GET["action"] == "update") {
+                $lease->displayUpdateForm();
+            } elseif ($_GET["action"] == "delete") {
+                $lease->delete();
+            } else {
+                $page = new PageController();
+                $page->displayPageNotFound();
+            }
+            break;
 
 
 
 
+        case "additionalIban":
+            $additionalIban = new AdditionalIbanController();
+            if ($_GET["action"] == "create" && !empty($_SESSION) && "additionalIban") {
+                $additionalIban->displayCreateForm();
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION)) {
+                $additionalIban->displayAdditionalIban();
+            } elseif (empty($_GET["action"]) && !empty($_SESSION)  && empty($_GET["id"])) {
+                $additionalIban->displayCreateForm();
+            } elseif ($_GET["action"] == "update") {
+                $additionalIban->displayUpdateForm();
+            } elseif ($_GET["action"] == "delete") {
+                $additionalIban->delete();
+            } else {
+                $page = new PageController();
+                $page->displayPageNotFound();
+            }
+            break;
 
 
 

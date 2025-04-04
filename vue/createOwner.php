@@ -33,6 +33,16 @@ if (!empty($_POST)) {
             $_POST['attachmentPath'],
             $_POST['gender']
         );
+        if (empty($_POST['additionalibans']) || !preg_match("/^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/", $_POST['additionalibans'])) {
+            $message = "IBAN invalide.";
+        } elseif (empty($_POST['additionalBic']) || !preg_match("/^[A-Z0-9]{8,11}$/", $_POST['additionalBic'])) {
+            $message = "BIC invalide.";
+        } else {
+            $additionaliban = new additionalibans();
+            $ownerId = $owner->searchOwnerByEmail($_POST["email"])["id"];
+            $additionaliban->create($ownerId, $_POST["additionalibans"], $_POST["additionalBic"]);
+        }
+
         $message = $success;
     }
     echo "$message";
@@ -84,6 +94,15 @@ if (!empty($_POST)) {
         <label for="bic">BIC :</label>
         <input type="text" name="bic" id="bic" required value="<?php echo isset($_POST['bic']) ? htmlspecialchars($_POST['bic']) : ''; ?>">
     </div>
+    <div>
+        <label for="additionalibans">IBAN supplémentaire :</label>
+        <input type="text" name="additionalibans" id="additionalibans" value="<?php echo isset($_POST['additionalibans']) ? htmlspecialchars($_POST['iban']) : ''; ?>">
+    </div>
+
+    <div>
+        <label for="additionalBic">BIC supplémentaire :</label>
+        <input type="text" name="additionalBic" id="additionalBic" value="<?php echo isset($_POST['additionalBic']) ? htmlspecialchars($_POST['bic']) : ''; ?>">
+    </div>
 
     <div>
         <label for="attachmentPath">Pièce jointe :</label>
@@ -97,6 +116,7 @@ if (!empty($_POST)) {
             <option value="femme" <?php echo (isset($_POST['gender']) && $_POST['gender'] == 'femme') ? 'selected' : ''; ?>>Femme</option>
         </select>
     </div>
+
 
     <button type="submit">Envoyer</button>
 </form>

@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `additionaliban` (
+CREATE TABLE IF NOT EXISTS `additionalibans` (
   `id` int NOT NULL AUTO_INCREMENT,
   `ownerId` int NOT NULL,
   `iban` varchar(34) DEFAULT NULL,
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB;
 
 
-ALTER TABLE `additionaliban` ADD CONSTRAINT `fk_additionalIban_owner` FOREIGN KEY (`ownerId`) REFERENCES `owners` (`id`);
+ALTER TABLE `additionalibans` ADD CONSTRAINT `fk_additionalibans_owner` FOREIGN KEY (`ownerId`) REFERENCES `owners` (`id`);
 
 ALTER TABLE `garages` ADD CONSTRAINT `fk_garages_owner` FOREIGN KEY (`ownerId`) REFERENCES `owners` (`id`),
 ADD CONSTRAINT `fk_garages_city` FOREIGN KEY (`cityId`) REFERENCES `citys` (`id`);
@@ -160,3 +160,4 @@ ALTER TABLE `users` ADD CONSTRAINT `fk_users_role` FOREIGN KEY (`roleId`) REFERE
 
 ALTER TABLE `tenants` ADD CONSTRAINT `fk_tenant_owner` FOREIGN KEY (`ownerId`) REFERENCES `owners` (`id`);
 ALTER TABLE `leases` ADD CONSTRAINT `fk_leases_owner` FOREIGN KEY (`ownerId`) REFERENCES `owners` (`id`);
+ALTER TABLE `garages` ADD CONSTRAINT `fk_garages_additionalibanss` FOREIGN KEY (`additionalibansId`) REFERENCES `additionalibanss` (`id`);

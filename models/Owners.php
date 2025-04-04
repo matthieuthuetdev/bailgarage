@@ -48,6 +48,15 @@ class Owners
         }
         return $result;
     }
+    public function searchOwnerByEmail($_email){
+        $request = "SELECT owners.* FROM owners INNER JOIN users ON owners.userId = users.id WHERE users.email = :email";
+        $rq = $this->connection->prepare($request);
+        $rq->bindValue(":email", $_email, PDO::PARAM_STR);
+        $rq->execute();
+        $result = $rq->fetch(PDO::FETCH_ASSOC);
+        return $result;
+
+    }
     public function update($_ownerId, $_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_phoneNumber, $_iban, $_bic, $_attachmentPath, $_gender)
     {
         $userId = $this->read($_ownerId)["userId"];
