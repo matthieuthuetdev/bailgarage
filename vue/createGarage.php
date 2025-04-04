@@ -35,7 +35,7 @@ if (!empty($_POST)) {
             $_POST['caution'],
             "",
             $_POST['ownerNote'],
-            $_POST["additionalIbanId"]
+            $_POST["additionalIbanId"] != 0 ? $_POST["additionalIbanId"] : null
         );
         $message = $success ? "Garage créé avec succès." : "Erreur lors de la création du garage.";
     }

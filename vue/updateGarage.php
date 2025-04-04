@@ -35,7 +35,7 @@ if (!empty($_POST)) {
             $_POST['attachmentName'],
             $_POST['trustee'],
             $_POST['caution'],
-            $_POST["additionalIbanId"],
+            $_POST["additionalIbanId"] != 0 ? $_POST["additionalIbanId"] : null,
             "",
             $_POST['ownerNote']
         );
