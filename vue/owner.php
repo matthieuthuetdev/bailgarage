@@ -4,6 +4,7 @@ $message = $_SESSION["message"];
 $_SESSION["message"] = "";
 $owner = new Owners();
 $liste = $owner->read();
+var_dump($liste);
 ?>
 <a href="index.php?pageController=owner&action=create" class="btnAction">Créé un propriétaire</a>
 <?php echo $message;
