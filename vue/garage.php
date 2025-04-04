@@ -40,7 +40,7 @@ if (empty($_GET["id"])) {
     echo "</div>";
 } else {
     $garageInfo = $garage->read($_SESSION["ownerId"], $_GET["id"]);
-    $additionalIbanInfo = $additionalIban->read($_SESSION["ownerId"],$garageInfo["additionalIbanId"]);
+    $additionalIbanInfo = $additionalIban->read($_SESSION["ownerId"], $garageInfo["additionalIbanId"]);
     var_dump($additionalIbanInfo);
     echo "<h2>Informations sur le garage sélectionné :</h2>";
     echo "Adresse : " . $garageInfo["address"] . "<br>";
@@ -59,7 +59,5 @@ if (empty($_GET["id"])) {
     echo "IBAN à utiliser pour ce garage : " . $additionalIbanInfo . "<br>";
     echo "Commentaire : " . (!empty($garageInfo["comment"]) ? $garageInfo["comment"] : "Aucun") . "<br>";
     echo "Note du propriétaire : " . (!empty($garageInfo["ownerNote"]) ? $garageInfo["ownerNote"] : "Aucune") . "<br>";
-
-
 }
 ?>
