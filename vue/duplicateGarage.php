@@ -35,13 +35,17 @@ if (!empty($_POST)) {
             $_POST['trustee'],
             $_POST['caution'],
             "",
-            $_POST['ownerNote']
+            $_POST['ownerNote'],
+            $_POST["additionalIbanId"]
         );
         $message = $success ? "Garage dupliqué avec succès." : "Erreur lors de la création du garage.";
     }
     echo $message;
 }
 $garageInfo = $garage->read($_SESSION["ownerId"], $_GET["id"]);
+$additionalIban = new additionalibans();
+$liste = $additionalIban->read($_SESSION["ownerId"]);
+
 ?>
 <h1>Dupliquer le garage</h1>
 <form action="" method="post">
@@ -103,6 +107,17 @@ $garageInfo = $garage->read($_SESSION["ownerId"], $_GET["id"]);
     <div>
         <label for="caution">Caution (€) :</label>
         <input type="number" step="0.01" name="caution" id="caution" value="<?php echo isset($_POST['caution']) ? htmlspecialchars($_POST['caution']) : htmlspecialchars($garageInfo['caution']); ?>">
+    </div>
+    <div>
+        <label for="additionalIbanId">IBAN à utiliser pour ce garage:</label>
+        <select name="additionalIbanId" id="additionalIbanId">
+            <option value="0"<?php echo ($garageInfo['additionalIbanId'] == 0) ? 'selected' : ''; ?>>Par défaut</option>
+            <?php foreach ($liste as $row): ?>
+                <option value="<?php echo $row['id']; ?>" <?php echo ($garageInfo['additionalIbanId'] == $row['id']) ? 'selected' : ''; ?>>
+                    <?php echo htmlspecialchars($row['name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
 
     <div>
