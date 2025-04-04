@@ -9,7 +9,7 @@ require "./models/Owners.php";
 require "./models/Garages.php";
 require "./models/Tenants.php";
 require "./models/Leases.php";
-require "./models/additionalibans.php";
+require "./models/Additionalibans.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
