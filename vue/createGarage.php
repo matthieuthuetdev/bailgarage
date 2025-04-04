@@ -105,11 +105,6 @@ $liste = $additionalIban->read($_SESSION["ownerId"]);
         <label for="caution">Caution (€) :</label>
         <input type="number" step="0.01" name="caution" id="caution" value="<?php echo isset($_POST['caution']) ? htmlspecialchars($_POST['caution']) : ''; ?>">
     </div>
-
-    <div>
-        <label for="ownerNote">Note du propriétaire :</label>
-        <textarea name="ownerNote" id="ownerNote" rows="3"><?php echo isset($_POST['ownerNote']) ? htmlspecialchars($_POST['ownerNote']) : ''; ?></textarea>
-    </div>
     <div>
         <label for="additionalIbanId">IBAN à utiliser pour ce garage:</label>
         <select name="additionalIbanId" id="additionalIbanId" required>
@@ -120,6 +115,11 @@ $liste = $additionalIban->read($_SESSION["ownerId"]);
                 </option>
             <?php endforeach; ?>
         </select>
+    </div>
+
+    <div>
+        <label for="ownerNote">Note du propriétaire :</label>
+        <textarea name="ownerNote" id="ownerNote" rows="3"><?php echo isset($_POST['ownerNote']) ? htmlspecialchars($_POST['ownerNote']) : ''; ?></textarea>
     </div>
 
 
