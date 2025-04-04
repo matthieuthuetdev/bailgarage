@@ -6,7 +6,7 @@
         <a href="index.php?pageController=tenant&action=display">Locataire</a>
     </li>
     <li>
-        <a href="index.php?pageController=lease&action=display">Bqux</a>
+        <a href="index.php?pageController=lease&action=display">Baux</a>
     </li>
     
     <li>
