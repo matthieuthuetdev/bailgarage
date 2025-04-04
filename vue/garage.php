@@ -40,7 +40,7 @@ if (empty($_GET["id"])) {
     echo "</div>";
 } else {
     $garageInfo = $garage->read($_SESSION["ownerId"], $_GET["id"]);
-    var_dump($garageInfo);
+    var_dump($arageInfo);
     $additionalIbanInfo = $additionalIban->read($_SESSION["ownerId"],$garageInfo["additionalIbanId"]);
     var_dump($additionalIbanInfo);
     echo "<h2>Informations sur le garage sélectionné :</h2>";
