@@ -66,12 +66,12 @@ $liste = $additionalIban->read($_SESSION["ownerId"]);
 
     <div>
         <label for="garageNumber">Numéro de garage :</label>
-        <input type="number" name="garageNumber" id="garageNumber" required value="<?php echo isset($_POST['garageNumber']) ? htmlspecialchars($_POST['garageNumber']) : htmlspecialchars($garageInfo['garageNumber']); ?>">
+        <input type="number" name="garageNumber" id="garageNumber" required value="<?php echo isset($_POST['garageNumber']) ? htmlspecialchars($_POST['garageNumber']) :""; ?>">
     </div>
 
     <div>
         <label for="lotNumber">Numéro de lot :</label>
-        <input type="number" name="lotNumber" id="lotNumber" required value="<?php echo isset($_POST['lotNumber']) ? htmlspecialchars($_POST['lotNumber']) : htmlspecialchars($garageInfo['lotNumber']); ?>">
+        <input type="number" name="lotNumber" id="lotNumber" required value="<?php echo isset($_POST['lotNumber']) ? htmlspecialchars($_POST['lotNumber']) : ""; ?>">
     </div>
 
     <div>
