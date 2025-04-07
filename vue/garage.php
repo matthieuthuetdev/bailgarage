@@ -26,7 +26,7 @@ if (empty($_GET["id"])) {
 
     foreach ($liste as $row) {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['garageNumber']) . "</td>";
         echo "<td>" . htmlspecialchars($row['address']) . "</td>";
         echo "<td>" . htmlspecialchars($row['additionalAddress']) . "</td>";
         echo "<td><a href='index.php?pageController=garage&action=display&id=" . $row["id"] . "'>plus d'info</a></td>";
@@ -55,7 +55,7 @@ if (empty($_GET["id"])) {
     echo "Pièce jointe : " . $garageInfo["attachmentName"] . "<br>";
     echo "Syndic : " . $garageInfo["trustee"] . "<br>";
     echo "Caution (€) : " . $garageInfo["caution"] . "<br>";
-    $additionalIbanInfo = empty($additionalIbanInfo["name"]) ? "Principal" : $additionalIbanInfo["name"];
+    $additionalIbanInfo = empty($additionalIbanInfo["name"]) ? "par défaut" : $additionalIbanInfo["name"];
     echo "IBAN à utiliser pour ce garage : " . $additionalIbanInfo . "<br>";
     echo "Commentaire : " . (!empty($garageInfo["comment"]) ? $garageInfo["comment"] : "Aucun") . "<br>";
     echo "Note du propriétaire : " . (!empty($garageInfo["ownerNote"]) ? $garageInfo["ownerNote"] : "Aucune") . "<br>";
