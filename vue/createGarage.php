@@ -108,7 +108,7 @@ $liste = $additionalIban->read($_SESSION["ownerId"]);
     <div>
         <label for="additionalIbanId">IBAN à utiliser pour ce garage:</label>
         <select name="additionalIbanId" id="additionalIbanId" required>
-            <option value="0">Par défaut</option>
+            <option value="0">Principal</option>
             <?php foreach ($liste as $row): ?>
                 <option value="<?php echo $row['id']; ?>">
                     <?php echo htmlspecialchars($row['name']); ?>
