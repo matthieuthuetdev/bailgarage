@@ -18,6 +18,7 @@ if (!empty($_POST)) {
             $_SESSION['ownerId'],
             $_POST['name'],
             $_POST['firstName'],
+            $_POST['company'],
             $_POST['address'],
             $_POST['additionalAddress'],
             1,
@@ -50,6 +51,11 @@ if (!empty($_POST)) {
         <label for="email">Email :</label>
         <input type="email" name="email" id="email" required value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
     </div>
+    <div>
+        <label for="company">Entreprise :</label>
+        <input type="text" name="company" id="company"  value="<?php echo isset($_POST['company']) ? htmlspecialchars($_POST['company']) : ''; ?>">
+    </div>
+
 
     <div>
         <label for="address">Adresse :</label>

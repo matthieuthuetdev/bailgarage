@@ -42,6 +42,7 @@ if (empty($_GET["id"])) {
     echo "<h2>Informations sur le locataire sélectionné :</h2>";
     echo "Nom : " . htmlspecialchars($tenantInfo["name"]) . "<br>";
     echo "Prénom : " . htmlspecialchars($tenantInfo["firstName"]) . "<br>";
+    echo "Entreprise  : " . htmlspecialchars($tenantInfo["company"]) . "<br>";
     echo "Adresse : " . htmlspecialchars($tenantInfo["address"]) . "<br>";
     echo "Complément d'adresse : " . htmlspecialchars($tenantInfo["additionalAddress"]) . "<br>";
     echo "Téléphone : " . htmlspecialchars($tenantInfo["phoneNumber"]) . "<br>";

@@ -2,19 +2,20 @@
 class Tenants
 {
     private PDO $connection;
-    
+
     public function __construct()
     {
         $this->connection = Database::getInstance();
     }
-    
-    public function create($_ownerId, $_name, $_firstName, $_address, $_additionalAddress, $_cityId, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentPath, $_gender, $_receipt, $_ownerNote)
+
+    public function create($_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityId, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentPath, $_gender, $_receipt, $_ownerNote)
     {
-        $request = "INSERT INTO tenants (ownerId, name, firstName, address, additionalAddress, cityId, phoneNumber, landlinePhoneNumber, email, rgpd, attachmentPath, gender, receipt, ownerNote) VALUES (:ownerId, :name, :firstName, :address, :additionalAddress, :cityId, :phoneNumber, :landlinePhoneNumber, :email, :rgpd, :attachmentPath, :gender, :receipt, :ownerNote)";
+        $request = "INSERT INTO tenants (ownerId, name, firstName, company, address, additionalAddress, cityId, phoneNumber, landlinePhoneNumber, email, rgpd, attachmentPath, gender, receipt, ownerNote) VALUES (:ownerId, :name, :firstName, :company, :address, :additionalAddress, :cityId, :phoneNumber, :landlinePhoneNumber, :email, :rgpd, :attachmentPath, :gender, :receipt, :ownerNote)";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
         $rq->bindValue(":name", $_name, PDO::PARAM_STR);
         $rq->bindValue(":firstName", $_firstName, PDO::PARAM_STR);
+        $rq->bindValue(":company", $_company, PDO::PARAM_STR);
         $rq->bindValue(":address", $_address, PDO::PARAM_STR);
         $rq->bindValue(":additionalAddress", $_additionalAddress, PDO::PARAM_STR);
         $rq->bindValue(":cityId", $_cityId, PDO::PARAM_INT);
@@ -28,7 +29,7 @@ class Tenants
         $rq->bindValue(":ownerNote", $_ownerNote, PDO::PARAM_STR);
         return $rq->execute();
     }
-    
+
     public function read($_ownerId, $_tenantId = null)
     {
         if (is_null($_tenantId)) {
@@ -47,15 +48,16 @@ class Tenants
         }
         return $result;
     }
-    
-    public function update($_tenantId, $_ownerId, $_name, $_firstName, $_address, $_additionalAddress, $_cityId, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentPath, $_gender, $_receipt, $_ownerNote)
+
+    public function update($_tenantId, $_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityId, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentPath, $_gender, $_receipt, $_ownerNote)
     {
-        $request = "UPDATE tenants SET name = :name, firstName = :firstName, address = :address, additionalAddress = :additionalAddress, cityId = :cityId, phoneNumber = :phoneNumber, landlinePhoneNumber = :landlinePhoneNumber, email = :email, rgpd = :rgpd, attachmentPath = :attachmentPath, gender = :gender, receipt = :receipt, ownerNote = :ownerNote WHERE id = :tenantId AND ownerId = :ownerId";
+        $request = "UPDATE tenants SET name = :name, firstName = :firstName, company = :company, address = :address, additionalAddress = :additionalAddress, cityId = :cityId, phoneNumber = :phoneNumber, landlinePhoneNumber = :landlinePhoneNumber, email = :email, rgpd = :rgpd, attachmentPath = :attachmentPath, gender = :gender, receipt = :receipt, ownerNote = :ownerNote WHERE id = :tenantId AND ownerId = :ownerId";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":tenantId", $_tenantId, PDO::PARAM_INT);
         $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
         $rq->bindValue(":name", $_name, PDO::PARAM_STR);
         $rq->bindValue(":firstName", $_firstName, PDO::PARAM_STR);
+        $rq->bindValue(":company", $_company, PDO::PARAM_STR);
         $rq->bindValue(":address", $_address, PDO::PARAM_STR);
         $rq->bindValue(":additionalAddress", $_additionalAddress, PDO::PARAM_STR);
         $rq->bindValue(":cityId", $_cityId, PDO::PARAM_INT);
@@ -69,7 +71,7 @@ class Tenants
         $rq->bindValue(":ownerNote", $_ownerNote, PDO::PARAM_STR);
         return $rq->execute();
     }
-    
+
     public function delete($_tenantId, $_ownerId)
     {
         $request = "DELETE FROM tenants WHERE id = :tenantId AND ownerId = :ownerId";

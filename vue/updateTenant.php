@@ -20,6 +20,7 @@ if (!empty($_POST)) {
             $_SESSION['ownerId'],
             $_POST['name'],
             $_POST['firstName'],
+            $_POST['company'],
             $_POST['address'],
             $_POST['additionalAddress'],
             1,
@@ -49,6 +50,11 @@ $tenantInfo = $tenant->read($_SESSION["ownerId"], $_GET["id"]);
         <label for="firstName">Prénom :</label>
         <input type="text" name="firstName" id="firstName" required value="<?php echo isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : htmlspecialchars($tenantInfo['firstName']); ?>">
     </div>
+    <div>
+        <label for="company">Entreprise :</label>
+        <input type="text" name="company" id="company"  value="<?php echo isset($_POST['company']) ? htmlspecialchars($_POST['company']) : htmlspecialchars($tenantInfo['company']); ?>>
+    </div>
+
     <div>
         <label for="email">Email :</label>
         <input type="email" name="email" id="email" required value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : htmlspecialchars($tenantInfo['email']); ?>">
