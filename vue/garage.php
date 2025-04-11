@@ -43,6 +43,7 @@ if (empty($_GET["id"])) {
     $additionalIbanInfo = $additionalIban->read($_SESSION["ownerId"], $garageInfo["additionalIbanId"]);
     var_dump($additionalIbanInfo);
     echo "<h2>Informations sur le garage sélectionné :</h2>";
+    echo "<div>";
     echo "Adresse : " . $garageInfo["address"] . "<br>";
     echo "Complément d'adresse : " . $garageInfo["additionalAddress"] . "<br>";
     echo "Pays : " . $garageInfo["country"] . "<br>";
@@ -59,5 +60,7 @@ if (empty($_GET["id"])) {
     echo "IBAN à utiliser pour ce garage : " . $additionalIbanInfo . "<br>";
     echo "Commentaire : " . (!empty($garageInfo["comment"]) ? $garageInfo["comment"] : "Aucun") . "<br>";
     echo "Note du propriétaire : " . (!empty($garageInfo["ownerNote"]) ? $garageInfo["ownerNote"] : "Aucune") . "<br>";
+    echo "</div><div>";
+    echo "<a href='index.php?pageController=garage&action=duplicate&id=" . $garageInfo["id"] . "'class='btnAction'>Dupliquer</a>  <a href='index.php?pageController=garage&action=update&id=" . $garageInfo["id"] . "'class='btnAction'>Modifier</a>  <a href='index.php?pageController=garage&action=delete&id=" . $garageInfo["id"] . "'class='btnAction'>Supprimer</a>";
 }
 ?>
