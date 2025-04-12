@@ -91,7 +91,7 @@ class Owners
         $rq->execute();
         $request = "DELETE FROM users WHERE users.id = :id";
         $rq =  $this->connection->prepare($request);
-        $rq->bindValue(":id", $_userid, PDO::PARAM_INT);
+        $rq->bindValue(":id", $userId, PDO::PARAM_INT);
         $succes = $rq->execute();
     }
     public function searchOwnerByUserId($_userId)

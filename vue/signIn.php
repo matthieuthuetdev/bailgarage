@@ -15,7 +15,8 @@ if (isset($_POST["email"], $_POST["password"])) {
         } else {
             $_SESSION["role"] = "admin";
             $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant qu'administrateur.</span>";
-            header("location: index.php?pageController=owner&action=display");
+            var_dump($_SESSION);
+            // header("location: index.php?pageController=owner&action=display");
         }
     } else {
         echo "adresse email ou le mot de passe incorect.";

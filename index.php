@@ -35,7 +35,7 @@ if (isset($_GET["pageController"])) {
         case "":
             $user = new UserController();
             $user->displaySignInForm();
-
+            break;
 
 
 
