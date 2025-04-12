@@ -11,17 +11,17 @@ if (isset($_POST["email"], $_POST["password"])) {
             $owner = new Owners();
             $ownerId = $owner->searchOwnerByUserId($result["id"]);
             $_SESSION["ownerId"] = $ownerId["id"];
-            header("location:index.php?pageController=garage&action=display");
+            // header("location:index.php?pageController=garage&action=display");
         } else {
             $_SESSION["role"] = "admin";
             $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant qu'administrateur.</span>";
-            var_dump($_SESSION);
             // header("location: index.php?pageController=owner&action=display");
         }
     } else {
         echo "adresse email ou le mot de passe incorect.";
     }
 }
+var_dump($_SESSION);
 
 ?>
 <script src="./js/signIn.js" type="module"></script>
