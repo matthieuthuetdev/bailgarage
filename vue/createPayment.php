@@ -5,14 +5,11 @@ if (!empty($_POST)) {
 
     if (empty($_POST['leaseId']) || !is_numeric($_POST['leaseId'])) {
         $message = "Le bail est obligatoire.";
-    } elseif (empty($_POST['status'])) {
+    } elseif ($_POST['status'] == "") {
         $message = "Le statut est obligatoire.";
-    } elseif (empty($_POST['paymentDate'])) {
-        $message = "La date de paiement est obligatoire.";
     } elseif (empty($_POST['monthPayment'])) {
         $message = "La date du mois de paiement est obligatoire.";
     } else {
-        // Si le montant n'est pas défini, on le met à 0
         $amount = isset($_POST['amount']) && is_numeric($_POST['amount']) ? floatval($_POST['amount']) : 0.0;
 
         $payment = new Payments();
@@ -79,6 +76,7 @@ $leases = $lease->read($_SESSION['ownerId']);
     <div>
         <label for="status">Statut :</label>
         <select name="status" id="status" required>
+            <option value="" <?php echo isset($_POST['status']) && $_POST['status'] == "" ? 'selected' : ''; ?>>Sélectionner un statu</option>
             <option value="1" <?php echo isset($_POST['status']) && $_POST['status'] == 1 ? 'selected' : ''; ?>>Payé</option>
             <option value="0" <?php echo isset($_POST['status']) && $_POST['status'] == 0 ? 'selected' : ''; ?>>Non payé</option>
         </select>
