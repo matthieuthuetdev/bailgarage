@@ -1,0 +1,154 @@
+@startuml bailgarage
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+!define PrimaryKey(field) <u>field</u>
+
+Table(additionalibans, "Additional IBANs") {
+    PrimaryKey(id): int
+    ownerId: int
+    name: varchar(50)
+    iban: varchar(34)
+    bic: varchar(11)
+}
+
+Table(citys, "Cities") {
+    PrimaryKey(id): int
+    insee_code: int
+    city_code: varchar(255)
+    zip_code: varchar(10)
+    label: varchar(255)
+    latitude: decimal(10,8)
+    longitude: decimal(10,8)
+    department_name: varchar(255)
+    department_number: varchar(10)
+    region_name: varchar(255)
+    region_geojson_name: varchar(255)
+}
+
+Table(garages, "Garages") {
+    PrimaryKey(id): int
+    ownerId: int
+    address: varchar(255)
+    additionalAddress: varchar(255)
+    cityId: int
+    country: varchar(50)
+    garageNumber: int
+    lotNumber: int
+    rentWithoutCharges: decimal(15,2)
+    charges: decimal(15,2)
+    surface: int
+    reference: varchar(255)
+    attachmentName: varchar(100)
+    trustee: varchar(100)
+    caution: decimal(15,2)
+    comment: text
+    ownerNote: text
+    tenantId: int
+    additionalIbanId: int
+}
+
+Table(leases, "Leases") {
+    PrimaryKey(id): int
+    tenantId: int
+    garageId: int
+    ownerId: int
+    madeThe: date
+    madeIn: varchar(100)
+    startDate: date
+    endDate: date
+    duration: int
+    rentAmount: decimal(15,2)
+    rentAmountInLetter: varchar(255)
+    chargesAmount: decimal(15,2)
+    chargesAmountInLetter: varchar(255)
+    totalAmountMonthly: decimal(15,2)
+    totalAmountMonthlyInLetter: varchar(255)
+    prorata: decimal(15,2)
+    prorataInLetter: varchar(255)
+    endProrata: decimal(15,2)
+    caution: decimal(15,2)
+    cautionInLetter: varchar(255)
+    numberOfKey: int
+    numberOfBeep: int
+    status: tinyint
+    attachmentPath: varchar(255)
+    ownerNote: text
+}
+
+Table(owners, "Owners") {
+    PrimaryKey(id): int
+    userId: int
+    company: varchar(100)
+    address: varchar(255)
+    additionalAddress: varchar(255)
+    cityId: int
+    phoneNumber: varchar(15)
+    iban: varchar(34)
+    bic: varchar(11)
+    attachmentPath: varchar(255)
+    gender: char(5)
+    adminNote: text
+}
+
+Table(payments, "Payments") {
+    PrimaryKey(id): int
+    leaseId: int
+    monthPayment: date
+    status: tinyint(1)
+    amount: decimal(15,2)
+    methodPayment: varchar(50)
+    ownerNote: text
+}
+
+Table(roles, "Roles") {
+    PrimaryKey(id): int
+    name: varchar(50)
+    description: text
+}
+
+Table(tenants, "Tenants") {
+    PrimaryKey(id): int
+    ownerId: int
+    name: varchar(100)
+    firstName: varchar(100)
+    company: varchar(100)
+    address: varchar(255)
+    additionalAddress: varchar(255)
+    cityId: int
+    phoneNumber: varchar(15)
+    landlinePhoneNumber: varchar(15)
+    email: varchar(100)
+    rgpd: tinyint(1)
+    attachmentPath: varchar(255)
+    gender: tinyint(1)
+    receipt: tinyint(1)
+    ownerNote: text
+}
+
+Table(users, "Users") {
+    PrimaryKey(id): int
+    name: varchar(100)
+    firstName: varchar(100)
+    email: varchar(100)
+    password: varchar(255)
+    roleId: int
+    createdAt: datetime
+    updatedAt: datetime
+    resetToken: varchar(64)
+}
+
+' Relations (basées sur les clés étrangères supposées)
+users --> roles : roleId
+owners --> users : userId
+owners --> citys : cityId
+garages --> owners : ownerId
+garages --> tenants : tenantId
+garages --> citys : cityId
+garages --> additionalibans : additionalIbanId
+leases --> garages : garageId
+leases --> tenants : tenantId
+leases --> owners : ownerId
+payments --> leases : leaseId
+tenants --> owners : ownerId
+tenants --> citys : cityId
+
+@enduml
