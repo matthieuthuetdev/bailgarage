@@ -10,8 +10,6 @@ if (!empty($_POST)) {
         $message = "Le pays est obligatoire.";
     } elseif (empty($_POST['garageNumber']) || !is_numeric($_POST['garageNumber'])) {
         $message = "Le numéro de garage est obligatoire.";
-    } elseif (empty($_POST['lotNumber']) || !is_numeric($_POST['lotNumber'])) {
-        $message = "Le numéro de lot est obligatoire.";
     } elseif (empty($_POST['rentWithoutCharges']) || !is_numeric($_POST['rentWithoutCharges'])) {
         $message = "Le loyer hors charges est obligatoire.";
     } elseif (empty($_POST['charges']) || !is_numeric($_POST['charges'])) {
@@ -24,6 +22,8 @@ if (!empty($_POST)) {
             $_POST['address'],
             $_POST['additionalAddress'],
             1,
+            $_POST["cityName"],
+            $_POST["postalCode"],
             $_POST['country'],
             $_POST['garageNumber'],
             $_POST['lotNumber'],
@@ -58,6 +58,14 @@ $liste = $additionalIban->read($_SESSION["ownerId"]);
         <label for="additionalAddress">Complément d'adresse :</label>
         <input type="text" name="additionalAddress" id="additionalAddress" value="<?php echo isset($_POST['additionalAddress']) ? htmlspecialchars($_POST['additionalAddress']) : htmlspecialchars($garageInfo['additionalAddress']); ?>">
     </div>
+    <div>
+        <label for="cityName">Ville :</label>
+        <input type="text" name="cityName" id="cityName" value="<?php echo isset($_POST['cityName']) ? htmlspecialchars($_POST['cityName']) : htmlspecialchars($garageInfo["cityName"]); ?>">
+    </div>
+    <div>
+        <label for="postalCode">Code postale :</label>
+        <input type="text" name="postalCode" id="postalCode" value="<?php echo isset($_POST['postalCode']) ? htmlspecialchars($_POST['postalCode']) : htmlspecialchars($garageInfo["postalCode"]); ?>">
+    </div>
 
     <div>
         <label for="country">Pays :</label>
@@ -71,7 +79,7 @@ $liste = $additionalIban->read($_SESSION["ownerId"]);
 
     <div>
         <label for="lotNumber">Numéro de lot :</label>
-        <input type="number" name="lotNumber" id="lotNumber" required value="<?php echo isset($_POST['lotNumber']) ? htmlspecialchars($_POST['lotNumber']) : ""; ?>">
+        <input type="number" name="lotNumber" id="lotNumber"  value="<?php echo isset($_POST['lotNumber']) ? htmlspecialchars($_POST['lotNumber']) : ""; ?>">
     </div>
 
     <div>

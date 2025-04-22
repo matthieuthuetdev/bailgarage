@@ -22,6 +22,8 @@ if (!empty($_POST)) {
             $_POST['address'],
             $_POST['additionalAddress'],
             1,
+            $_POST["cityName"],
+            $_POST["postalCode"],
             $_POST['phoneNumber'],
             $_POST['landlinePhoneNumber'],
             $_POST['email'],
@@ -53,7 +55,7 @@ if (!empty($_POST)) {
     </div>
     <div>
         <label for="company">Entreprise :</label>
-        <input type="text" name="company" id="company"  value="<?php echo isset($_POST['company']) ? htmlspecialchars($_POST['company']) : ''; ?>">
+        <input type="text" name="company" id="company" value="<?php echo isset($_POST['company']) ? htmlspecialchars($_POST['company']) : ''; ?>">
     </div>
 
 
@@ -66,7 +68,14 @@ if (!empty($_POST)) {
         <label for="additionalAddress">Complément d'adresse :</label>
         <input type="text" name="additionalAddress" id="additionalAddress" value="<?php echo isset($_POST['additionalAddress']) ? htmlspecialchars($_POST['additionalAddress']) : ''; ?>">
     </div>
-
+    <div>
+        <label for="cityName">Ville :</label>
+        <input type="text" name="cityName" id="cityName" value="<?php echo isset($_POST['cityName']) ? htmlspecialchars($_POST['cityName']) : ""; ?>">
+    </div>
+    <div>
+        <label for="postalCode">Code postale :</label>
+        <input type="text" name="postalCode" id="postalCode" value="<?php echo isset($_POST['postalCode']) ? htmlspecialchars($_POST['postalCode']) :""; ?>">
+    </div>
 
     <div>
         <label for="phoneNumber">Téléphone :</label>

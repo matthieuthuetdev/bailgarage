@@ -46,9 +46,12 @@ if (empty($_GET["id"])) {
     echo "<div>";
     echo "Adresse : " . $garageInfo["address"] . "<br>";
     echo "Complément d'adresse : " . $garageInfo["additionalAddress"] . "<br>";
+    echo "Ville : ". $garageInfo["cityName"]."<br>";
+    echo "Code postal : ". $garageInfo["postalCode"]."<br>";
     echo "Pays : " . $garageInfo["country"] . "<br>";
     echo "Numéro de garage : " . $garageInfo["garageNumber"] . "<br>";
-    echo "Numéro de lot : " . $garageInfo["lotNumber"] . "<br>";
+    $lotNumber = !empty($garageInfo["lotNumber"]) ? $garageInfo["lotNumber"] : "aucun";
+    echo "Numéro de lot : " . $lotNumber . "<br>";
     echo "Loyer hors charges (€) : " . $garageInfo["rentWithoutCharges"] . "<br>";
     echo "Charges (€) : " . $garageInfo["charges"] . "<br>";
     echo "Surface (m²) : " . $garageInfo["surface"] . "<br>";

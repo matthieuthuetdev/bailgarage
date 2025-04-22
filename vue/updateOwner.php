@@ -27,6 +27,8 @@ if (empty($_POST['name']) || !preg_match("/^[a-zA-ZÀ-ÿ' -]+$/", $_POST['name']
         $_POST['company'],
         $_POST['address'],
         $_POST['additionalAddress'],
+        $_POST["cityName"],
+        $_POST["postalCode"],
         $_POST['phoneNumber'],
         $_POST['iban'],
         $_POST['bic'],
@@ -69,6 +71,14 @@ $ownerInfo = $owner->read($_GET["id"]);
     <div>
         <label for="additionalAddress">Complément d'adresse :</label>
         <input type="text" name="additionalAddress" id="additionalAddress" class="additionalAddress" value="<?php echo $ownerInfo['additionalAddress']; ?>">
+    </div>
+    <div>
+        <label for="cityName">Ville :</label>
+        <input type="text" name="cityName" id="cityName" value="<?php echo isset($_POST['cityName']) ? htmlspecialchars($_POST['cityName']) : htmlspecialchars($ownerInfo["cityName"]); ?>">
+    </div>
+    <div>
+        <label for="postalCode">Code postale :</label>
+        <input type="text" name="postalCode" id="postalCode" value="<?php echo isset($_POST['postalCode']) ? htmlspecialchars($_POST['postalCode']) : htmlspecialchars($ownerInfo["postalCode"]); ?>">
     </div>
 
     <div>

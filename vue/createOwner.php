@@ -19,6 +19,9 @@ if (!empty($_POST)) {
     } elseif (empty($_POST['gender']) || !in_array($_POST['gender'], ["homme", "femme"])) {
         $message = "Genre invalide.";
     } else {
+        $cityName = htmlspecialchars($_POST["cityName"]);
+        $postalCode = htmlspecialchars($_POST["postalCode"]);
+
         $owner = new Owners();
         $success = $owner->create(
             $_POST['name'],
@@ -27,20 +30,26 @@ if (!empty($_POST)) {
             $_POST['company'],
             $_POST['address'],
             $_POST['additionalAddress'],
+            $cityName,
+            $postalCode,
             $_POST['phoneNumber'],
             $_POST['iban'],
             $_POST['bic'],
             $_POST['attachmentPath'],
             $_POST['gender']
         );
-        if (empty($_POST['additionalibans']) || !preg_match("/^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/", $_POST['additionalibans'])) {
-            $message = "IBAN invalide.";
-        } elseif (empty($_POST['additionalBic']) || !preg_match("/^[A-Z0-9]{8,11}$/", $_POST['additionalBic'])) {
-            $message = "BIC invalide.";
-        } else {
-            $additionaliban = new additionalibans();
+
+        if ($success !== false && !empty($_POST['additionalIbans'])) {
+            $additionalIban = new AdditionalIbans();
             $ownerId = $owner->searchOwnerByEmail($_POST["email"])["id"];
-            $additionaliban->create($ownerId, $_POST["additionalibans"], $_POST["additionalBic"]);
+            if ($ownerId) {
+                $additionalIban->create(
+                    $ownerId,
+                    $_POST["additionalIbanName"],
+                    $_POST["additionalIbans"],
+                    $_POST["additionalBic"]
+                );
+            }
         }
 
         $message = $success;
@@ -79,6 +88,14 @@ if (!empty($_POST)) {
         <label for="additionalAddress">Complément d'adresse :</label>
         <input type="text" name="additionalAddress" id="additionalAddress" value="<?php echo isset($_POST['additionalAddress']) ? htmlspecialchars($_POST['additionalAddress']) : ''; ?>">
     </div>
+    <div>
+        <label for="cityName">Ville :</label>
+        <input type="text" name="cityName" id="cityName" value="<?php echo isset($_POST['cityName']) ? htmlspecialchars($_POST['cityName']) : ""; ?>">
+    </div>
+    <div>
+        <label for="postalCode">Code postal :</label>
+        <input type="text" name="postalCode" id="postalCode" value="<?php echo isset($_POST['postalCode']) ? htmlspecialchars($_POST['postalCode']) : ""; ?>">
+    </div>
 
     <div>
         <label for="phoneNumber">Numéro de téléphone :</label>
@@ -95,13 +112,17 @@ if (!empty($_POST)) {
         <input type="text" name="bic" id="bic" required value="<?php echo isset($_POST['bic']) ? htmlspecialchars($_POST['bic']) : ''; ?>">
     </div>
     <div>
-        <label for="additionalibans">IBAN supplémentaire :</label>
-        <input type="text" name="additionalibans" id="additionalibans" value="<?php echo isset($_POST['additionalibans']) ? htmlspecialchars($_POST['iban']) : ''; ?>">
+        <label for="additionalIbans">IBAN supplémentaire :</label>
+        <input type="text" name="additionalIbans" id="additionalIbans" value="<?php echo isset($_POST['additionalIbans']) ? htmlspecialchars($_POST['additionalIbans']) : ''; ?>">
+    </div>
+    <div>
+        <label for="additionalIbanName">Nom de l'IBAN supplémentaire :</label>
+        <input type="text" name="additionalIbanName" id="additionalIbanName" value="<?php echo isset($_POST['additionalIbanName']) ? htmlspecialchars($_POST['additionalIbanName']) : ''; ?>">
     </div>
 
     <div>
         <label for="additionalBic">BIC supplémentaire :</label>
-        <input type="text" name="additionalBic" id="additionalBic" value="<?php echo isset($_POST['additionalBic']) ? htmlspecialchars($_POST['bic']) : ''; ?>">
+        <input type="text" name="additionalBic" id="additionalBic" value="<?php echo isset($_POST['additionalBic']) ? htmlspecialchars($_POST['additionalBic']) : ''; ?>">
     </div>
 
     <div>

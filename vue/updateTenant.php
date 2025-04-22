@@ -24,6 +24,9 @@ if (!empty($_POST)) {
             $_POST['address'],
             $_POST['additionalAddress'],
             1,
+            $_POST["cityName"],
+            $_POST["postalCode"],
+
             $_POST['phoneNumber'],
             $_POST['landlinePhoneNumber'],
             $_POST['email'],
@@ -52,11 +55,11 @@ $tenantInfo = $tenant->read($_SESSION["ownerId"], $_GET["id"]);
     </div>
     <div>
         <label for="company">Entreprise :</label>
-        <input type="text" name="company" id="company"  value="<?php echo isset($_POST['company']) ? htmlspecialchars($_POST['company']) : htmlspecialchars($tenantInfo['company']); ?>>
+        <input type="text" name="company" id="company" value="<?php echo isset($_POST['company']) ? htmlspecialchars($_POST['company']) : htmlspecialchars($tenantInfo['company']); ?>">
     </div>
 
     <div>
-        <label for="email">Email :</label>
+        <label for=" email">Email :</label>
         <input type="email" name="email" id="email" required value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : htmlspecialchars($tenantInfo['email']); ?>">
     </div>
 
@@ -71,6 +74,15 @@ $tenantInfo = $tenant->read($_SESSION["ownerId"], $_GET["id"]);
     </div>
 
     <div>
+        <label for="cityName">Ville :</label>
+        <input type="text" name="cityName" id="cityName" value="<?php echo isset($_POST['cityName']) ? htmlspecialchars($_POST['cityName']) : htmlspecialchars($tenantInfo["cityName"]); ?>">
+    </div>
+    <div>
+        <label for="postalCode">Code postale :</label>
+        <input type="text" name="postalCode" id="postalCode" value="<?php echo isset($_POST['postalCode']) ? htmlspecialchars($_POST['postalCode']) : htmlspecialchars($tenantInfo["postalCode"]); ?>">
+    </div>
+
+    <div>
         <label for="phoneNumber">Téléphone :</label>
         <input type="tel" name="phoneNumber" id="phoneNumber" required value="<?php echo isset($_POST['phoneNumber']) ? htmlspecialchars($_POST['phoneNumber']) : htmlspecialchars($tenantInfo['phoneNumber']); ?>">
     </div>
@@ -81,7 +93,7 @@ $tenantInfo = $tenant->read($_SESSION["ownerId"], $_GET["id"]);
     </div>
 
     <div>
-        <input type="checkbox" name="rgpd" id="rgpd" <?php echo isset($_POST['rgpd']) ? 'checked' : ($tenantInfo['rgpd'] ? 'checked' : ''); ?> >
+        <input type="checkbox" name="rgpd" id="rgpd" <?php echo isset($_POST['rgpd']) ? 'checked' : ($tenantInfo['rgpd'] ? 'checked' : ''); ?>>
         <label for="rgpd">Une fois la location terminée, je souhaite que mes données personnelles soient anonymisée.</label>
     </div>
 
@@ -97,9 +109,9 @@ $tenantInfo = $tenant->read($_SESSION["ownerId"], $_GET["id"]);
             <option value="1" <?php echo (isset($_POST['gender']) && $_POST['gender'] == 1) ? 'selected' : ($tenantInfo['gender'] == 1 ? 'selected' : ''); ?>>Femme</option>
         </select>
     </div>
- 
+
     <div>
-        <input type="checkbox" name="receipt" id="receipt" <?php echo isset($_POST['receipt']) ? 'checked' : ($tenantInfo['receipt'] ? 'checked' : ''); ?> >
+        <input type="checkbox" name="receipt" id="receipt" <?php echo isset($_POST['receipt']) ? 'checked' : ($tenantInfo['receipt'] ? 'checked' : ''); ?>>
         <label for="receipt">Je souhaite recevoir une quittance de loyer chaque mois.</label>
     </div>
 
