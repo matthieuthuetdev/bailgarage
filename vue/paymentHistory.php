@@ -40,7 +40,7 @@ if (empty($_GET["id"])) {
     echo "</div>";
 } else {
     $paymentHistoryInfo = $paymentHistory->read($_SESSION["ownerId"], $_GET["id"]);
-    var_dump($paymentHistoryInfo);
+    ($paymentHistoryInfo);
     echo "<h2>Info de l'historique de paiement sélectionné</h2>";
     echo "ID de la location : " . htmlspecialchars($paymentHistoryInfo["leasesId"]) . "<br>";
     echo "ID de paiement : " . htmlspecialchars($paymentHistoryInfo["paymentId"]) . "<br>";

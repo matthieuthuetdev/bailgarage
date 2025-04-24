@@ -21,7 +21,6 @@ if (isset($_POST["email"], $_POST["password"])) {
         echo "adresse email ou le mot de passe incorect.";
     }
 }
-var_dump($_SESSION);
 
 ?>
 <script src="./js/signIn.js" type="module"></script>

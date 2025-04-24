@@ -37,14 +37,12 @@ if (!empty($_POST)) {
         $madeTheInput = $_POST["madeThe"];
         $date = new DateTime($madeTheInput);
         $madeThe = $date->format("Y-m-d");
-var_dump($madeThe);
         $numberToletter = new NumberFormatter('fr', NumberFormatter::SPELLOUT);
         $rentInLetter = $numberToletter->format($rent);
         $chargesInLetter = $numberToletter->format($charges);
         $totalInLetter = $numberToletter->format($total);
         $prorataInLetter = $numberToletter->format($prorata);
         $cautionInLetter = $numberToletter->format(floatval($_POST['caution'] ?? 0));
-var_dump($_POST["madeThe"]);
         $success = $lease->update(
             $_GET['id'],
             $_POST['tenantId'],

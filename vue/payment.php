@@ -51,7 +51,7 @@ if (empty($_GET["id"])) {
     echo "</div>";
 } else {
     $paymentInfo = $payment->read($_SESSION["ownerId"], $_GET["id"]);
-    var_dump($paymentInfo);
+    ($paymentInfo);
     echo "<h2>Info du paiment sélectionné</h2>";
     echo "<a href='index.php?pageController=lease&action=display&id=" . $paymentInfo["leaseId"] . "' class='btnAction'>Voir le bail lier a ce paiment</a><br>";
     echo "Mois : " . htmlspecialchars($paymentInfo["monthPayment"]) . "<br>";
