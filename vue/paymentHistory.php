@@ -6,7 +6,7 @@ $_SESSION["message"] = "";
 $paymentHistory = new PaymentHistories();
 $listeHistories = $paymentHistory->read($_SESSION["ownerId"]);
 
-echo "<a href='index.php?pageController=paymentHistory&action=create' class='btnAction'>Créer un historique de paiement</a>";
+echo "<a href='index.php?pageController=paymenthistory&action=create' class='btnAction'>Créer un historique de paiement</a>";
 echo $message;
 
 if (empty($_GET["id"])) {
@@ -17,6 +17,7 @@ if (empty($_GET["id"])) {
     echo "<th>ID de la location</th>";
     echo "<th>Montant payé (€)</th>";
     echo "<th>Date de paiement</th>";
+    echo "<th>Méthode de paiement</th>";
     echo "<th>Modifier</th>";
     echo "<th>Supprimer</th>";
     echo "</tr>";
@@ -28,6 +29,7 @@ if (empty($_GET["id"])) {
         echo "<td>" . htmlspecialchars($row["leasesId"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["amount"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["paymentDate"]) . "</td>";
+        echo "<td>" . htmlspecialchars($row["methode"]) . "</td>";  // Added method column
         echo "<td><a href='index.php?pageController=paymenthistory&action=update&id=" . $row["id"] . "'>Modifier</a></td>";
         echo "<td><a href='index.php?pageController=paymenthistory&action=delete&id=" . $row["id"] . "'>Supprimer</a></td>";
         echo "</tr>";
@@ -44,5 +46,6 @@ if (empty($_GET["id"])) {
     echo "ID de paiement : " . htmlspecialchars($paymentHistoryInfo["paymentId"]) . "<br>";
     echo "Montant : " . htmlspecialchars($paymentHistoryInfo["amount"]) . " €<br>";
     echo "Date de paiement : " . htmlspecialchars($paymentHistoryInfo["paymentDate"]) . "<br>";
+    echo "Méthode de paiement : " . htmlspecialchars($paymentHistoryInfo["methode"]) . "<br>";  // Added method info
 }
 ?>

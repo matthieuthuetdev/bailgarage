@@ -8,13 +8,14 @@ class PaymentHistories
         $this->connection = Database::getInstance();
     }
 
-    public function create($_leasesId, $_amount, $_paymentDate)
+    public function create($_leasesId, $_amount, $_paymentDate, $_method)
     {
-        $request = "INSERT INTO paymentHistories (leasesId, amount, paymentDate) VALUES (:leasesId, :amount, :paymentDate)";
+        $request = "INSERT INTO paymentHistories (leasesId, amount, paymentDate, methode) VALUES (:leasesId, :amount, :paymentDate, :methode)";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":leasesId", $_leasesId, PDO::PARAM_INT);
         $rq->bindValue(":amount", $_amount);
         $rq->bindValue(":paymentDate", $_paymentDate, PDO::PARAM_STR);
+        $rq->bindValue(":methode", $_method, PDO::PARAM_STR);
         return $rq->execute();
     }
 
@@ -42,14 +43,15 @@ class PaymentHistories
         }
     }
 
-    public function update($_paymentId, $_leasesId, $_amount, $_paymentDate)
+    public function update($_paymentId, $_leasesId, $_amount, $_paymentDate, $_method)
     {
-        $request = "UPDATE paymentHistories SET leasesId = :leasesId, amount = :amount, paymentDate = :paymentDate WHERE id = :paymentId";
+        $request = "UPDATE paymentHistories SET leasesId = :leasesId, amount = :amount, paymentDate = :paymentDate, methode = :methode WHERE id = :paymentId";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":paymentId", $_paymentId, PDO::PARAM_INT);
         $rq->bindValue(":leasesId", $_leasesId, PDO::PARAM_INT);
         $rq->bindValue(":amount", $_amount);
         $rq->bindValue(":paymentDate", $_paymentDate, PDO::PARAM_STR);
+        $rq->bindValue(":methode", $_method, PDO::PARAM_STR);
         return $rq->execute();
     }
 

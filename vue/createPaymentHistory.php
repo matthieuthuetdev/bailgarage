@@ -1,3 +1,4 @@
+
 <?php
 
 if (!empty($_POST)) {
@@ -14,9 +15,10 @@ if (!empty($_POST)) {
         $success = $paymentHistory->create(
             $_POST['leaseId'],
             $amount,
-            $_POST['monthPayment']
+            $_POST['monthPayment'],
+            $_POST['methodPayment'] // Here we get the payment method
         );
-        $message = $success ? "Payment ajouter a l'historique avec suceséa  &²& " : "Erreur lors de la création de l'historique de paiement.";
+        $message = $success ? "Payment ajouté à l'historique avec succès." : "Erreur lors de la création de l'historique de paiement.";
     }
     echo $message;
 }
@@ -53,6 +55,17 @@ $leases = $lease->read($_SESSION['ownerId']);
     <div>
         <label for="amount">Montant payé (€) :</label>
         <input type="number" step="0.01" name="amount" id="amount" value="<?php echo isset($_POST['amount']) ? htmlspecialchars($_POST['amount']) : ''; ?>">
+    </div>
+
+    <div>
+        <label for="methodPayment">Méthode de paiement :</label>
+        <select name="methodPayment" id="methodPayment" required>
+            <option value="">Sélectionner une méthode</option>
+            <option value="Carte bancaire" <?php echo isset($_POST['methodPayment']) && $_POST['methodPayment'] == 'Carte bancaire' ? 'selected' : ''; ?>>Carte bancaire</option>
+            <option value="Chèque" <?php echo isset($_POST['methodPayment']) && $_POST['methodPayment'] == 'Chèque' ? 'selected' : ''; ?>>Chèque</option>
+            <option value="Virement" <?php echo isset($_POST['methodPayment']) && $_POST['methodPayment'] == 'Virement' ? 'selected' : ''; ?>>Virement</option>
+            <option value="Espèces" <?php echo isset($_POST['methodPayment']) && $_POST['methodPayment'] == 'Espèces' ? 'selected' : ''; ?>>Espèces</option>
+        </select>
     </div>
 
     <div>

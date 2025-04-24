@@ -20,6 +20,6 @@ class paymentHistoryController
     {
         $paymentHistories = new PaymentHistories();
         $succes = $paymentHistories->delete($_GET["id"], $_SESSION["ownerId"]);
-        header("location:index.php?pageController=payment&action=display");
+        header("location:index.php?pageController=paymenthistory&action=display");
     }
 }

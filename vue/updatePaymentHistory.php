@@ -17,7 +17,8 @@ if ($currentPayment) {
                 $_GET["id"],
                 $_POST['leaseId'],
                 $amount,
-                $_POST['monthPayment']
+                $_POST['monthPayment'],
+                $_POST['methodPayment'] // Here we get the payment method
             );
             $message = $success ? "Paiement mis à jour avec succès." : "Erreur lors de la mise à jour de l'historique de paiement.";
         }
@@ -60,6 +61,17 @@ if ($currentPayment) {
     <div>
         <label for="amount">Montant payé (€) :</label>
         <input type="number" step="0.01" name="amount" id="amount" value="<?php echo htmlspecialchars($currentPayment['amount']); ?>">
+    </div>
+
+    <div>
+        <label for="methodPayment">Méthode de paiement :</label>
+        <select name="methodPayment" id="methodPayment" required>
+            <option value="">Sélectionner une méthode</option>
+            <option value="Carte bancaire" <?php echo isset($_POST['methodPayment']) && $_POST['methodPayment'] == 'Carte bancaire' ? 'selected' : ($currentPayment['methode'] == 'Carte bancaire' ? 'selected' : ''); ?>>Carte bancaire</option>
+            <option value="Chèque" <?php echo isset($_POST['methodPayment']) && $_POST['methodPayment'] == 'Chèque' ? 'selected' : ($currentPayment['methode'] == 'Chèque' ? 'selected' : ''); ?>>Chèque</option>
+            <option value="Virement" <?php echo isset($_POST['methodPayment']) && $_POST['methodPayment'] == 'Virement' ? 'selected' : ($currentPayment['methode'] == 'Virement' ? 'selected' : ''); ?>>Virement</option>
+            <option value="Espèces" <?php echo isset($_POST['methodPayment']) && $_POST['methodPayment'] == 'Espèces' ? 'selected' : ($currentPayment['methode'] == 'Espèces' ? 'selected' : ''); ?>>Espèces</option>
+        </select>
     </div>
 
     <div>
