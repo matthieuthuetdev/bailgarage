@@ -1,0 +1,27 @@
+html {
+  font-size: 62.5%;
+}
+body{
+  font-size: 1.6rem;
+
+}
+table {
+  border: solid black 1px;
+  border-collapse: collapse;
+}
+th {
+  border: solid black 1px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+td {
+  border: solid black 1px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.btnAction {
+  text-decoration: none;
+  color: black;
+  border: solid black 1px;
+  background-color: lightblue;
+}

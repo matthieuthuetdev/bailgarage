@@ -1,0 +1,330 @@
+ /* Reset and Global Styles */
+  body, h2, h3, p, form, input, a, table, th, td, button {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      color: #213c4a; /* Dark Gray/Black */
+      box-sizing: border-box;
+  }
+
+  body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color:  #e9eef1; /* Light Teal background #e9eef1 */
+      padding: 20px;
+  }
+
+  /* Container Styles */
+  .container {
+      background: #ffffff; /* Off-White */
+      border-radius: 0px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+  }
+/* Styles pour le menu déroulant */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #213c4a; /* Dark Gray/Black */
+    border-radius: 4px;
+    position: relative; /* Ajouté pour le positionnement du sous-menu */
+}
+
+nav ul li {
+    position: relative; /* Ajouté pour le positionnement du sous-menu */
+}
+
+nav ul li a {
+    color: #ffffff; /* White */
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+}
+
+nav ul li a:hover {
+    background-color: #002011; /* Dark Teal */
+}
+
+nav ul li ul {
+    display: none; /* Masquer le sous-menu par défaut */
+    position: absolute; /* Positionner le sous-menu */
+    top: 100%; /* Placer le sous-menu juste en dessous du parent */
+    left: 0;
+    background-color: #213c4a; /* Dark Gray/Black */
+    border-radius: 4px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1000; /* S'assurer que le sous-menu est au-dessus des autres éléments */
+}
+
+nav ul li:hover ul {
+    display: block; /* Afficher le sous-menu lorsque le parent est survolé */
+}
+
+nav ul li ul li {
+    width: 100%; /* S'assurer que les éléments du sous-menu prennent toute la largeur */
+}
+
+nav ul li ul li a {
+    padding: 10px 20px; /* Ajuster le padding pour les éléments du sous-menu */
+}
+
+  /* Heading Styles */
+  h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #002011; /* Dark Teal */
+  }
+
+  h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #002011; /* Dark Teal */
+  }
+
+  /* Link Container Styles */
+  .link-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+  }
+
+  .link-container a {
+      background-color: #587f96; /* Light Teal */
+      color: #ffffff; /* White */
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 16px;
+      margin: 0 10px;
+  }
+
+  .link-container a:hover {
+      background-color: #213c4a; /* Dark Gray/Black */
+  }
+
+  /* Table Styles */
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+  }
+
+  th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+  }
+
+  th {
+      background-color: #213c4a; /* Dark Gray/Black */
+      color: #ffffff; /* White */
+  }
+
+  td a {
+      color: #587f96; /* Light Teal */
+      text-decoration: none;
+  }
+
+  td a:hover {
+      text-decoration: underline;
+  }
+
+  /* Form Styles */
+  form {
+      margin-bottom: 20px;
+  }
+  input[type="text"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      width: calc(100% - 22px);
+      margin-bottom: 10px;
+  }
+
+  button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #213c4a; /* Dark Gray/Black */
+      color: #ffffff; /* White */
+      font-size: 14px;
+      cursor: pointer;
+      margin-right: 10px;
+  }
+
+  button:hover {
+      background-color: #002011; /* Dark Teal */
+  }
+
+  /* Style pour le modal */
+        .modal {
+            display: none; /* Masquer le modal par défaut */
+            position: fixed; /* Positionner le modal de manière fixe */
+            z-index: 1; /* Placer le modal au-dessus de tout */
+            left: 0;
+            top: 0;
+            width: 100%; /* Largeur totale de la page */
+            height: 100%; /* Hauteur totale de la page */
+            overflow: auto; /* Permettre le défilement si nécessaire */
+            background-color: rgb(0,0,0); /* Couleur de fond */
+            background-color: rgba(0,0,0,0.4); /* Fond semi-transparent */
+        }
+
+        /* Style pour le contenu du modal */
+        .modal-content {
+            position: absolute;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Largeur du contenu du modal */
+            max-width: 600px; /* Largeur maximale du contenu du modal */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%); /* Centrer horizontalement et verticalement */
+        }
+
+        /* Style pour le bouton de fermeture */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+/* Link Container Styles */
+.link-container {
+    display: grid;
+    grid-template-columns: repeat(2, auto); /* Deux colonnes ajustées à la taille du contenu */
+    gap: 50px; /* Espace entre les liens */
+    justify-content: center; /* Centrer les colonnes dans le conteneur */
+    margin-bottom: 20px;
+}
+
+.link-container div {
+    text-align: center;
+}
+
+.link-container a {
+    background-color: #587f96; /* Light Teal */
+    color: #ffffff; /* White */
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block; /* Garder les liens à leur taille d'origine */
+	width:200px;
+}
+
+.link-container a:hover {
+    background-color: #213c4a; /* Dark Gray/Black */
+}
+
+input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ffffff; /* Off-White */
+    color: #213c4a; /* Dark Gray/Black */
+    font-size: 14px;
+    width: calc(100% - 22px);
+    margin-bottom: 10px;
+    cursor: pointer;
+	width:150px;
+}
+
+input[type="date"]:hover {
+    border-color: #213c4a; /* Dark Gray/Black */
+    background-color: #f0f4f7; /* Very Light Teal */
+}
+
+input[type="date"]:focus {
+    border-color: #002011; /* Dark Teal */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 32, 17, 0.2); /* Subtle shadow for focus */
+}
+.dropdown {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dropdown label {
+    font-size: 14px;
+    color: #002011; /* Dark Teal */
+    margin-right: 10px; /* Espace entre le label et le select */
+}
+
+.dropdown select {
+    flex-grow: 1; /* Permet au select de prendre tout l'espace disponible */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ffffff; /* Off-White */
+    color: #213c4a; /* Dark Gray/Black */
+    font-size: 14px;
+    cursor: pointer;
+    appearance: none; /* Supprime l'apparence par défaut de la flèche */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23213c4a'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+.dropdown select:hover {
+    border-color: #213c4a; /* Dark Gray/Black */
+    background-color: #f0f4f7; /* Very Light Teal */
+}
+
+.dropdown select:focus {
+    border-color: #002011; /* Dark Teal */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 32, 17, 0.2); /* Subtle shadow for focus */
+}
+
+
+
+  /* Responsive Styles */
+  @media (max-width: 600px) {
+      .container {
+          padding: 15px;
+      }
+
+      nav ul {
+          flex-direction: column;
+      }
+
+      .link-container {
+          flex-direction: column;
+      }
+
+      .link-container a {
+          margin: 10px 0;
+      }
+
+      .modal-content {
+          width: 80%;
+      }
+	  
+	  .search-buttons {
+        display: flex;
+        align-items: center;
+        gap: 20px; /* Ajustez l'espace entre les éléments si nécessaire */
+    }

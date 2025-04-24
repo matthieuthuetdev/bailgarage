@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Untitled</title>
+    <link rel="stylesheet" href="css/style3.css">
+    <style>
+        /* style3.css */
+
+        /* Apply a clean and modern font */
+        body, a {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Set the body background color and text color */
+        body {
+            background-color: #f0f0f0; /* Light gray background */
+            color: #333; /* Dark gray text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        /* Style the links */
+        a {
+            color: #213c4a; /* Dark Gray/Black */
+            text-decoration: none;
+            background-color: #587f96; /* Light Teal */
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 30px;
+            margin: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: inline-block;
+        }
+
+        /* Change the link color on hover */
+        a:hover {
+            background-color: #002011; /* Dark Teal */
+            color: #ffffff; /* White */
+        }
+
+        /* Container for the buttons to align them horizontally */
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <a href='proprietaire/connexion_proprietaire.php'>Connexion Proprietaire</a>
+        <a href='admin/connexion_admin.php'>Connexion Admin</a>
+    </div>
+</body>
+</html>
