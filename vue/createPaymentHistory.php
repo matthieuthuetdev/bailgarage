@@ -6,20 +6,17 @@ if (!empty($_POST)) {
     if (empty($_POST['leaseId']) || !is_numeric($_POST['leaseId'])) {
         $message = "Le bail est obligatoire.";
     } elseif (empty($_POST['monthPayment'])) {
-        $message = "La date précise du paiement est obligatoire.";
-    } elseif (empty($_POST['status'])) {
-        $message = "Le statut est obligatoire.";
+        $message = "La date du paiement est obligatoire.";
     } else {
         $amount = isset($_POST['amount']) && is_numeric($_POST['amount']) ? floatval($_POST['amount']) : 0.0;
 
         $paymentHistory = new PaymentHistories();
         $success = $paymentHistory->create(
             $_POST['leaseId'],
-            $_POST['status'],  // Statut du paiement
             $amount,
-            $_POST['monthPayment']  // Date précise du paiement
+            $_POST['monthPayment']
         );
-        $message = $success ? "Historique de paiement créé avec succès." : "Erreur lors de la création de l'historique de paiement.";
+        $message = $success ? "Payment ajouter a l'historique avec suceséa  &²& " : "Erreur lors de la création de l'historique de paiement.";
     }
     echo $message;
 }
@@ -37,7 +34,6 @@ $leases = $lease->read($_SESSION['ownerId']);
             <?php foreach ($leases as $l): ?>
                 <option value="<?php echo $l['id']; ?>" <?php echo (isset($_POST['leaseId']) && $_POST['leaseId'] == $l['id']) ? 'selected' : ''; ?>>
                     <?php
-                    // Chargement du locataire et garage liés au bail
                     $tenant = new Tenants();
                     $tenantInfo = $tenant->read($_SESSION['ownerId'], $l['tenantId']);
                     $garage = new Garages();
@@ -50,18 +46,13 @@ $leases = $lease->read($_SESSION['ownerId']);
     </div>
 
     <div>
-        <label for="monthPayment">Date précise du paiement :</label>
-        <input type="date" name="monthPayment" id="monthPayment" required value="<?php echo isset($_POST['monthPayment']) ? htmlspecialchars($_POST['monthPayment']) : ''; ?>">
+        <label for="monthPayment">Date du paiement :</label>
+        <input type="date" name="monthPayment" id="monthPayment" required value="<?php echo isset($_POST['monthPayment']) ? htmlspecialchars($_POST['monthPayment']) : htmlentities(date("Y-m-d ")); ?>">
     </div>
 
     <div>
         <label for="amount">Montant payé (€) :</label>
         <input type="number" step="0.01" name="amount" id="amount" value="<?php echo isset($_POST['amount']) ? htmlspecialchars($_POST['amount']) : ''; ?>">
-    </div>
-
-    <div>
-        <label for="status">Statut :</label>
-        <input type="text" name="status" id="status" required placeholder="Indiquez 'Payé' ou 'Non payé'" value="<?php echo isset($_POST['status']) ? htmlspecialchars($_POST['status']) : ''; ?>">
     </div>
 
     <div>

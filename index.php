@@ -13,6 +13,7 @@ require "./models/Tenants.php";
 require "./models/Leases.php";
 require "./models/AdditionalIbans.php";
 require "./models/Payments.php";
+require "./models/PaymentHistories.php";
 require "./controllers/PageController.php";
 require "./controllers/UserController.php";
 require "./controllers/GarageController.php";
@@ -21,6 +22,7 @@ require "./controllers/TenantController.php";
 require "./controllers/LeasesController.php";
 require "./controllers/AdditionalIbanController.php";
 require "./controllers/PaymentController.php";
+require "./controllers/PaymentHistoryController.php";
 if (!empty($_SESSION) && $_SESSION["role"] == "admin") {
     require "./vue/adminMenu.php";
 } elseif (!empty($_SESSION) && $_SESSION["role"] == "owner") {
@@ -197,7 +199,24 @@ if (isset($_GET["pageController"])) {
             }
             break;
 
-
+            case "paymenthistory":
+                $paymentHistory = new paymentHistoryController();
+                if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                    $paymentHistory->displayCreateForm();
+                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+                    $paymentHistory->displayTenant();
+                } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+                    $paymentHistory->displayCreateForm();
+                } elseif ($_GET["action"] == "update") {
+                    $paymentHistory->displayUpdateForm();
+                } elseif ($_GET["action"] == "delete") {
+                    $paymentHistory->delete();
+                } else {
+                    $page = new PageController();
+                    $page->displayPageNotFound();
+                }
+                break;
+    
 
 
         default:

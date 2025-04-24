@@ -8,12 +8,11 @@ class PaymentHistories
         $this->connection = Database::getInstance();
     }
 
-    public function create($_leasesId, $_paymentId, $_amount, $_paymentDate)
+    public function create($_leasesId, $_amount, $_paymentDate)
     {
-        $request = "INSERT INTO paymentHistories (leasesId, paymentId, amount, paymentDate) VALUES (:leasesId, :paymentId, :amount, :paymentDate)";
+        $request = "INSERT INTO paymentHistories (leasesId, amount, paymentDate) VALUES (:leasesId, :amount, :paymentDate)";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":leasesId", $_leasesId, PDO::PARAM_INT);
-        $rq->bindValue(":paymentId", $_paymentId, PDO::PARAM_INT);
         $rq->bindValue(":amount", $_amount);
         $rq->bindValue(":paymentDate", $_paymentDate, PDO::PARAM_STR);
         return $rq->execute();
@@ -71,3 +70,4 @@ class PaymentHistories
         return false;
     }
 }
+?>
