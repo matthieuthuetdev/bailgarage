@@ -1,25 +1,20 @@
 <?php
-// Vérification de l'ID du paiement
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     echo "ID du paiement invalide.";
     exit;
 }
 
-// Récupération du paiement existant
 $payment = new Payments();
 $currentPayment = $payment->read($_SESSION['ownerId'], $_GET['id']);
 
-// Vérification si le paiement existe
 if (!$currentPayment) {
     echo "Paiement introuvable.";
     exit;
 }
 
-// Traitement du formulaire soumis
 if (!empty($_POST)) {
     $message = "";
 
-    // Vérifications des données
     if (empty($_POST['leaseId']) || !is_numeric($_POST['leaseId'])) {
         $message = "Le bail est obligatoire.";
     } elseif ($_POST['status'] != 0 && $_POST['status'] != "1" ) {
@@ -29,10 +24,8 @@ if (!empty($_POST)) {
     } elseif (empty($_POST['methodPayment'])) {
         $message = "La méthode de paiement est obligatoire.";
     } else {
-        // Préparation des données
         $amount = isset($_POST['amount']) && is_numeric($_POST['amount']) ? floatval($_POST['amount']) : 0.0;
         
-        // Mise à jour du paiement
         $success = $payment->update(
             $_GET['id'],
             $_POST['leaseId'],
@@ -49,7 +42,6 @@ if (!empty($_POST)) {
     echo "<p>$message</p>";
 }
 
-// Récupération des baux pour la liste déroulante
 $lease = new Leases();
 $leaseInfo = $lease->read($_SESSION['ownerId']);
 ?>
