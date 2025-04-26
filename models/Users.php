@@ -54,4 +54,21 @@ class Users
             return [];
         }
     }
+    public function update($_id, $_firstName, $_name, $_email, $_password = null)
+    {
+        $request = "UPDATE users SET firstName = :firstName, name = :name, email = :email" . ($_password !== null ? ", password = :password" : "") . " WHERE id = :id";
+        $rq = $this->connection->prepare($request);
+        
+        $rq->bindValue(":id", $_id, PDO::PARAM_INT);
+        $rq->bindValue(":firstName", $_firstName, PDO::PARAM_STR);
+        $rq->bindValue(":name", $_name, PDO::PARAM_STR);
+        $rq->bindValue(":email", $_email, PDO::PARAM_STR);
+        
+        if ($_password !== null) {
+            $rq->bindValue(":password", password_hash($_password, PASSWORD_ARGON2I), PDO::PARAM_STR);
+        }
+
+        return $rq->execute();
+    }
+
 }
