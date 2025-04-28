@@ -11,28 +11,27 @@
     {
         $result = $this->user->create($_firstName, $_name, $_email);
         if ($result !== false) {
-                $request = "INSERT INTO owners (userId, company, address, additionalAddress, cityId, cityName, postalCode, phoneNumber, iban, bic, attachmentPath, gender)  VALUES (:userId, :company, :address, :additionalAddress, :cityId, :cityName, :postalCode, :phoneNumber, :iban, :bic, :attachmentPath, :gender)";
-                $rq = $this->connection->prepare($request);
-                $rq->bindValue(":userId", $result["id"], PDO::PARAM_INT);
-                $rq->bindValue(":company", $_company, PDO::PARAM_STR);
-                $rq->bindValue(":address", $_address, PDO::PARAM_STR);
-                $rq->bindValue(":additionalAddress", $_additionalAddress, PDO::PARAM_STR);
-                $rq->bindValue(":cityId", 1, PDO::PARAM_INT);
-                $rq->bindValue(":cityName", $_cityName, PDO::PARAM_STR);
-                $rq->bindValue(":postalCode", $_postalCode, PDO::PARAM_STR);
-                $rq->bindValue(":phoneNumber", $_phoneNumber, PDO::PARAM_STR);
-                $rq->bindValue(":iban", $_iban, PDO::PARAM_STR);
-                $rq->bindValue(":bic", $_bic, PDO::PARAM_STR);
-                $rq->bindValue(":attachmentPath", $_attachmentPath, PDO::PARAM_STR);
-                $rq->bindValue(":gender", $_gender, PDO::PARAM_STR);
-                if ($rq->execute()) {
-                    $password = $result["password"];
-                    return "Bonjour $_firstName, vous trouverez ci-dessous vos informations de connexion à l'application Bailgarage : <br> adresse mail : $_email <br> $password";
-                } else {
-                    $this->user->delete($result["id"]);
-                    return "Une erreur s'est produite lors de la création du propriétaire.";
-                }
-            
+            $request = "INSERT INTO owners (userId, company, address, additionalAddress, cityId, cityName, postalCode, phoneNumber, iban, bic, attachmentPath, gender)  VALUES (:userId, :company, :address, :additionalAddress, :cityId, :cityName, :postalCode, :phoneNumber, :iban, :bic, :attachmentPath, :gender)";
+            $rq = $this->connection->prepare($request);
+            $rq->bindValue(":userId", $result["id"], PDO::PARAM_INT);
+            $rq->bindValue(":company", $_company, PDO::PARAM_STR);
+            $rq->bindValue(":address", $_address, PDO::PARAM_STR);
+            $rq->bindValue(":additionalAddress", $_additionalAddress, PDO::PARAM_STR);
+            $rq->bindValue(":cityId", 1, PDO::PARAM_INT);
+            $rq->bindValue(":cityName", $_cityName, PDO::PARAM_STR);
+            $rq->bindValue(":postalCode", $_postalCode, PDO::PARAM_STR);
+            $rq->bindValue(":phoneNumber", $_phoneNumber, PDO::PARAM_STR);
+            $rq->bindValue(":iban", $_iban, PDO::PARAM_STR);
+            $rq->bindValue(":bic", $_bic, PDO::PARAM_STR);
+            $rq->bindValue(":attachmentPath", $_attachmentPath, PDO::PARAM_STR);
+            $rq->bindValue(":gender", $_gender, PDO::PARAM_STR);
+            if ($rq->execute()) {
+                $password = $result["password"];
+                return "Bonjour $_firstName, vous trouverez ci-dessous vos informations de connexion à l'application Bailgarage : <br> adresse mail : $_email <br> $password";
+            } else {
+                $this->user->delete($result["id"]);
+                return "Une erreur s'est produite lors de la création du propriétaire.";
+            }
         } else {
             return "Le mail existe déjà dans la base de données.";
         }
@@ -63,19 +62,13 @@
         $result = $rq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function update($_ownerId, $_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_iban, $_bic, $_attachmentPath, $_gender)
+    public function update($_ownerId, $_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_iban, $_bic, $_attachmentPath, $_gender, $_password)
     {
         try {
             $userId = $this->read($_ownerId)["userId"];
-            $request = "UPDATE users SET users.name = :name, users.firstName = :firstName, users.email = :email WHERE users.id = :userId";
-            $rq = $this->connection->prepare($request);
-            $rq->bindValue(":userId", $userId, PDO::PARAM_INT);
-            $rq->bindValue(":email", $_email, PDO::PARAM_STR);
-            $rq->bindValue(":name", $_name, PDO::PARAM_STR);
-            $rq->bindValue(":firstName", $_firstName, PDO::PARAM_STR);
-            if (!$rq->execute()) {
-                return false;
-            }
+            $users = new Users();
+            $users->update($userId, $_firstName, $_name, $_email, $_password);
+
             $request = "UPDATE owners SET company = :company, address = :address, additionalAddress = :additionalAddress, cityName = :cityName, postalCode = :postalCode, phoneNumber = :phoneNumber, iban = :iban, bic = :bic, attachmentPath = :attachmentPath, gender = :gender WHERE owners.id = :ownerId";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
@@ -89,6 +82,7 @@
             $rq->bindValue(":bic", $_bic, PDO::PARAM_STR);
             $rq->bindValue(":attachmentPath", $_attachmentPath, PDO::PARAM_STR);
             $rq->bindValue(":gender", $_gender, PDO::PARAM_STR);
+
             return $rq->execute();
         } catch (Exception $e) {
             return false;

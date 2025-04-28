@@ -36,6 +36,15 @@ class Users
             return false;
         }
     }
+    public function read($_userId)
+    {
+        $request = "SELECT * FROM users WHERE id = :userId";
+        $rq = $this->connection->prepare($request);
+        $rq->bindValue(":userId", $_userId);
+        $rq->execute();
+        $result = $rq->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
     public function signIn(string $_email, string $_password): array
     {
         $request = "SELECT users.id,users.name, users.firstName, users.email, users.password, roles.name AS roleName FROM users INNER JOIN roles ON users.roleId = roles.id WHERE users.email= :email";
@@ -53,5 +62,21 @@ class Users
         } else {
             return [];
         }
+    }
+    public function update($_id, $_firstName, $_name, $_email, $_password = null)
+    {
+        $request = "UPDATE users SET firstName = :firstName, name = :name, email = :email" . ($_password !== null ? ", password = :password" : "") . " WHERE id = :id";
+        $rq = $this->connection->prepare($request);
+
+        $rq->bindValue(":id", $_id, PDO::PARAM_INT);
+        $rq->bindValue(":firstName", $_firstName, PDO::PARAM_STR);
+        $rq->bindValue(":name", $_name, PDO::PARAM_STR);
+        $rq->bindValue(":email", $_email, PDO::PARAM_STR);
+
+        if ($_password !== null) {
+            $rq->bindValue(":password", password_hash($_password, PASSWORD_ARGON2I), PDO::PARAM_STR);
+        }
+
+        return $rq->execute();
     }
 }

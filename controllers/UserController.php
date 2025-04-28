@@ -23,7 +23,7 @@ class UserController
     }
     public function displayProfil(): void
     {
-        require "./vue/profil.php";
+        require $_SESSION["role"] == "admin" ?"./vue/adminProfile.php" : "./vue/ownerProfile.php";
     }
 
 }
