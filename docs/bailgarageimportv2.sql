@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `additionalibans` (
   CONSTRAINT `fk_additionalIban_owner` FOREIGN KEY (`ownerId`) REFERENCES `owners` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table bailgaragev2.additionalibans : ~6 rows (environ)
+-- Listage des données de la table bailgaragev2.additionalibans : ~2 rows (environ)
 DELETE FROM `additionalibans`;
 INSERT INTO `additionalibans` (`id`, `ownerId`, `name`, `iban`, `bic`) VALUES
 	(0, 0, '', NULL, NULL),
@@ -99,7 +99,7 @@ INSERT INTO `garages` (`id`, `ownerId`, `address`, `additionalAddress`, `cityId`
 	(12, 4, 'test', 'test', 1, '', '', 'etst', 654, 654, 654.00, 654.00, 654, '654', '654654.pdf', 'dd', 100000.00, '', '', NULL, 0),
 	(13, 4, '3 rue de ala betten 68290', '', 1, '', '', 'France', 50, 2, 65.00, 15.00, 15, '10fdfff', 'test.pdf', 'le sindyc des bg beau', 105.00, '', '', NULL, NULL),
 	(14, 4, '3 rue de ala betten 68290', '', 1, '', '', 'France', 50, 2, 65.00, 15.00, 15, '10fdfff', 'test.pdf', 'le sindyc des bg beau', 105.00, '', '', NULL, 14),
-	(15, 4, '3 rue de la husmate', '', 1, 'Bourbach le haut', '68280', 'France', 654, 65, 654.00, 654.00, 654, '65', '44.fr', '5', 5.00, '', '', NULL, 0);
+	(15, 4, '3 rue de la husmate', '', 1, 'Bourbach le haut', '68280', 'France', 654, 0, 654.00, 654.00, 654, '65', '44.fr', '5', 5.00, '', '', NULL, 0);
 
 -- Listage de la structure de table bailgaragev2. leases
 CREATE TABLE IF NOT EXISTS `leases` (
@@ -164,14 +164,35 @@ CREATE TABLE IF NOT EXISTS `owners` (
   KEY `fk_owner_city` (`cityId`),
   CONSTRAINT `fk_owner_city` FOREIGN KEY (`cityId`) REFERENCES `citys` (`id`),
   CONSTRAINT `fk_owner_user` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table bailgaragev2.owners : ~3 rows (environ)
+-- Listage des données de la table bailgaragev2.owners : ~2 rows (environ)
 DELETE FROM `owners`;
 INSERT INTO `owners` (`id`, `userId`, `company`, `address`, `additionalAddress`, `cityId`, `cityName`, `postalCode`, `phoneNumber`, `iban`, `bic`, `attachmentPath`, `gender`, `adminNote`) VALUES
 	(0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(4, 2, NULL, '7 db des nations', NULL, 1, NULL, NULL, '0687654', '456', '55', './signaturef.pdf', 'homme', NULL),
-	(32, 109, 'CRMqfffdsf', '3 rue de la betten', '', 1, 'Bourbach-le-haut', 68290, '0627209592', 'FR754444444444444', '6546546544', 'code.PDF', 'homme', NULL);
+	(4, 2, '', '7 db des nations', '', 1, 'Mulhouse', 68100, '0687654', 'FR97654654654654', '6546546654', './signaturef.pdf', 'homme', NULL),
+	(33, 110, 'mairie de roderen', '3 rue de de', '', 1, 'bourbach', 68290, '06546565', 'FR654654654654644', '65465465465', 'FR.fr', 'homme', NULL);
+
+-- Listage de la structure de table bailgaragev2. paymenthistories
+CREATE TABLE IF NOT EXISTS `paymenthistories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `leasesId` int NOT NULL,
+  `paymentId` int DEFAULT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `methode` varchar(100) NOT NULL DEFAULT '0',
+  `paymentDate` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `leasesId` (`leasesId`),
+  KEY `paymentId` (`paymentId`),
+  CONSTRAINT `paymenthistories_ibfk_1` FOREIGN KEY (`leasesId`) REFERENCES `leases` (`id`),
+  CONSTRAINT `paymenthistories_ibfk_2` FOREIGN KEY (`paymentId`) REFERENCES `payments` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Listage des données de la table bailgaragev2.paymenthistories : ~1 rows (environ)
+DELETE FROM `paymenthistories`;
+INSERT INTO `paymenthistories` (`id`, `leasesId`, `paymentId`, `amount`, `methode`, `paymentDate`) VALUES
+	(3, 3, NULL, 15.00, '0', '2025-04-25'),
+	(6, 3, NULL, 0.00, 'Chèque', '0100-10-10');
 
 -- Listage de la structure de table bailgaragev2. payments
 CREATE TABLE IF NOT EXISTS `payments` (
@@ -237,12 +258,11 @@ CREATE TABLE IF NOT EXISTS `tenants` (
   CONSTRAINT `fk_tenants_city` FOREIGN KEY (`cityId`) REFERENCES `citys` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table bailgaragev2.tenants : ~1 rows (environ)
+-- Listage des données de la table bailgaragev2.tenants : ~2 rows (environ)
 DELETE FROM `tenants`;
 INSERT INTO `tenants` (`id`, `ownerId`, `name`, `firstName`, `company`, `address`, `additionalAddress`, `cityId`, `cityName`, `postalCode`, `phoneNumber`, `landlinePhoneNumber`, `email`, `rgpd`, `attachmentPath`, `gender`, `receipt`, `ownerNote`) VALUES
 	(2, 4, 'THUET', 'Delphine', NULL, '3 rue de la betten', 'mlskqsdfdfj', 1, NULL, NULL, '03 27 20 95 92', '03 69 19 23 62', 'delphine68@sfr.fr', 1, 'piecejointe.pdf', 1, 1, ''),
-	(5, 4, 'THUET', 'Matthieu le bg', 'iosfosdpiodiouopiduiopfuiopuio', '3 3r', '654', 1, NULL, NULL, '654', '654', 'mattmatt.f@ff.qsdf', 0, '645', 1, 0, ''),
-	(7, 4, 'lezer', 'chantal', '', '3 rue de la prison', 'troisième étage', 1, 'Mulhouse', '68610', '654654654654', '', 'lezer@chantale.fr', 0, '', 1, 0, '');
+	(5, 4, 'THUET', 'Matthieu le bg', 'iosfosdpiodiouopiduiopfuiopuio', '3 3r', '654', 1, NULL, NULL, '654', '654', 'mattmatt.f@ff.qsdf', 0, '645', 1, 0, '');
 
 -- Listage de la structure de table bailgaragev2. users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -259,25 +279,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`),
   KEY `fk_users_role` (`roleId`),
   CONSTRAINT `fk_users_role` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table bailgaragev2.users : ~12 rows (environ)
+-- Listage des données de la table bailgaragev2.users : ~4 rows (environ)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `name`, `firstName`, `email`, `password`, `roleId`, `createdAt`, `updatedAt`, `resetToken`) VALUES
 	(0, 'default', 'default', 'default@bailgarage.fr', NULL, NULL, '2025-04-04 09:20:31', '2025-04-04 09:22:16', NULL),
-	(1, 'ADMINISTRATEUT', 'Admin', 'admin@bailgarage.fr', '$2y$10$vRGg5Q/38/rNgehSj683LeFOHUbz0YKV6shsJfhiOAvrKHk0POe36', 1, '2025-03-10 09:53:51', '2025-03-10 09:53:51', NULL),
-	(2, 'PROPRIO', 'proprio', 'proprio@bailgarage.fr', '$2y$10$K70bwmY.SlC5Rw9sg/SXv.WcyizmmTuOkCGeiMnK0ADHHadvFW.Ca', 2, '2025-03-10 15:59:44', '2025-03-10 16:00:51', NULL),
-	(87, 'thuet', 'matthieuf', 'mattmatt.thut@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$Z0o2bjdLQkpDU0NQbTNmTQ$Tf9ejugGMDEM/FhN/Jeym4NUDm11QSz+iBnb1baVJ7E', 2, '2025-03-19 10:07:11', '2025-03-19 10:30:39', NULL),
-	(88, 'mqsldkfj', 'qsdmlfkmld', 'dqsfl@f.f', '$argon2i$v=19$m=65536,t=4,p=1$TGxNbmxGZGp2V2hGMGJLdA$8R+6Uco34d8ey/0Zw+mE10HkKKwgDtsz+V1vEJLo/XM', 2, '2025-03-19 10:52:30', '2025-03-19 10:52:30', NULL),
-	(101, 'THUET', 'Quentin', 'quentin.thuet@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$bkdvemxVMVJtSDBHRDFCbA$RuIQcBr2bZ17rOuu50gZiIve6BB4gs9tMeOBTrZ2PhA', 2, '2025-04-22 07:05:20', '2025-04-22 07:05:20', NULL),
-	(102, 'THUET', 'Quentin', 'quentin.thufet@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$QXVhWEpDQi9WNk1mRzlJRQ$VISgesDjRqLRkl9X7P7y4oviUZIs+nprDnl2rEeuz0w', 2, '2025-04-22 07:06:59', '2025-04-22 07:06:59', NULL),
-	(103, 'brlc', 'camille', 'camiej@brlc.fr', '$argon2i$v=19$m=65536,t=4,p=1$NTcvbU5wQXpoenY4bTVPTQ$f8Oi78633JssCLfbX6uo6aKOf0HC1taedJzoSfaEQCM', 2, '2025-04-22 07:28:36', '2025-04-22 07:28:36', NULL),
-	(104, 'THUET', 'Matthieu', 'mattmatt.thuet@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$YzlUVC5DMFA1VlpSYnF0Sg$zxlq26BWNo3JYpNjSdDv/K2cGzX+tW18WmgBgupAWbM', 2, '2025-04-22 08:18:55', '2025-04-22 08:18:55', NULL),
-	(105, 'THUET', 'Matthieu', 'mattmatt.thuet@gmaidl.com', '$argon2i$v=19$m=65536,t=4,p=1$TTc5dlJ3V0M4TXRUeGJDVw$/cl8lm+MfH4WxmhPUrr6DuGzOtHTeEVuCqSPVQ9qidY', 2, '2025-04-22 08:22:53', '2025-04-22 08:22:53', NULL),
-	(106, 'THUET', 'Matthieu', 'mattmatt.thuet@gqsdfmaidl.com', '$argon2i$v=19$m=65536,t=4,p=1$OHJRTVhkNkJuQmRzUVBSLw$Ji6sj68WHLxcTzvCsaDKHa6Wgc2YZRSLImVDjEhdv3U', 2, '2025-04-22 08:26:14', '2025-04-22 08:26:14', NULL),
-	(107, 'THUET', 'Matthieu', 'mattmatt.thuet@gqsdfqsdfmaidl.com', '$argon2i$v=19$m=65536,t=4,p=1$YzZ5bkdWY0hva0xNMzJ0cw$mNVdrwaRmWUxTyxQSe1Hxo9rQ7QgMF3AgK/LpuQx2DY', 2, '2025-04-22 08:27:51', '2025-04-22 08:27:51', NULL),
-	(108, 'THUET', 'Matthieu', 'mattmatt.thuet@gsqsdfqsdfmaidl.com', '$argon2i$v=19$m=65536,t=4,p=1$ZVZ3WnludHJEZ3MuUnhMcQ$aueu3Iay7eGaLv9qc136SlAHTX73qq/rnlRwcIBpWbo', 2, '2025-04-22 08:29:50', '2025-04-22 08:29:50', NULL),
-	(109, 'THUET', 'Matthieu', 'mattmatt.thufffet@gsqsdfqsdfmaidl.com', '$argon2i$v=19$m=65536,t=4,p=1$LmFvRnBPeXJIL3dBY29XWg$YwXokStw9dYe4yNxDqpa8i4mtjfAF+cbwhUkvFDs5GI', 2, '2025-04-22 08:30:32', '2025-04-22 08:30:32', NULL);
+	(1, 'THUET', 'Matthieu', 'admin@bailgarage.fr', '$argon2i$v=19$m=65536,t=4,p=1$Z09nRG9EcFo3S1lwN2V2TQ$HfRNtJHNt11satVRovHpbPDtw7D2XwkyLHS09uq2FyQ', 1, '2025-03-10 09:53:51', '2025-04-28 09:14:39', NULL),
+	(2, 'PROPRIO', 'proprio', 'proprio@bailgarage.fr', '$argon2i$v=19$m=65536,t=4,p=1$MDJMYXBpczlpbmxvcjVlMQ$tOKqirPygJMRkbAt2zeaMXBg7vdQLY1TQqYzs6+7EVM', 2, '2025-03-10 15:59:44', '2025-04-27 23:05:18', NULL),
+	(110, 'THUET', 'delphine', 'mattmatt.thuet@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$SHY2YUFiMkwxbWIvWTV4cA$ZF5D2najKdyI/U7cPjMuDVr2y7N4Pfile6z+CH+1DRs', 2, '2025-04-28 08:27:58', '2025-04-28 09:11:56', NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
