@@ -62,12 +62,12 @@
         $result = $rq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function update($_ownerId, $_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_iban, $_bic, $_attachmentPath, $_gender)
+    public function update($_ownerId, $_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_iban, $_bic, $_attachmentPath, $_gender, $_password)
     {
         try {
             $userId = $this->read($_ownerId)["userId"];
             $users = new Users();
-            $users->update($userId, $_firstName, $_name, $_email);
+            $users->update($userId, $_firstName, $_name, $_email, $_password);
 
             $request = "UPDATE owners SET company = :company, address = :address, additionalAddress = :additionalAddress, cityName = :cityName, postalCode = :postalCode, phoneNumber = :phoneNumber, iban = :iban, bic = :bic, attachmentPath = :attachmentPath, gender = :gender WHERE owners.id = :ownerId";
             $rq = $this->connection->prepare($request);
