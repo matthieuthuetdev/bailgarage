@@ -1,6 +1,5 @@
 <?php
 function sandMail ($_to, $_subject, $message){
-    <?php
 
 /**
  * This example shows sending a message using PHP's mail() function.
