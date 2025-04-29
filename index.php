@@ -1,28 +1,29 @@
 <?php
-
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+require "./vendor/autoload.php";
+require "./function.php";
+use PHPMailer\PHPMailer\PHPMailer;
 
-require "./vue/header.php";
-require "./models/Database.php";
-require "./models/Users.php";
-require "./models/Owners.php";
-require "./models/Garages.php";
-require "./models/Tenants.php";
-require "./models/Leases.php";
-require "./models/AdditionalIbans.php";
-require "./models/Payments.php";
-require "./models/PaymentHistories.php";
-require "./controllers/PageController.php";
-require "./controllers/UserController.php";
-require "./controllers/GarageController.php";
-require "./controllers/OwnerController.php";
-require "./controllers/TenantController.php";
-require "./controllers/LeasesController.php";
-require "./controllers/AdditionalIbanController.php";
-require "./controllers/PaymentController.php";
-require "./controllers/PaymentHistoryController.php";
+// require "./vue/header.php";
+// require "./models/Database.php";
+// require "./models/Users.php";
+// require "./models/Owners.php";
+// require "./models/Garages.php";
+// require "./models/Tenants.php";
+// require "./models/Leases.php";
+// require "./models/AdditionalIbans.php";
+// require "./models/Payments.php";
+// require "./models/PaymentHistories.php";
+// require "./controllers/PageController.php";
+// require "./controllers/UserController.php";
+// require "./controllers/GarageController.php";
+// require "./controllers/OwnerController.php";
+// require "./controllers/TenantController.php";
+// require "./controllers/LeasesController.php";
+// require "./controllers/AdditionalIbanController.php";
+// require "./controllers/PaymentController.php";
+// require "./controllers/PaymentHistoryController.php";
 if (!empty($_SESSION) && $_SESSION["role"] == "admin") {
     require "./vue/adminMenu.php";
 } elseif (!empty($_SESSION) && $_SESSION["role"] == "owner") {
