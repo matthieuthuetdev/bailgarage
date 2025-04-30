@@ -5,24 +5,25 @@ require "./vendor/autoload.php";
 use PHPMailer\PHPMailer\PHPMailer;
 
 require "./vue/header.php";
-require "./models/Database.php";
- require "./models/Users.php";
- require "./models/Owners.php";
- require "./models/Garages.php";
- require "./models/Tenants.php";
- require "./models/Leases.php";
- require "./models/AdditionalIbans.php";
- require "./models/Payments.php";
- require "./models/PaymentHistories.php";
- require "./controllers/PageController.php";
- require "./controllers/UserController.php";
- require "./controllers/GarageController.php";
- require "./controllers/OwnerController.php";
- require "./controllers/TenantController.php";
- require "./controllers/LeasesController.php";
- require "./controllers/AdditionalIbanController.php";
- require "./controllers/PaymentController.php";
- require "./controllers/PaymentHistoryController.php";
+require "./Models/Database.php";
+ require "./Models/Users.php";
+ require "./Models/Owners.php";
+ require "./Models/Garages.php";
+ require "./Models/Tenants.php";
+ require "./Models/Leases.php";
+ require "./Models/AdditionalIbans.php";
+ require "./Models/Payments.php";
+ require "./Models/PaymentHistories.php";
+ require "./Controllers/PageController.php";
+ require "./Controllers/UserController.php";
+ require "./Controllers/GarageController.php";
+ require "./Controllers/OwnerController.php";
+ require "./Controllers/TenantController.php";
+ require "./Controllers/LeasesController.php";
+ require "./Controllers/AdditionalIbanController.php";
+ require "./Controllers/PaymentController.php";
+ require "./Controllers/PaymentHistoryController.php";
+ require "./Services/MailService.php";
 if (!empty($_SESSION) && $_SESSION["role"] == "admin") {
     require "./vue/adminMenu.php";
 } elseif (!empty($_SESSION) && $_SESSION["role"] == "owner") {
@@ -238,3 +239,5 @@ if (isset($_GET["pageController"])) {
 }
 
 require "./vue/footer.php";
+$mail = new MailService();
+$mail->send("mattmatt.thuet@gmail.com","test","<h1>ceci est un test !</h1>");
