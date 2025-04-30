@@ -1,4 +1,8 @@
-<?php class Owners
+<?php
+
+use LDAP\Result;
+
+ class Owners
 {
     private PDO $connection;
     private object $user;
@@ -27,7 +31,7 @@
             $rq->bindValue(":gender", $_gender, PDO::PARAM_STR);
             if ($rq->execute()) {
                 $password = $result["password"];
-                return "Bonjour $_firstName, vous trouverez ci-dessous vos informations de connexion à l'application Bailgarage : <br> adresse mail : $_email <br> $password";
+                return array("email" => $_email, "message"=>"Bonjour $_firstName, <br>Vous trouverez ci-dessous vos informations de connexionà l'application Bailgarage :<br>Votre emal : $_email <br>Votre mot de passe : $password<br>Il est fortement recommandé de changer votre mot de passe.");
             } else {
                 $this->user->delete($result["id"]);
                 return "Une erreur s'est produite lors de la création du propriétaire.";

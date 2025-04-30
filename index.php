@@ -239,5 +239,3 @@ if (isset($_GET["pageController"])) {
 }
 
 require "./vue/footer.php";
-$mail = new MailService();
-echo $mail->send("mattmatt.thuet@gmail.com","test","<h1>ceci est un test !</h1>");

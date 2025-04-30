@@ -54,7 +54,11 @@ if (!empty($_POST)) {
 
         $message = $success;
     }
-    echo "$message";
+    $mail = new MailService();
+    if (!empty($success) && $mail->send($success["email"], "information de connexion", $success["message"])) {
+        $message = "Email envoyé au propriétaire avec succès!";
+    }
+    echo $message;
 }
 ?>
 <h1>Créer un propriétaire</h1>
