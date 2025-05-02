@@ -51,12 +51,13 @@ if (!empty($_POST)) {
                 );
             }
         }
-
-        $message = $success;
-    }
-    $mail = new MailService();
-    if (!empty($success) && $mail->send($success["email"], "information de connexion", $success["message"])) {
-        $message = "Email envoyé au propriétaire avec succès!";
+var_dump($success);
+        $mail = new MailService();
+        if (!empty($success) && $mail->send($success["email"], "information de connexion", $success["message"])) {
+            $message = "Email envoyé au propriétaire avec succès!";
+        }
+    
+        $message = "le propriétaire a été ajouter avec sucsè ! il vient de resevoir un mail.";
     }
     echo $message;
 }
