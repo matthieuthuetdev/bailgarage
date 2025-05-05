@@ -53,7 +53,6 @@ if (!empty($_POST)) {
                 );
             }
         }
-        echo "test ! normalement se texte n'es ";
         $mail = new MailService();
         $mail->send($success["email"], "information de connexion", $success["message"]);
 
