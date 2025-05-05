@@ -1,7 +1,7 @@
 <?php
 if (!empty($_POST)) {
     $message = "";
-
+    $user = new users();
     if (empty($_POST['name']) || !preg_match("/^[a-zA-ZÀ-ÿ' -]+$/", $_POST['name'])) {
         $message = "Nom invalide.";
     } elseif (empty($_POST['firstName']) || !preg_match("/^[a-zA-ZÀ-ÿ' -]+$/", $_POST['firstName'])) {
@@ -18,6 +18,8 @@ if (!empty($_POST)) {
         $message = "BIC invalide.";
     } elseif (empty($_POST['gender']) || !in_array($_POST['gender'], ["homme", "femme"])) {
         $message = "Genre invalide.";
+    } elseif (!empty($user->searchUserByEmail($_POST["email"]))) {
+        $message = "Le mail existe déjà dans la base de données.";
     } else {
         $cityName = htmlspecialchars($_POST["cityName"]);
         $postalCode = htmlspecialchars($_POST["postalCode"]);
@@ -51,12 +53,10 @@ if (!empty($_POST)) {
                 );
             }
         }
-var_dump($success);
+        echo "test ! normalement se texte n'es ";
         $mail = new MailService();
-        if (!empty($success) && $mail->send($success["email"], "information de connexion", $success["message"])) {
-            $message = "Email envoyé au propriétaire avec succès!";
-        }
-    
+        $mail->send($success["email"], "information de connexion", $success["message"]);
+
         $message = "le propriétaire a été ajouter avec sucsè ! il vient de resevoir un mail.";
     }
     echo $message;

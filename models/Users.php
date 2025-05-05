@@ -1,4 +1,4 @@
-<?php
+    <?php
 class Users
 {
     private PDO $connection;
