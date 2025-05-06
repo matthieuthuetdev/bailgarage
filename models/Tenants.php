@@ -50,8 +50,15 @@ class Tenants
         }
         return $result;
     }
-
-    public function update($_tenantId, $_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityId, $_cityName , $_postalCode, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentPath, $_gender, $_receipt, $_ownerNote)
+    public function searchTenantByEmail($_email)
+    {
+        $request = "SELECT id FROM tenants WHERE email = :email";
+        $rq = $this->connection->prepare($request);
+        $rq->bindvalue(":email", $_email);
+        $rq->execute();
+        $result = $rq->fetch(PDO::FETCH_ASSOC);
+    }
+    public function update($_tenantId, $_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityId, $_cityName, $_postalCode, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentPath, $_gender, $_receipt, $_ownerNote)
     {
         $request = "UPDATE tenants SET name = :name, firstName = :firstName, company = :company, address = :address, additionalAddress = :additionalAddress, cityId = :cityId ,cityName = :cityName, postalCode = :postalCode, phoneNumber = :phoneNumber, landlinePhoneNumber = :landlinePhoneNumber, email = :email, rgpd = :rgpd, attachmentPath = :attachmentPath, gender = :gender, receipt = :receipt, ownerNote = :ownerNote WHERE id = :tenantId AND ownerId = :ownerId";
         $rq = $this->connection->prepare($request);
