@@ -53,7 +53,7 @@ if (!empty($_POST)) {
                 );
             }
         }
-        $mail = new MailService();
+8        $mail = new MailService();
         $mail->send($success["email"], "information de connexion", $success["message"]);
 
         $message = "le propriétaire a été ajouter avec sucsè ! il vient de resevoir un mail.";
