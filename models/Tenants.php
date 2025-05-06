@@ -32,6 +32,16 @@ class Tenants
         return $rq->execute();
     }
 
+    public function emailCreate($_ownerId, $_email)
+    {
+        $request = "INSERT INTO tenants (ownerId, email) VALUES (:ownerId, :email)";
+        $rq = $this->connection->prepare($request);
+        $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
+        $rq->bindValue(":email", $_email, PDO::PARAM_STR);
+        return $rq->execute();
+    }
+
+
     public function read($_ownerId, $_tenantId = null)
     {
         if (is_null($_tenantId)) {
@@ -57,6 +67,7 @@ class Tenants
         $rq->bindvalue(":email", $_email);
         $rq->execute();
         $result = $rq->fetch(PDO::FETCH_ASSOC);
+        return $result;
     }
     public function update($_tenantId, $_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityId, $_cityName, $_postalCode, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentPath, $_gender, $_receipt, $_ownerNote)
     {

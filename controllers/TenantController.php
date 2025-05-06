@@ -20,4 +20,7 @@ class TenantsController
         $succes = $tenants->delete($_GET["id"], $_SESSION["ownerId"]);
         header("location:index.php?pageController=tenant&action=display");
     }
+    public function displayTenantForm(){
+        require "./vue/tenantForm.php";
+    }
 }
