@@ -100,6 +100,8 @@ if (isset($_GET["pageController"])) {
                 $tenant->displayUpdateForm();
             } elseif ($_GET["action"] == "delete") {
                 $tenant->delete();
+            } elseif ($_GET["action"] == "tenantform") {
+                $tenant->displayTenantForm();
             } else {
                 $page = new PageController();
                 $page->displayPageNotFound();
