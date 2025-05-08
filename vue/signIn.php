@@ -15,6 +15,7 @@ if (isset($_POST["email"], $_POST["password"])) {
         } else {
             $_SESSION["role"] = "admin";
             $_SESSION["message"] = "<span>Bienvenue " . $_SESSION["firstName"] . " vous êtes bien connecter en tant qu'administrateur.</span>";
+            $_SESSION["adminId"] =$result["id"];
             header("location: index.php?pageController=owner&action=display");
         }
     } else {
