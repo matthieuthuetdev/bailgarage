@@ -15,7 +15,7 @@ class EmailTemplate {
         } else {
             $request = "SELECT * FROM emailtemplate WHERE name = :name";
             $rq = $this->connection->prepare($request);
-            $rq->bindValue(":name", $_name, PDO::PARAM_INT);
+            $rq->bindValue(":name", $_name, PDO::PARAM_STR);
             $rq->execute();
             $result = $rq->fetch(PDO::FETCH_ASSOC);     
         }

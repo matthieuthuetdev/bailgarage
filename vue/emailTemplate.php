@@ -11,6 +11,7 @@ if (empty($_GET["name"])) {
     echo "<th>Nom</th>";
     echo "<th>Objet</th>";
     echo "<th>Aperçu</th>";
+    echo "<th>Modifier</th>";
     echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -19,6 +20,7 @@ if (empty($_GET["name"])) {
         echo "<td>" . htmlspecialchars($row["name"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["subject"]) . "</td>";
         echo "<td><a href='index.php?pageController=emailtemplate&action=display&name=" . htmlspecialchars($row["name"]) . "'>Voir l'aperçu</a></td>";
+        echo "<td><a href='index.php?pageController=emailtemplate&action=update&name=" . htmlspecialchars($row["name"]) . "'>Modifier</a></td>";
         echo "</tr>";
     }
 

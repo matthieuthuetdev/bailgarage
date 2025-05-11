@@ -1,4 +1,5 @@
-<?php error_reporting(E_ALL);
+<?php
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require "./vendor/autoload.php";
 
@@ -184,7 +185,7 @@ if (isset($_GET["pageController"])) {
             if ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
                 $emailTemplate->displayEmailTemplate();
             } elseif ($_GET["action"] == "update") {
-                $paymentHistory->displayUpdateForm();
+                $emailTemplate->displayUpdateForm();
             } else {
                 $page = new PageController();
                 $page->displayPageNotFound();
