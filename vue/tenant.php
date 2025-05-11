@@ -4,9 +4,32 @@ $message = $_SESSION["message"];
 $_SESSION["message"] = "";
 $tenant = new Tenants();
 $liste = $tenant->read($_SESSION["ownerId"]);
+if (!empty($_POST["email"])) {
+    $message = "";
+    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+        $message = "Email invalide";
+    } elseif (!empty($tenant->searchTenantByEmail($_POST["email"]))) {
+        $message = "l'email est déjà en base de donnée";
+    } else {
+        $message = "le locataire a été ajouter avec succès ! Un mail vient de lui être envoyé avec le lien vers le formulaire.";
+        $tenant->emailCreate($_SESSION["ownerId"], $_POST["email"]);
+        $mail = new MailService();
+        $mail->send($_POST["email"], "Formulaire location", "<h1> Formulaire location</h1><div>Bonjour.</div><p>Vous trouverez cidessous le lien afin de remplir vos informations pour compléter votre profil de locataire :</p><div><a href='https://app.bailgarage.fr/index.php?pageController=tenant&action=tenantform&id=" . $tenant->searchTenantByEmail($_POST["email"])["id"] . "&ownerId=" . $_SESSION["ownerId"] . "&email=" . $_POST["email"] . "'>Accéder au formulaire</a></div><div>Après avoir rempli le formulaire le lien restera actif si vous souhaitez modifier des informations</div>");
+        $message = "Email envoyer au locataire avec succès !";
+    }
+    echo $message;
+}
+
 ?>
-<a href="index.php?pageController=tenant&action=create" class="btnAction">Créer un locataire</a>
-<?php echo $message;
+<h3>Envoyer le lien du formulaire par email au locataire</h3>
+<form method="post" action="">
+    <label for="email">Adresse email du locataire</label>
+    <input type="email" id="name" name="email">
+    <button type="submit">Envoyer</button>
+</form>
+<div>OU</div>
+<a href="index.php?pageController=tenant&action=create" class="btnAction">Créer un locataire manuèlement</a>
+<?php
 if (empty($_GET["id"])) {
     echo "<div>";
     echo "<table>";
@@ -25,11 +48,11 @@ if (empty($_GET["id"])) {
 
     foreach ($liste as $row) {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['firstName']) . "</td>";
+        echo "<td>" . htmlspecialchars(!empty($row["name"]) ? $row['name'] : "En attente") . "</td>";
+        echo "<td>" . htmlspecialchars(!empty($row["name"]) ? $row['firstName'] : "En attente") . "</td>";
         echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['phoneNumber']) . "</td>";
-        echo "<td><a href='index.php?pageController=tenant&action=display&id=" . $row["id"] . "'>Plus d'info</a></td>";
+        echo "<td>" . htmlspecialchars(!empty($row["name"]) ? $row['phoneNumber'] : "En attente") . "</td>";
+        echo empty($row["name"]) ? "<td>En attente</td>" : "<td><a href='index.php?pageController=tenant&action=display&id=" . $row["id"] . "'>Plus d'info</a></td>";
         echo "<td><a href='index.php?pageController=tenant&action=update&id=" . $row["id"] . "'>Modifier</a></td>";
         echo "<td><a href='index.php?pageController=tenant&action=delete&id=" . $row["id"] . "'>Supprimer</a></td>";
         echo "</tr>";

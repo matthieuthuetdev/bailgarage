@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Boutons Autonomes</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f0f0f0;
+    }
+    #zone {
+      position: relative;
+      width: 600px;
+      height: 600px;
+      border: 2px solid #333;
+      overflow: hidden;
+      background-color: #fff;
+    }
+    .boutonAutonome {
+      position: absolute;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: top 0.05s linear, left 0.05s linear;
+    }
+  </style>
+</head>
+<body>
+  <div id="zone">
+    <button class="boutonAutonome">Clique-moi !</button>
+  </div>
+
+  <script>
+    const vitesse = 5; // pixels par intervalle
+    const intervalle = 20; // millisecondes entre chaque mouvement
+    const zone = document.getElementById('zone');
+
+    function creerBouton(x, y, angle) {
+      const bouton = document.createElement('button');
+      bouton.className = 'boutonAutonome';
+      bouton.textContent = 'Clique-moi !';
+      zone.appendChild(bouton);
+
+      // Position initiale
+      bouton.style.left = `${x}px`;
+      bouton.style.top = `${y}px`;
+
+      // Direction aléatoire si non spécifiée
+      if (angle === undefined) {
+        angle = Math.random() * 2 * Math.PI;
+      }
+
+      // Stocker les données de direction
+      bouton.dataset.angle = angle;
+
+      return bouton;
+    }
+
+    function deplacerBouton(bouton) {
+      let angle = parseFloat(bouton.dataset.angle);
+      let x = bouton.offsetLeft;
+      let y = bouton.offsetTop;
+
+      const dx = Math.cos(angle) * vitesse;
+      const dy = Math.sin(angle) * vitesse;
+
+      x += dx;
+      y += dy;
+
+      // Vérifier les limites de la zone
+      const zoneRect = zone.getBoundingClientRect();
+      const rect = bouton.getBoundingClientRect();
+
+      if (
+        x < 0 || x + rect.width > zone.clientWidth ||
+        y < 0 || y + rect.height > zone.clientHeight
+      ) {
+        // Revenir au centre
+        x = (zone.clientWidth - rect.width) / 2;
+        y = (zone.clientHeight - rect.height) / 2;
+
+        // Créer un nouveau bouton avec une direction aléatoire
+        creerBouton(x, y);
+      }
+
+      bouton.style.left = `${x}px`;
+      bouton.style.top = `${y}px`;
+    }
+
+    // Initialiser le premier bouton
+    const boutonInitial = document.querySelector('.boutonAutonome');
+    const zoneRect = zone.getBoundingClientRect();
+    const rectInitial = boutonInitial.getBoundingClientRect();
+    boutonInitial.style.left = `${(zone.clientWidth - rectInitial.width) / 2}px`;
+    boutonInitial.style.top = `${(zone.clientHeight - rectInitial.height) / 2}px`;
+    boutonInitial.dataset.angle = Math.random() * 2 * Math.PI;
+
+    // Déplacer tous les boutons à intervalles réguliers
+    setInterval(() => {
+      const boutons = document.querySelectorAll('.boutonAutonome');
+      boutons.forEach((bouton) => {
+        deplacerBouton(bouton);
+      });
+    }, intervalle);
+  </script>
+</body>
+</html>
+    
