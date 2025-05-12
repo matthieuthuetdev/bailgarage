@@ -31,7 +31,7 @@ use LDAP\Result;
             $rq->bindValue(":gender", $_gender, PDO::PARAM_STR);
             if ($rq->execute()) {
                 $password = $result["password"];
-                return array("email" => $_email, "message"=>"Bonjour $_firstName, <br>Vous trouverez ci-dessous vos informations de connexion à l'application Bailgarage :<br>Votre emal : $_email <br>Votre mot de passe : $password<br>Il est fortement recommandé de changer votre mot de passe.");
+                return array("email" => $_email, "message"=>"Bonjour $_firstName, <br>Vous trouverez ci-dessous vos informations de connexion à l'application Bailgarage :<br>Votre emal : $_email <br>Votre mot de passe : $password<br>Il est fortement recommandé de changer votre mot de passe.","password"=>$password);
             } else {
                 $this->user->delete($result["id"]);
                 return "Une erreur s'est produite lors de la création du propriétaire.";
