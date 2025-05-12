@@ -3,15 +3,16 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class MailService {
+class MailService
+{
     private PHPMailer $mailer;
-    
+
     public function __construct()
     {
         $this->mailer = new PHPMailer(true);
         $this->configure();
     }
-    
+
     private function configure(): void
     {
         $this->mailer->isSMTP();
@@ -23,7 +24,7 @@ class MailService {
         $this->mailer->Port = 465; // Port sécurisé comme recommandé dans vos informations
         $this->mailer->setFrom('info@bailgarage.fr', 'Bail Garage');
     }
-    
+
     public function send(string $to, string $subject, string $body): bool
     {
         try {
@@ -36,5 +37,16 @@ class MailService {
         } catch (Exception) {
             return false;
         }
+    }
+    public function sendTemplate($_to, $templateName, $emailData)
+    {
+        $mailTemplate = new EmailTemplate();
+        $template = $mailTemplate->read($templateName);
+        $content = $template["content"];
+        foreach ($emailData as $element => $data) {
+            $content = str_replace("{{" . $element . "}}", $data,$content);
+        }
+        $message = "<!DOCTYPE html><html lang='fr-fr'><head><meta charset='UTF-8'><title>Document</title></head><body>" . $content . "</body></html>";
+        $this->send($_to, $template["subject"], $message);
     }
 }

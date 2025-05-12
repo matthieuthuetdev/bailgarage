@@ -54,7 +54,7 @@ if (!empty($_POST)) {
             }
         }
         $mail = new MailService();
-        $mail->send($success["email"], "information de connexion", $success["message"]);
+        $mail->sendTemplate($_POST["email"],"newOwner",array("name"=> $_POST["name"],"firstName"=> $_POST["firstName"],"email"=> $_POST["email"],"password"=> $success["password"]));
 
         $message = "le propriétaire a été ajouter avec sucsè ! il vient de resevoir un mail.";
     }
