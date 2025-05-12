@@ -1,4 +1,5 @@
-<?php error_reporting(E_ALL);
+<?php
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require "./vendor/autoload.php";
 
@@ -14,6 +15,7 @@ require "./Models/Leases.php";
 require "./Models/AdditionalIbans.php";
 require "./Models/Payments.php";
 require "./Models/PaymentHistories.php";
+require "./Models/EmailTemplates.php";
 require "./Controllers/PageController.php";
 require "./Controllers/UserController.php";
 require "./Controllers/GarageController.php";
@@ -23,6 +25,7 @@ require "./Controllers/LeasesController.php";
 require "./Controllers/AdditionalIbanController.php";
 require "./Controllers/PaymentController.php";
 require "./Controllers/PaymentHistoryController.php";
+require "./Controllers/EmailTemplateController.php";
 require "./Services/MailService.php";
 if (!empty($_SESSION) && $_SESSION["role"] == "admin") {
     require "./vue/adminMenu.php";
@@ -175,6 +178,21 @@ if (isset($_GET["pageController"])) {
                 $page->displayPageNotFound();
             }
             break;
+
+        case "emailtemplate":
+            $emailTemplate = new emailTemplateController();
+
+            if ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
+                $emailTemplate->displayEmailTemplate();
+            } elseif ($_GET["action"] == "update") {
+                $emailTemplate->displayUpdateForm();
+            } else {
+                $page = new PageController();
+                $page->displayPageNotFound();
+            }
+            break;
+
+
         default:
             $page = new PageController();
             $page->displayPageNotFound();
