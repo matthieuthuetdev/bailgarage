@@ -14,7 +14,8 @@ if (!empty($_POST["email"])) {
         $message = "le locataire a été ajouter avec succès ! Un mail vient de lui être envoyé avec le lien vers le formulaire.";
         $tenant->emailCreate($_SESSION["ownerId"], $_POST["email"]);
         $mail = new MailService();
-        $mail->send($_POST["email"], "Formulaire location", "<h1> Formulaire location</h1><div>Bonjour.</div><p>Vous trouverez cidessous le lien afin de remplir vos informations pour compléter votre profil de locataire :</p><div><a href='https://app.bailgarage.fr/index.php?pageController=tenant&action=tenantform&id=" . $tenant->searchTenantByEmail($_POST["email"])["id"] . "&ownerId=" . $_SESSION["ownerId"] . "&email=" . $_POST["email"] . "'>Accéder au formulaire</a></div><div>Après avoir rempli le formulaire le lien restera actif si vous souhaitez modifier des informations</div>");
+        $link = "https://app.bailgarage.fr/index.php?pageController=tenant&action=tenantForm&id=" . $tenant->searchTenantByEmail($_POST["email"])["id"] . "&ownerId" . $_SESSION["ownerId"] . "&email=" . $_POST["email"];
+        $mail->sendTemplate($_POST["email"], "tenantForm", array("link"=>$link));
         $message = "Email envoyer au locataire avec succès !";
     }
     echo $message;
