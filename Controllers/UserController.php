@@ -26,4 +26,12 @@ class UserController
         require $_SESSION["role"] == "admin" ?"./vue/adminProfile.php" : "./vue/ownerProfile.php";
     }
 
+
+public function displayRequestResetPassword(){
+    require "./vue/requestResetPasswprd.php";
+}
+public function displayResetPassword(){
+    require "./vue/requestResetPasswprd.php";
+}
+
 }
