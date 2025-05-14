@@ -50,7 +50,11 @@ if (isset($_GET["pageController"])) {
                 $user->signOut();
             } elseif ($_GET["action"] == "profil") {
                 $user->displayProfil();
-            } else {
+            } elseif ($_GET["action"] == "requestresetpassword") {
+                $user->displayRequestResetPassword();
+            } elseif ($_GET["action"] == "resetPassword") {
+                $user->displayRequestResetPassword();
+            } {
                 $page = new PageController();
                 $page->displayPageNotFound();
             }

@@ -16,6 +16,10 @@ class ComposerStaticInit53392300b2fc8add28382f7e8ce97fca
             'Psr\\Container\\' => 14,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'J' => 
+        array (
+            'JoanFabregat\\SecureTokenGenerator\\' => 34,
+        ),
         'F' => 
         array (
             'Faker\\' => 6,
@@ -30,6 +34,10 @@ class ComposerStaticInit53392300b2fc8add28382f7e8ce97fca
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'JoanFabregat\\SecureTokenGenerator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/joanfabregat/secure-token-generator/src',
         ),
         'Faker\\' => 
         array (
