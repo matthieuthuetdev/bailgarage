@@ -31,7 +31,7 @@ public function displayRequestResetPassword(){
     require "./vue/requestResetPasswprd.php";
 }
 public function displayResetPassword(){
-    require "./vue/requestResetPasswprd.php";
+    require "./vue/resetPasswprd.php";
 }
 
 }

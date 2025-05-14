@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 require "./vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
-
+use JoanFabregat\SecureTokenGenerator\SecureTokenGenerator;
 require "./vue/header.php";
 require "./Models/Database.php";
 require "./Models/Users.php";
@@ -52,9 +52,9 @@ if (isset($_GET["pageController"])) {
                 $user->displayProfil();
             } elseif ($_GET["action"] == "requestresetpassword") {
                 $user->displayRequestResetPassword();
-            } elseif ($_GET["action"] == "resetPassword") {
-                $user->displayRequestResetPassword();
-            } {
+            } elseif ($_GET["action"] == "resetpassword") {
+                $user->displayResetPassword();
+            } else {
                 $page = new PageController();
                 $page->displayPageNotFound();
             }

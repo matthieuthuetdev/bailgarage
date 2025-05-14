@@ -81,7 +81,7 @@
         }
         public function activeResetPasswordTocken($_id, $_tocken)
         {
-            $request = "UPDATE users SET resetTocken = :resetTocken where id = :id";
+            $request = "UPDATE users SET resetToken = :tocken WHERE users.id = :id";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":id", $_id);
             $rq->bindValue(":tocken", $_tocken);
@@ -94,5 +94,21 @@
             $rq->bindValue(":id", $_id);
             return $rq->execute();
         }
-
+        public function searchUserByResetPasswordTocken($_tresetTocken)
+        {
+            $request = "SELECT users.id FROM users WHERE resetToken = :resetTocken";
+            $rq = $this->connection->prepare($request);
+            $rq->bindValue(":resetTocken", $_tresetTocken, PDO::PARAM_STR);
+            $rq->execute();
+            $userId = $rq->fetch(PDO::FETCH_ASSOC);
+            return $userId;
+        }
+        public function resetPassword($_id, $_password)
+        {
+            $request = "UPDATE users SET resetToken = :tocken WHERE users.id = :id";
+            $rq = $this->connection->prepare($request);
+            $rq->bindValue(":id", $_id);
+            $rq->bindValue(":password", $_password);
+            return $rq->execute();
+        }
     }
