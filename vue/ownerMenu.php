@@ -18,6 +18,6 @@
         <a href="index.php?pageController=user&action=profil">Profil</a>
     </li>
     <li>
-        <a href="index.php?pageController=user&action=signOut">Se déconnecter</a>
+        <?php echo $_SESSION["role"] == "owner"?"<a href='index.php?pageController=user&action=signOut'>Se déconnecter</a>" : "<a href='index.php?pageController=owner&action=stophelp'>Sortire du mode aide</a>"; ?>
     </li>
 </ul>
