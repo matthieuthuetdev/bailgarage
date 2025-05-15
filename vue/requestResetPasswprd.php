@@ -5,14 +5,14 @@ if (!empty($_POST["email"])) {
         $user = new Users;
         $userId = $user->searchUserByEmail($_POST["email"])["id"];
         if (!empty($userId)) {
-            $resetTocken = "";
+            $resetToken = "";
             for ($i = 0; $i < 32; $i++) {
-                $resetTocken .= mt_rand(0, 9);
+                $resetToken .= mt_rand(0, 9);
             }
-            $user->activeResetPasswordTocken($userId, $resetTocken);
+            $user->activeResetPasswordToken($userId, $resetToken);
             $userFirstName = $user->read($userId)["firstName"];
             $mail = new MailService();
-            $mail->sendTemplate($_POST["email"], "requestResetPassword", array("firstName" => $userFirstName, "tocken" => strval($resetTocken)));
+            $mail->sendTemplate($_POST["email"], "requestResetPassword", array("firstName" => $userFirstName, "token" => strval($resetToken)));
         }
         $message = "Si vous avez un compte sur le site Vous recevrez un mail pour définire un nouveau mot de passe.";
     } else {
