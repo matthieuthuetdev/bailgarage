@@ -8,5 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'JoanFabregat\\SecureTokenGenerator\\' => array($vendorDir . '/joanfabregat/secure-token-generator/src'),
     'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
 );

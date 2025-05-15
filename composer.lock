@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "53392300b2fc8add28382f7e8ce97fca",
+    "content-hash": "e2fd032ae67c3c1503c64ff8d1dce8c8",
     "packages": [
         {
             "name": "fakerphp/faker",
@@ -68,6 +68,52 @@
                 "source": "https://github.com/FakerPHP/Faker/tree/v1.24.1"
             },
             "time": "2024-11-21T13:46:39+00:00"
+        },
+        {
+            "name": "joanfabregat/secure-token-generator",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joanfabregat/secure-token-generator.git",
+                "reference": "b91a3e218aa67ab2f07fb68e928e3054bff9cc27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joanfabregat/secure-token-generator/zipball/b91a3e218aa67ab2f07fb68e928e3054bff9cc27",
+                "reference": "b91a3e218aa67ab2f07fb68e928e3054bff9cc27",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11",
+                "spatie/ray": "^1.41"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JoanFabregat\\SecureTokenGenerator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joan Fabrégat",
+                    "email": "joanfabregat@gmail.com",
+                    "homepage": "https://www.joanfabregat.com"
+                }
+            ],
+            "description": "Generate cryptographically secure alphanumeric tokens in PHP",
+            "homepage": "https://github.com/joanfabregat/secure-token-generator",
+            "support": {
+                "issues": "https://github.com/joanfabregat/secure-token-generator/issues",
+                "source": "https://github.com/joanfabregat/secure-token-generator/tree/v1.3"
+            },
+            "time": "2024-05-14T09:41:42+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -205,20 +251,20 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.0.2",
+            "version": "v3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c"
+                "reference": "74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
-                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6",
+                "reference": "74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2"
+                "php": ">=8.1"
             },
             "type": "library",
             "extra": {
@@ -227,7 +273,7 @@
                     "name": "symfony/contracts"
                 },
                 "branch-alias": {
-                    "dev-main": "3.0-dev"
+                    "dev-main": "3.5-dev"
                 }
             },
             "autoload": {
@@ -252,7 +298,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.0.2"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.1"
             },
             "funding": [
                 {
@@ -268,7 +314,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:55:41+00:00"
+            "time": "2024-09-25T14:20:29+00:00"
         }
     ],
     "packages-dev": [],
