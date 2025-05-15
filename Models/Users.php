@@ -79,33 +79,33 @@
 
             return $rq->execute();
         }
-        public function activeResetPasswordTocken($_id, $_tocken)
+        public function activeResetPasswordToken($_id, $_token)
         {
-            $request = "UPDATE users SET resetToken = :tocken WHERE users.id = :id";
+            $request = "UPDATE users SET resetToken = :token WHERE users.id = :id";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":id", $_id);
-            $rq->bindValue(":tocken", $_tocken);
+            $rq->bindValue(":token", $_token);
             return $rq->execute();
         }
-        public function disableResetPasswordTocken($_id)
+        public function disableResetPasswordToken($_id)
         {
-            $request = "UPDATE users SET resetTocken = null where id = :id";
+            $request = "UPDATE users SET resetToken = null where id = :id";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":id", $_id);
             return $rq->execute();
         }
-        public function searchUserByResetPasswordTocken($_tresetTocken)
+        public function searchUserByResetPasswordToken($_tresetToken)
         {
-            $request = "SELECT users.id FROM users WHERE resetToken = :resetTocken";
+            $request = "SELECT users.id FROM users WHERE resetToken = :resetToken";
             $rq = $this->connection->prepare($request);
-            $rq->bindValue(":resetTocken", $_tresetTocken, PDO::PARAM_STR);
+            $rq->bindValue(":resetToken", $_tresetToken, PDO::PARAM_STR);
             $rq->execute();
             $userId = $rq->fetch(PDO::FETCH_ASSOC);
             return $userId;
         }
         public function resetPassword($_id, $_password)
         {
-            $request = "UPDATE users SET resetToken = :tocken WHERE users.id = :id";
+            $request = "UPDATE users SET password = :password WHERE users.id = :id";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":id", $_id);
             $rq->bindValue(":password", $_password);
