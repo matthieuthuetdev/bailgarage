@@ -5,7 +5,6 @@ require "./vendor/autoload.php";
 
 use Faker\Extension\Helper;
 use PHPMailer\PHPMailer\PHPMailer;
-use JoanFabregat\SecureTokenGenerator\SecureTokenGenerator;
 
 require "./vue/header.php";
 require "./Models/Database.php";
