@@ -6,14 +6,13 @@ class Garages
     {
         $this->connection = Database::getInstance();
     }
-    public function create($_ownerId, $_address, $_additionalAddress, $_cityId, $_cityName, $_postalCode, $_country, $_garageNumber, $_lotNumber, $_rentWithoutCharges, $_charges, $_surface, $_reference, $_attachmentName, $_trustee, $_caution, $_comment, $_ownerNote, $_additionalIbanId)
+    public function create($_ownerId, $_address, $_additionalAddress,  $_cityName, $_postalCode, $_country, $_garageNumber, $_lotNumber, $_rentWithoutCharges, $_charges, $_surface, $_reference, $_attachmentName, $_trustee, $_caution, $_comment, $_ownerNote, $_additionalIbanId)
     {
-        $request = "INSERT INTO garages (ownerId, address, additionalAddress, cityId,cityName, postalCode, country, garageNumber, lotNumber, rentWithoutCharges, charges, surface, reference, attachmentName, trustee, caution, comment, ownerNote, additionalIbanId) VALUES (:ownerId, :address, :additionalAddress, :cityId, :cityName, :postalCode, :country, :garageNumber, :lotNumber, :rentWithoutCharges, :charges, :surface, :reference, :attachmentName, :trustee, :caution, :comment, :ownerNote, :additionalIbanId)";
+        $request = "INSERT INTO garages (ownerId, address, additionalAddress,cityName, postalCode, country, garageNumber, lotNumber, rentWithoutCharges, charges, surface, reference, attachmentName, trustee, caution, comment, ownerNote, additionalIbanId) VALUES (:ownerId, :address, :additionalAddress, :cityName, :postalCode, :country, :garageNumber, :lotNumber, :rentWithoutCharges, :charges, :surface, :reference, :attachmentName, :trustee, :caution, :comment, :ownerNote, :additionalIbanId)";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
         $rq->bindValue(":address", $_address, PDO::PARAM_STR);
         $rq->bindValue(":additionalAddress", $_additionalAddress, PDO::PARAM_STR);
-        $rq->bindValue(":cityId", $_cityId, PDO::PARAM_INT);
         $rq->bindValue(":cityName", $_cityName, PDO::PARAM_STR);
         $rq->bindValue(":postalCode", $_postalCode, PDO::PARAM_STR);
         $rq->bindValue(":country", $_country, PDO::PARAM_STR);
@@ -49,15 +48,14 @@ class Garages
         }
         return $result;
     }
-    public function update($_garageId, $_ownerId, $_address, $_additionalAddress, $_cityId, $_cityName, $_postalCode, $_country, $_garageNumber, $_lotNumber, $_rentWithoutCharges, $_charges, $_surface, $_reference, $_attachmentName, $_trustee, $_caution, $_additionalIbanId, $_comment, $_ownerNote)
+    public function update($_garageId, $_ownerId, $_address, $_additionalAddress, $_cityName, $_postalCode, $_country, $_garageNumber, $_lotNumber, $_rentWithoutCharges, $_charges, $_surface, $_reference, $_attachmentName, $_trustee, $_caution, $_additionalIbanId, $_comment, $_ownerNote)
     {
-        $request = "UPDATE garages SET address = :address, additionalAddress = :additionalAddress, cityId = :cityId, cityName = :cityName, postalCode = :postalCode, country = :country, garageNumber = :garageNumber, lotNumber = :lotNumber, rentWithoutCharges = :rentWithoutCharges, charges = :charges, surface = :surface, reference = :reference, attachmentName = :attachmentName, trustee = :trustee, caution = :caution, comment = :comment, ownerNote = :ownerNote, additionalIbanId = :additionalIbanId WHERE id = :garageId AND ownerId = :ownerId";
+        $request = "UPDATE garages SET address = :address, additionalAddress = :additionalAddress, cityName = :cityName, postalCode = :postalCode, country = :country, garageNumber = :garageNumber, lotNumber = :lotNumber, rentWithoutCharges = :rentWithoutCharges, charges = :charges, surface = :surface, reference = :reference, attachmentName = :attachmentName, trustee = :trustee, caution = :caution, comment = :comment, ownerNote = :ownerNote, additionalIbanId = :additionalIbanId WHERE id = :garageId AND ownerId = :ownerId";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":garageId", $_garageId, PDO::PARAM_INT);
         $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
         $rq->bindValue(":address", $_address, PDO::PARAM_STR);
         $rq->bindValue(":additionalAddress", $_additionalAddress, PDO::PARAM_STR);
-        $rq->bindValue(":cityId", $_cityId, PDO::PARAM_INT);
         $rq->bindValue(":cityName", $_cityName, PDO::PARAM_STR);
         $rq->bindValue(":postalCode", $_postalCode, PDO::PARAM_STR);
         $rq->bindValue(":country", $_country, PDO::PARAM_STR);

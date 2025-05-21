@@ -35,7 +35,6 @@ if (!empty($_POST)) {
             $_POST['company'],
             $_POST['address'],
             $_POST['additionalAddress'],
-            1,
             $_POST["cityName"],
             $_POST["postalCode"],
             $_POST['phoneNumber'],
