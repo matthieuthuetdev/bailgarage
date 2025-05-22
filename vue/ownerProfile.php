@@ -32,7 +32,7 @@ if (!empty($_POST)) {
         $additionalAddress = !empty($_POST['additionalAddress']) ? $_POST['additionalAddress'] : $ownerInfo['additionalAddress'] ?? '';
         $cityName = !empty($_POST['cityName']) ? $_POST['cityName'] : $ownerInfo['cityName'] ?? '';
         $postalCode = !empty($_POST['postalCode']) ? $_POST['postalCode'] : $ownerInfo['postalCode'] ?? '';
-        $attachmentPath = !empty($_POST['attachmentPath']) ? $_POST['attachmentPath'] : $ownerInfo['attachmentPath'] ?? '';
+        $attachmentId = !empty($_POST['attachmentId']) ? $_POST['attachmentId'] : $ownerInfo['attachmentId'] ?? '';
 
         $success = $owner->update(
             $ownerId,
@@ -47,7 +47,7 @@ if (!empty($_POST)) {
             $_POST['phoneNumber'],
             $_POST['iban'],
             $_POST['bic'],
-            $attachmentPath,
+            $attachmentId,
             $_POST['gender'],
             !empty($_POST["password"]) ? $_POST["password"] : null
         );
@@ -103,8 +103,8 @@ if (!empty($_POST)) {
         <input type="text" name="bic" id="bic" required value="<?php echo htmlspecialchars($_POST['bic'] ?? $ownerInfo['bic']); ?>">
     </div>
     <div>
-        <label for="attachmentPath">Pièce jointe :</label>
-        <input type="text" name="attachmentPath" id="attachmentPath" value="<?php echo htmlspecialchars($_POST['attachmentPath'] ?? $ownerInfo['attachmentPath'] ?? ''); ?>">
+        <label for="attachmentId">Pièce jointe :</label>
+        <input type="text" name="attachmentId" id="attachmentId" value="<?php echo htmlspecialchars($_POST['attachmentId'] ?? $ownerInfo['attachmentId'] ?? ''); ?>">
     </div>
     <div>
         <label for="gender">Genre :</label>

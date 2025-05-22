@@ -8,9 +8,9 @@ class Tenants
         $this->connection = Database::getInstance();
     }
 
-    public function create($_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentPath, $_gender, $_receipt, $_ownerNote)
+    public function create($_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentId, $_gender, $_receipt, $_ownerNote)
     {
-        $request = "INSERT INTO tenants (ownerId, name, firstName, company, address, additionalAddress, cityName, postalCode, phoneNumber, landlinePhoneNumber, email, rgpd, attachmentPath, gender, receipt, ownerNote) VALUES (:ownerId, :name, :firstName, :company, :address, :additionalAddress, :cityName, :postalCode, :phoneNumber, :landlinePhoneNumber, :email, :rgpd, :attachmentPath, :gender, :receipt, :ownerNote)";
+        $request = "INSERT INTO tenants (ownerId, name, firstName, company, address, additionalAddress, cityName, postalCode, phoneNumber, landlinePhoneNumber, email, rgpd, attachmentId, gender, receipt, ownerNote) VALUES (:ownerId, :name, :firstName, :company, :address, :additionalAddress, :cityName, :postalCode, :phoneNumber, :landlinePhoneNumber, :email, :rgpd, :attachmentId, :gender, :receipt, :ownerNote)";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
         $rq->bindValue(":name", $_name, PDO::PARAM_STR);
@@ -24,7 +24,7 @@ class Tenants
         $rq->bindValue(":landlinePhoneNumber", $_landlinePhoneNumber, PDO::PARAM_STR);
         $rq->bindValue(":email", $_email, PDO::PARAM_STR);
         $rq->bindValue(":rgpd", $_rgpd, PDO::PARAM_INT);
-        $rq->bindValue(":attachmentPath", $_attachmentPath, PDO::PARAM_STR);
+        $rq->bindValue(":attachmentId", $_attachmentId, PDO::PARAM_STR);
         $rq->bindValue(":gender", $_gender, PDO::PARAM_INT);
         $rq->bindValue(":receipt", $_receipt, PDO::PARAM_INT);
         $rq->bindValue(":ownerNote", $_ownerNote, PDO::PARAM_STR);
@@ -68,9 +68,9 @@ class Tenants
         $result = $rq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function update($_tenantId, $_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentPath, $_gender, $_receipt, $_ownerNote)
+    public function update($_tenantId, $_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_attachmentId, $_gender, $_receipt, $_ownerNote)
     {
-        $request = "UPDATE tenants SET name = :name, firstName = :firstName, company = :company, address = :address, additionalAddress = :additionalAddress, cityName = :cityName, postalCode = :postalCode, phoneNumber = :phoneNumber, landlinePhoneNumber = :landlinePhoneNumber, email = :email, rgpd = :rgpd, attachmentPath = :attachmentPath, gender = :gender, receipt = :receipt, ownerNote = :ownerNote WHERE id = :tenantId AND ownerId = :ownerId";
+        $request = "UPDATE tenants SET name = :name, firstName = :firstName, company = :company, address = :address, additionalAddress = :additionalAddress, cityName = :cityName, postalCode = :postalCode, phoneNumber = :phoneNumber, landlinePhoneNumber = :landlinePhoneNumber, email = :email, rgpd = :rgpd, attachmentId = :attachmentId, gender = :gender, receipt = :receipt, ownerNote = :ownerNote WHERE id = :tenantId AND ownerId = :ownerId";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":tenantId", $_tenantId, PDO::PARAM_INT);
         $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
@@ -85,7 +85,7 @@ class Tenants
         $rq->bindValue(":landlinePhoneNumber", $_landlinePhoneNumber, PDO::PARAM_STR);
         $rq->bindValue(":email", $_email, PDO::PARAM_STR);
         $rq->bindValue(":rgpd", $_rgpd, PDO::PARAM_INT);
-        $rq->bindValue(":attachmentPath", $_attachmentPath, PDO::PARAM_STR);
+        $rq->bindValue(":attachmentId", $_attachmentId, PDO::PARAM_STR);
         $rq->bindValue(":gender", $_gender, PDO::PARAM_INT);
         $rq->bindValue(":receipt", $_receipt, PDO::PARAM_INT);
         $rq->bindValue(":ownerNote", $_ownerNote, PDO::PARAM_STR);

@@ -11,11 +11,11 @@ use LDAP\Result;
         $this->connection = Database::getInstance();
         $this->user = new Users();
     }
-    public function create($_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_iban, $_bic, $_attachmentPath, $_gender)
+    public function create($_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_iban, $_bic, $_attachmentId, $_gender)
     {
         $result = $this->user->create($_firstName, $_name, $_email);
         if ($result !== false) {
-            $request = "INSERT INTO owners (userId, company, address, additionalAddress, cityName, postalCode, phoneNumber, iban, bic, attachmentPath, gender)  VALUES (:userId, :company, :address, :additionalAddress, :cityName, :postalCode, :phoneNumber, :iban, :bic, :attachmentPath, :gender)";
+            $request = "INSERT INTO owners (userId, company, address, additionalAddress, cityName, postalCode, phoneNumber, iban, bic, attachmentId, gender)  VALUES (:userId, :company, :address, :additionalAddress, :cityName, :postalCode, :phoneNumber, :iban, :bic, :attachmentId, :gender)";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":userId", $result["id"], PDO::PARAM_INT);
             $rq->bindValue(":company", $_company, PDO::PARAM_STR);
@@ -26,7 +26,7 @@ use LDAP\Result;
             $rq->bindValue(":phoneNumber", $_phoneNumber, PDO::PARAM_STR);
             $rq->bindValue(":iban", $_iban, PDO::PARAM_STR);
             $rq->bindValue(":bic", $_bic, PDO::PARAM_STR);
-            $rq->bindValue(":attachmentPath", $_attachmentPath, PDO::PARAM_STR);
+            $rq->bindValue(":attachmentId", $_attachmentId, PDO::PARAM_STR);
             $rq->bindValue(":gender", $_gender, PDO::PARAM_STR);
             if ($rq->execute()) {
                 $password = $result["password"];
@@ -43,12 +43,12 @@ use LDAP\Result;
     public function read($_id = null)
     {
         if (is_null($_id)) {
-            $request = "SELECT users.id AS userId, owners.id AS ownerId, users.name, users.firstName, users.email, owners.company, owners.address, owners.additionalAddress, citys.label, owners.phoneNumber, owners.iban, owners.bic, owners.attachmentPath, owners.gender, roles.name AS roleName, owners.cityName, owners.postalCode  FROM owners INNER JOIN users ON owners.userId = users.id INNER JOIN roles ON users.roleId = roles.id";
+            $request = "SELECT users.id AS userId, owners.id AS ownerId, users.name, users.firstName, users.email, owners.company, owners.address, owners.additionalAddress, citys.label, owners.phoneNumber, owners.iban, owners.bic, owners.attachmentId, owners.gender, roles.name AS roleName, owners.cityName, owners.postalCode  FROM owners INNER JOIN users ON owners.userId = users.id INNER JOIN roles ON users.roleId = roles.id";
             $rq = $this->connection->prepare($request);
             $rq->execute();
             $result = $rq->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            $request = "SELECT users.id AS userId, owners.id AS ownerId, users.name, users.firstName, users.email, owners.company, owners.address, owners.additionalAddress, citys.label, owners.phoneNumber, owners.iban, owners.bic, owners.attachmentPath, owners.gender,  owners.cityName, owners.postalCode FROM owners INNER JOIN users ON owners.userId = users.id  WHERE owners.id = :id";
+            $request = "SELECT users.id AS userId, owners.id AS ownerId, users.name, users.firstName, users.email, owners.company, owners.address, owners.additionalAddress, citys.label, owners.phoneNumber, owners.iban, owners.bic, owners.attachmentId, owners.gender,  owners.cityName, owners.postalCode FROM owners INNER JOIN users ON owners.userId = users.id  WHERE owners.id = :id";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":id", $_id, PDO::PARAM_INT);
             $rq->execute();
@@ -65,14 +65,14 @@ use LDAP\Result;
         $result = $rq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function update($_ownerId, $_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_iban, $_bic, $_attachmentPath, $_gender, $_password)
+    public function update($_ownerId, $_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_phoneNumber, $_iban, $_bic, $_attachmentId, $_gender, $_password)
     {
         try {
             $userId = $this->read($_ownerId)["userId"];
             $users = new Users();
             $users->update($userId, $_firstName, $_name, $_email, $_password);
 
-            $request = "UPDATE owners SET company = :company, address = :address, additionalAddress = :additionalAddress, cityName = :cityName, postalCode = :postalCode, phoneNumber = :phoneNumber, iban = :iban, bic = :bic, attachmentPath = :attachmentPath, gender = :gender WHERE owners.id = :ownerId";
+            $request = "UPDATE owners SET company = :company, address = :address, additionalAddress = :additionalAddress, cityName = :cityName, postalCode = :postalCode, phoneNumber = :phoneNumber, iban = :iban, bic = :bic, attachmentId = :attachmentId, gender = :gender WHERE owners.id = :ownerId";
             $rq = $this->connection->prepare($request);
             $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
             $rq->bindValue(":company", $_company, PDO::PARAM_STR);
@@ -83,7 +83,7 @@ use LDAP\Result;
             $rq->bindValue(":phoneNumber", $_phoneNumber, PDO::PARAM_STR);
             $rq->bindValue(":iban", $_iban, PDO::PARAM_STR);
             $rq->bindValue(":bic", $_bic, PDO::PARAM_STR);
-            $rq->bindValue(":attachmentPath", $_attachmentPath, PDO::PARAM_STR);
+            $rq->bindValue(":attachmentId", $_attachmentId, PDO::PARAM_STR);
             $rq->bindValue(":gender", $_gender, PDO::PARAM_STR);
 
             return $rq->execute();

@@ -219,3 +219,7 @@ if (isset($_GET["pageController"])) {
     }
 }
 require "./vue/footer.php";
+if(!empty($_SESSION["role"]) && $_SESSION["role"] == "owner"){
+    $garage = new paymenthistories();
+    // $garage->create(,)
+}

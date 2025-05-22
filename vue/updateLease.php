@@ -64,7 +64,7 @@ if (!empty($_POST)) {
             $_POST['numberOfKey'],
             $_POST['numberOfBeep'],
             1,
-            $_POST['attachmentPath'],
+            $_POST['attachmentId'],
             $_POST['ownerNote']
         );
         $message = $success ? "Bail mis à jour avec succès." : "Erreur lors de la mise à jour du bail.";
@@ -152,8 +152,8 @@ $tenants = $tenant->read($_SESSION['ownerId']);
     </div>
 
     <div>
-        <label for="attachmentPath">Pièces jointes :</label>
-        <input type="text" name="attachmentPath" id="attachmentPath" value="<?php echo htmlspecialchars($currentLease['attachmentPath']); ?>">
+        <label for="attachmentId">Pièces jointes :</label>
+        <input type="text" name="attachmentId" id="attachmentId" value="<?php echo htmlspecialchars($currentLease['attachmentId']); ?>">
     </div>
 
     <div>

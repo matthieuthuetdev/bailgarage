@@ -41,7 +41,7 @@ if (!empty($_POST)) {
             $_POST['landlinePhoneNumber'],
             $_POST['email'],
             isset($_POST['rgpd']) ? 1 : 0,
-            $_POST['attachmentPath'],
+            $_POST['attachmentId'],
             isset($_POST['gender']) ? $_POST["gender"] : 0,
             isset($_POST['receipt']) ? 1 : 0,
             ""
@@ -110,8 +110,8 @@ if (!empty($_POST)) {
     </div>
 
     <div>
-        <label for="attachmentPath">Pièce jointe :</label>
-        <input type="text" name="attachmentPath" id="attachmentPath" value="<?php echo htmlspecialchars($tenantInfo['attachmentPath'] ?? ''); ?>">
+        <label for="attachmentId">Pièce jointe :</label>
+        <input type="text" name="attachmentId" id="attachmentId" value="<?php echo htmlspecialchars($tenantInfo['attachmentId'] ?? ''); ?>">
     </div>
 
     <div>

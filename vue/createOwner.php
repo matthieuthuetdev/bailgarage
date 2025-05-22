@@ -37,7 +37,7 @@ if (!empty($_POST)) {
             $_POST['phoneNumber'],
             $_POST['iban'],
             $_POST['bic'],
-            $_POST['attachmentPath'],
+            $_POST['attachmentId'],
             $_POST['gender']
         );
 
@@ -130,8 +130,8 @@ if (!empty($_POST)) {
     </div>
 
     <div>
-        <label for="attachmentPath">Pièce jointe :</label>
-        <input type="text" name="attachmentPath" id="attachmentPath" value="<?php echo isset($_POST['attachmentPath']) ? htmlspecialchars($_POST['attachmentPath']) : ''; ?>">
+        <label for="attachmentId">Pièce jointe :</label>
+        <input type="text" name="attachmentId" id="attachmentId" value="<?php echo isset($_POST['attachmentId']) ? htmlspecialchars($_POST['attachmentId']) : ''; ?>">
     </div>
 
     <div>

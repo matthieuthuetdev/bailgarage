@@ -33,7 +33,7 @@ if (!empty($_POST)) {
             $_POST['landlinePhoneNumber'],
             $_POST['email'],
             isset($_POST['rgpd']) ? 1 : 0,
-            $_POST['attachmentPath'],
+            $_POST['attachmentId'],
             isset($_POST['gender']) ? 1 : 0,
             isset($_POST['receipt']) ? 1 : 0,
             $_POST['ownerNote']
@@ -103,8 +103,8 @@ $tenantInfo = $tenant->read($_SESSION["ownerId"], $_GET["id"]);
     </div>
 
     <div>
-        <label for="attachmentPath">Pièce jointe :</label>
-        <input type="text" name="attachmentPath" id="attachmentPath" value="<?php echo displayValue(isset($_POST['attachmentPath']) ? $_POST['attachmentPath'] : $tenantInfo['attachmentPath']); ?>">
+        <label for="attachmentId">Pièce jointe :</label>
+        <input type="text" name="attachmentId" id="attachmentId" value="<?php echo displayValue(isset($_POST['attachmentId']) ? $_POST['attachmentId'] : $tenantInfo['attachmentId']); ?>">
     </div>
 
     <div>

@@ -53,7 +53,7 @@ if (empty($_GET["id"])) {
     echo "complément d'adresse : " . $ownerInfo["additionalAddress"] . "<br>";
     echo "IBAN : " . $ownerInfo["iban"] . "<br>";
     echo "BIC : " . $ownerInfo["bic"] . "<br>";
-    echo "Pièce jointe : " . $ownerInfo["attachmentPath"] . "<br>";
+    echo "Pièce jointe : " . $ownerInfo["attachmentId"] . "<br>";
     echo "genre : " . $ownerInfo["gender"] . "<br>";
 }
 ?>

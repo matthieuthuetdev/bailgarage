@@ -73,7 +73,7 @@ if (empty($_GET["id"])) {
     echo "Téléphone fixe : " . htmlspecialchars($tenantInfo["landlinePhoneNumber"]) . "<br>";
     echo "Email : " . htmlspecialchars($tenantInfo["email"]) . "<br>";
     echo "RGPD : " . ($tenantInfo["rgpd"] ? "Accepté" : "Non accepté") . "<br>";
-    echo "Pièce jointe : " . htmlspecialchars($tenantInfo["attachmentPath"]) . "<br>";
+    echo "Pièce jointe : " . htmlspecialchars($tenantInfo["attachmentId"]) . "<br>";
     echo "Genre : " . ($tenantInfo["gender"] ? "Femme" : "Homme") . "<br>";
     echo "Quittance : " . ($tenantInfo["receipt"] ? "Oui" : "Non") . "<br>";
     echo "Note du propriétaire : " . (!empty($tenantInfo["ownerNote"]) ? htmlspecialchars($tenantInfo["ownerNote"]) : "Aucune") . "<br>";

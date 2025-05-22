@@ -30,7 +30,7 @@ if (!empty($_POST)) {
             $_POST['charges'],
             $_POST['surface'],
             $_POST['reference'],
-            $_POST['attachmentName'],
+            $_POST['attachmentId'],
             $_POST['trustee'],
             $_POST['caution'],
             "",
@@ -102,8 +102,8 @@ $liste = $additionalIban->read($_SESSION["ownerId"]);
     </div>
 
     <div>
-        <label for="attachmentName">Pièce jointe :</label>
-        <input type="text" name="attachmentName" id="attachmentName" value="<?php echo isset($_POST['attachmentName']) ? htmlspecialchars($_POST['attachmentName']) : htmlspecialchars($garageInfo['attachmentName']); ?>">
+        <label for="attachmentId">Pièce jointe :</label>
+        <input type="text" name="attachmentId" id="attachmentId" value="<?php echo isset($_POST['attachmentId']) ? htmlspecialchars($_POST['attachmentId']) : htmlspecialchars($garageInfo['attachmentId']); ?>">
     </div>
 
     <div>

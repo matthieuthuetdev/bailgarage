@@ -32,7 +32,7 @@ if (empty($_POST['name']) || !preg_match("/^[a-zA-ZÀ-ÿ' -]+$/", $_POST['name']
         $_POST['phoneNumber'],
         $_POST['iban'],
         $_POST['bic'],
-        $_POST['attachmentPath'],
+        $_POST['attachmentId'],
         $_POST['gender']
     );
 }
@@ -97,8 +97,8 @@ $ownerInfo = $owner->read($_GET["id"]);
     </div>
 
     <div>
-        <label for="attachmentPath">Pièce jointe :</label>
-        <input type="text" name="attachmentPath" id="attachmentPath" class="attachmentPath" value="<?php echo $ownerInfo['attachmentPath']; ?>">
+        <label for="attachmentId">Pièce jointe :</label>
+        <input type="text" name="attachmentId" id="attachmentId" class="attachmentId" value="<?php echo $ownerInfo['attachmentId']; ?>">
     </div>
 
     <div>

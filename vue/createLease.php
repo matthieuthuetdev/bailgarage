@@ -59,7 +59,7 @@ if (!empty($_POST)) {
             $_POST['numberOfKey'],
             $_POST['numberOfBeep'],
             1,
-            $_POST['attachmentPath'],
+            $_POST['attachmentId'],
             $_POST['ownerNote']
         );
         $message = $success ? "Bail créé avec succès." : "Erreur lors de la création du bail.";
@@ -146,8 +146,8 @@ $tenants = $tenant->read($_SESSION['ownerId']);
     </div>
 
     <div>
-        <label for="attachmentPath">Pièces jointes :</label>
-        <input type="text" name="attachmentPath" id="attachmentPath" value="<?php echo isset($_POST['attachmentPath']) ? htmlspecialchars($_POST['attachmentPath']) : ''; ?>">
+        <label for="attachmentId">Pièces jointes :</label>
+        <input type="text" name="attachmentId" id="attachmentId" value="<?php echo isset($_POST['attachmentId']) ? htmlspecialchars($_POST['attachmentId']) : ''; ?>">
     </div>
 
     <div>
