@@ -28,7 +28,7 @@ require "./Controllers/PaymentController.php";
 require "./Controllers/PaymentHistoryController.php";
 require "./Controllers/EmailTemplateController.php";
 require "./Services/MailService.php";
-if(!empty($_SESSION["role"])){
+if (!empty($_SESSION["role"])) {
     if ($_SESSION["role"] == "admin") {
         require "./vue/adminMenu.php";
     } else {
