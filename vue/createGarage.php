@@ -30,7 +30,6 @@ if (!empty($_POST)) {
             $_POST['charges'],
             $_POST['surface'],
             $_POST['reference'],
-            $_POST['attachmentName'],
             $_POST['trustee'],
             $_POST['caution'],
             "",

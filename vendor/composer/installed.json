@@ -256,6 +256,53 @@
             "install-path": "../psr/container"
         },
         {
+            "name": "sicaa/number-to-fr-words",
+            "version": "1.0.1",
+            "version_normalized": "1.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sicaa/number-to-fr-words.git",
+                "reference": "d9432d79fc148ae39073d431997b46894b410a6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sicaa/number-to-fr-words/zipball/d9432d79fc148ae39073d431997b46894b410a6f",
+                "reference": "d9432d79fc148ae39073d431997b46894b410a6f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9"
+            },
+            "time": "2024-09-14T12:21:49+00:00",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "Sicaa\\NumberToFrWords\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sicaa",
+                    "email": "jessica@pandoor.dev",
+                    "homepage": "https://github.com/sicaa"
+                }
+            ],
+            "description": "Simple and effective lib to convert number into french words",
+            "support": {
+                "issues": "https://github.com/Sicaa/number-to-fr-words/issues",
+                "source": "https://github.com/Sicaa/number-to-fr-words/tree/1.0.1"
+            },
+            "install-path": "../sicaa/number-to-fr-words"
+        },
+        {
             "name": "symfony/deprecation-contracts",
             "version": "v3.5.1",
             "version_normalized": "3.5.1.0",

@@ -11,6 +11,10 @@ class ComposerStaticInit53392300b2fc8add28382f7e8ce97fca
     );
 
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Sicaa\\NumberToFrWords\\' => 22,
+        ),
         'P' => 
         array (
             'Psr\\Container\\' => 14,
@@ -27,6 +31,10 @@ class ComposerStaticInit53392300b2fc8add28382f7e8ce97fca
     );
 
     public static $prefixDirsPsr4 = array (
+        'Sicaa\\NumberToFrWords\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sicaa/number-to-fr-words/src',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
