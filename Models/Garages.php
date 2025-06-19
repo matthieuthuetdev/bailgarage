@@ -29,7 +29,12 @@ class Garages
         $rq->bindValue(":comment", $_comment, PDO::PARAM_STR);
         $rq->bindValue(":ownerNote", $_ownerNote, PDO::PARAM_STR);
         $rq->bindValue(":additionalIbanId", $_additionalIbanId, PDO::PARAM_INT);
-        return $rq->execute();
+
+        if ($rq->execute()) {
+            return $this->connection->lastInsertId();
+        } else {
+            return false;
+        }
     }
 
     public function read($_ownerId, $_garageId = null)

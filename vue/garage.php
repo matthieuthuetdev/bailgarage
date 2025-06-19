@@ -8,7 +8,6 @@ $liste = $garage->read($_SESSION["ownerId"]);
 ?>
 <a href="index.php?pageController=garage&action=create" class="btnAction">Créer un garage</a>
 <?php echo $message;
-if (empty($_GET["id"])) {
     echo "<div>";
     echo "<table>";
     echo "<thead>";
@@ -38,6 +37,7 @@ if (empty($_GET["id"])) {
     echo "</tbody>";
     echo "</table>";
     echo "</div>";
+if (empty($_GET["id"])) {
 } else {
     $garageInfo = $garage->read($_SESSION["ownerId"], $_GET["id"]);
     $additionalIbanInfo = $additionalIban->read($_SESSION["ownerId"], $garageInfo["additionalIbanId"]);
@@ -56,7 +56,6 @@ if (empty($_GET["id"])) {
     echo "Charges (€) : " . $garageInfo["charges"] . "<br>";
     echo "Surface (m²) : " . $garageInfo["surface"] . "<br>";
     echo "Référence : " . $garageInfo["reference"] . "<br>";
-    echo "Pièce jointe : " . $garageInfo["attachmentName"] . "<br>";
     echo "Syndic : " . $garageInfo["trustee"] . "<br>";
     echo "Caution (€) : " . $garageInfo["caution"] . "<br>";
     $additionalIbanInfo = empty($additionalIbanInfo["name"]) ? "par défaut" : $additionalIbanInfo["name"];
