@@ -31,14 +31,13 @@ if (!empty($_POST)) {
             $_POST['charges'],
             $_POST['surface'],
             $_POST['reference'],
-            $_POST['attachmentName'],
             $_POST['trustee'],
             $_POST['caution'],
             "",
             $_POST['ownerNote'],
             $_POST["additionalIbanId"]
         );
-        $message = $success ? "Garage dupliqué avec succès." : "Erreur lors de la création du garage.";
+        $message = filter_var($success, FILTER_VALIDATE_INT) ? "Garage dupliquer avec succès. <a href='index.php?pageController=garage&action=duplicate&id=" . $success . "' class='btnAction' >Dupliquer à nouveau</a>" : "Erreur lors de la création du garage.";
     }
     echo $message;
 }
@@ -74,12 +73,12 @@ $liste = $additionalIban->read($_SESSION["ownerId"]);
 
     <div>
         <label for="garageNumber">Numéro de garage :</label>
-        <input type="number" name="garageNumber" id="garageNumber" required value="<?php echo isset($_POST['garageNumber']) ? htmlspecialchars($_POST['garageNumber']) :""; ?>">
+        <input type="number" name="garageNumber" id="garageNumber" required value="<?php echo isset($_POST['garageNumber']) ? htmlspecialchars($_POST['garageNumber']) : ""; ?>">
     </div>
 
     <div>
         <label for="lotNumber">Numéro de lot :</label>
-        <input type="number" name="lotNumber" id="lotNumber"  value="<?php echo isset($_POST['lotNumber']) ? htmlspecialchars($_POST['lotNumber']) : ""; ?>">
+        <input type="number" name="lotNumber" id="lotNumber" value="<?php echo isset($_POST['lotNumber']) ? htmlspecialchars($_POST['lotNumber']) : ""; ?>">
     </div>
 
     <div>
@@ -99,13 +98,13 @@ $liste = $additionalIban->read($_SESSION["ownerId"]);
 
     <div>
         <label for="reference">Référence :</label>
-        <input type="text" name="reference" id="reference" value="<?php echo isset($_POST['reference']) ? htmlspecialchars($_POST['reference']) : htmlspecialchars($garageInfo['reference']); ?>">
+        <input type="text" name="reference" id="reference" value="<?php echo isset($_POST['reference']) ? htmlspecialchars($_POST['reference']) : ""; ?>">
     </div>
 
-    <div>
+    <!-- <div>
         <label for="attachmentName">Pièce jointe :</label>
         <input type="text" name="attachmentName" id="attachmentName" value="<?php echo isset($_POST['attachmentName']) ? htmlspecialchars($_POST['attachmentName']) : htmlspecialchars($garageInfo['attachmentName']); ?>">
-    </div>
+    </div> -->
 
     <div>
         <label for="trustee">Syndic :</label>
@@ -119,7 +118,7 @@ $liste = $additionalIban->read($_SESSION["ownerId"]);
     <div>
         <label for="additionalIbanId">IBAN à utiliser pour ce garage:</label>
         <select name="additionalIbanId" id="additionalIbanId">
-            <option value="0"<?php echo ($garageInfo['additionalIbanId'] == 0) ? 'selected' : ''; ?>>Principal</option>
+            <option value="0" <?php echo ($garageInfo['additionalIbanId'] == 0) ? 'selected' : ''; ?>>Principal</option>
             <?php foreach ($liste as $row): ?>
                 <option value="<?php echo $row['id']; ?>" <?php echo ($garageInfo['additionalIbanId'] == $row['id']) ? 'selected' : ''; ?>>
                     <?php echo htmlspecialchars($row['name']); ?>

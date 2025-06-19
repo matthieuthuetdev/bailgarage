@@ -30,16 +30,15 @@ if (!empty($_POST)) {
             $_POST['charges'],
             $_POST['surface'],
             $_POST['reference'],
-            $_POST['attachmentName'],
             $_POST['trustee'],
             $_POST['caution'],
             "",
             $_POST['ownerNote'],
             $_POST["additionalIbanId"]
         );
-        $message = $success ? "Garage créé avec succès." : "Erreur lors de la création du garage.";
+        $message = filter_var($success, FILTER_VALIDATE_INT) ? "Garage créé avec succès. <a href='index.php?pageController=garage&action=duplicate&id=" . $success . "' class='btnAction' >Dupliquer</a>" : "Erreur lors de la création du garage.";
     }
-    echo "$message";
+    echo $message;
 }
 $additionalIban = new additionalibans();
 $liste = $additionalIban->read($_SESSION["ownerId"]);

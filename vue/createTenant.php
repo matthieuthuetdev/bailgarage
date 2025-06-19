@@ -28,7 +28,6 @@ if (!empty($_POST)) {
             $_POST['landlinePhoneNumber'],
             $_POST['email'],
             isset($_POST['rgpd']) ? 1 : 0,
-            $_POST['attachmentPath'],
             isset($_POST['gender']) ? 1 : 0,
             isset($_POST['receipt']) ? 1 : 0,
             $_POST['ownerNote']
