@@ -8,9 +8,9 @@ class Tenants
         $this->connection = Database::getInstance();
     }
 
-    public function create($_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityId, $_cityName, $_postalCode, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_gender, $_receipt, $_ownerNote)
+    public function create($_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityId, $_cityName, $_postalCode, $_country, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_gender, $_receipt, $_ownerNote)
     {
-        $request = "INSERT INTO tenants (ownerId, name, firstName, company, address, additionalAddress, cityId, cityName, postalCode, phoneNumber, landlinePhoneNumber, email, rgpd, gender, receipt, ownerNote) VALUES (:ownerId, :name, :firstName, :company, :address, :additionalAddress, :cityId, :cityName, :postalCode, :phoneNumber, :landlinePhoneNumber, :email, :rgpd, :gender, :receipt, :ownerNote)";
+        $request = "INSERT INTO tenants (ownerId, name, firstName, company, address, additionalAddress, cityId, cityName, postalCode, country, phoneNumber, landlinePhoneNumber, email, rgpd, gender, receipt, ownerNote) VALUES (:ownerId, :name, :firstName, :company, :address, :additionalAddress, :cityId, :cityName, :postalCode, :country, :phoneNumber, :landlinePhoneNumber, :email, :rgpd, :gender, :receipt, :ownerNote)";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
         $rq->bindValue(":name", $_name, PDO::PARAM_STR);
@@ -20,6 +20,7 @@ class Tenants
         $rq->bindValue(":additionalAddress", $_additionalAddress, PDO::PARAM_STR);
         $rq->bindValue(":cityName", $_cityName, PDO::PARAM_STR);
         $rq->bindValue(":postalCode", $_postalCode, PDO::PARAM_STR);
+        $rq->bindValue(":country", $_country, PDO::PARAM_STR);
         $rq->bindValue(":cityId", $_cityId, PDO::PARAM_INT);
         $rq->bindValue(":phoneNumber", $_phoneNumber, PDO::PARAM_STR);
         $rq->bindValue(":landlinePhoneNumber", $_landlinePhoneNumber, PDO::PARAM_STR);
@@ -69,9 +70,9 @@ class Tenants
         return $result;
     }
 
-    public function update($_tenantId, $_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityId, $_cityName, $_postalCode, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_gender, $_receipt, $_ownerNote)
+    public function update($_tenantId, $_ownerId, $_name, $_firstName, $_company, $_address, $_additionalAddress, $_cityId, $_cityName, $_postalCode, $_country, $_phoneNumber, $_landlinePhoneNumber, $_email, $_rgpd, $_gender, $_receipt, $_ownerNote)
     {
-        $request = "UPDATE tenants SET name = :name, firstName = :firstName, company = :company, address = :address, additionalAddress = :additionalAddress, cityId = :cityId ,cityName = :cityName, postalCode = :postalCode, phoneNumber = :phoneNumber, landlinePhoneNumber = :landlinePhoneNumber, email = :email, rgpd = :rgpd, gender = :gender, receipt = :receipt, ownerNote = :ownerNote WHERE id = :tenantId AND ownerId = :ownerId";
+        $request = "UPDATE tenants SET name = :name, firstName = :firstName, company = :company, address = :address, additionalAddress = :additionalAddress, cityId = :cityId ,cityName = :cityName, postalCode = :postalCode, country = :country, phoneNumber = :phoneNumber, landlinePhoneNumber = :landlinePhoneNumber, email = :email, rgpd = :rgpd, gender = :gender, receipt = :receipt, ownerNote = :ownerNote WHERE id = :tenantId AND ownerId = :ownerId";
         $rq = $this->connection->prepare($request);
         $rq->bindValue(":tenantId", $_tenantId, PDO::PARAM_INT);
         $rq->bindValue(":ownerId", $_ownerId, PDO::PARAM_INT);
@@ -83,6 +84,7 @@ class Tenants
         $rq->bindValue(":cityId", $_cityId, PDO::PARAM_INT);
         $rq->bindValue(":cityName", $_cityName, PDO::PARAM_STR);
         $rq->bindValue(":postalCode", $_postalCode, PDO::PARAM_STR);
+        $rq->bindValue(":country", $_country, PDO::PARAM_STR);
         $rq->bindValue(":phoneNumber", $_phoneNumber, PDO::PARAM_STR);
         $rq->bindValue(":landlinePhoneNumber", $_landlinePhoneNumber, PDO::PARAM_STR);
         $rq->bindValue(":email", $_email, PDO::PARAM_STR);

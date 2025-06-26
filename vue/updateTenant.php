@@ -30,6 +30,7 @@ if (!empty($_POST)) {
             1,
             $_POST["cityName"],
             $_POST["postalCode"],
+            $_POST["country"],
             $_POST['phoneNumber'],
             $_POST['landlinePhoneNumber'],
             $_POST['email'],
@@ -86,6 +87,11 @@ $tenantInfo = $tenant->read($_SESSION["ownerId"], $_GET["id"]);
     <div>
         <label for="postalCode">Code postal :</label>
         <input type="text" name="postalCode" id="postalCode" value="<?php echo displayValue(isset($_POST['postalCode']) ? $_POST['postalCode'] : $tenantInfo["postalCode"]); ?>">
+    </div>
+
+    <div>
+        <label for="country">Pays :</label>
+        <input type="text" name="country" id="country" value="<?php echo displayValue(isset($_POST['country']) ? $_POST['country'] : ($tenantInfo["country"] ?? 'France')); ?>">
     </div>
 
     <div>
