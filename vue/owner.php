@@ -51,9 +51,11 @@ if (empty($_GET["id"])) {
     echo "Nom de l'entreprise : " . $ownerInfo["company"] . "<br>";
     echo "Adresse : " . $ownerInfo["address"] . "<br>";
     echo "complément d'adresse : " . $ownerInfo["additionalAddress"] . "<br>";
+    echo "Ville : " . $ownerInfo["cityName"] . "<br>";
+    echo "Code postal : " . $ownerInfo["postalCode"] . "<br>";
+    echo "Pays : " . $ownerInfo["country"] . "<br>";
     echo "IBAN : " . $ownerInfo["iban"] . "<br>";
     echo "BIC : " . $ownerInfo["bic"] . "<br>";
-    echo "Pièce jointe : " . $ownerInfo["attachmentPath"] . "<br>";
     echo "genre : " . $ownerInfo["gender"] . "<br>";
 }
 ?>
