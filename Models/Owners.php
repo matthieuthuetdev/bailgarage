@@ -13,7 +13,7 @@ class Owners
         $this->user = new Users();
     }
 
-    public function create($_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode,  $_country = 'France', $_phoneNumber, $_iban, $_bic, $_gender)
+    public function create($_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode,  $_country , $_phoneNumber, $_iban, $_bic, $_gender)
     {
         $result = $this->user->create($_firstName, $_name, $_email);
         if ($result !== false) {
@@ -70,7 +70,7 @@ class Owners
         return $result;
     }
 
-    public function update($_ownerId, $_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_country = 'France', $_phoneNumber, $_iban, $_bic, $_gender, $_password)
+    public function update($_ownerId, $_name, $_firstName, $_email, $_company, $_address, $_additionalAddress, $_cityName, $_postalCode, $_country , $_phoneNumber, $_iban, $_bic, $_gender, $_password)
     {
         try {
             $userId = $this->read($_ownerId)["userId"];
