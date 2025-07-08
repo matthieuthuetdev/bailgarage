@@ -163,7 +163,7 @@ $jsonGarages = json_encode($garages);
         </div>
         <div>
             <label for="reference"> Références du virement souhaité</label>
-            <input type="text" name="reference" id="reference" value="<?php echo htmlspecialchars($_POST['reference'] ?? '') ?>">
+            <input type="text" name="reference" id="reference" value="<?php echo htmlspecialchars($currentLease["reference"]); ?>">
         </div>
 
         <div><label for="ownerNote">Note propriétaire :</label>
