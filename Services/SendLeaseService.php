@@ -56,8 +56,8 @@ class SendLeaseService
                 ["api_key" => "leaseCharges",          "value" => empty($lleaseInfo["chargesAmount"]) ? "" : $lleaseInfo["chargesAmount"]],
                 ["api_key" => "leaseChargesLetters",   "value" => empty($lleaseInfo["chargesAmountInLetter"]) ? "" : $lleaseInfo["chargesAmountInLetter"]],
                 ["api_key" => "leaseReference",        "value" => empty($lleaseInfo["reference"]) ? "" : $lleaseInfo["reference"]],
-                ["api_key" => "leasesNumberOfKey",      "value" => empty($lleaseInfo["numberOfkey"]) ? "" : $lleaseInfo["numberOfkey"]],
-                ["api_key" => "leasesNumberOfBeep",     "value" => empty($lleaseInfo["numberOfBeep"]) ? "" : $lleaseInfo["numberOfBeep"]],
+                ["api_key" => "leasesNumberOfKey",      "value" => empty($lleaseInfo["numberOfKey"]) ? "" : $lleaseInfo["numberOfKey"]],
+                ["api_key" => "leasesNumberOfBeep",     "value" => empty($lleaseInfo["numberOfBeep"]) ? "0" : $lleaseInfo["numberOfBeep"]],
                 ["api_key" => "leasesMadeIn",          "value" => empty($lleaseInfo["madeIn"]) ? "" : $lleaseInfo["madeIn"]],
                 ["api_key" => "leasesMadeThe",          "value" => empty($lleaseInfo["madeThe"]) ? "" : $lleaseInfo["madeThe"]],
             ]
