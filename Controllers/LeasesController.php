@@ -20,4 +20,9 @@ class LeaseController
         $succes = $leases->delete($_GET["id"], $_SESSION["ownerId"]);
         header("location:index.php?pageController=lease&action=display");
     }
+    public function generate(){
+        $sendLease = new SendLeaseService();
+        $_SESSION["message"] = $sendLease->SendLeaseRequest($_GET["id"]);
+        header("location:index.php?pageController=lease&action=display");
+    }
 }

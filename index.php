@@ -28,7 +28,8 @@ require "./Controllers/PaymentController.php";
 require "./Controllers/PaymentHistoryController.php";
 require "./Controllers/EmailTemplateController.php";
 require "./Services/MailService.php";
-if(!empty($_SESSION["role"])){
+require "./Services/SendLeaseService.php";
+if (!empty($_SESSION["role"])) {
     if ($_SESSION["role"] == "admin") {
         require "./vue/adminMenu.php";
     } else {
@@ -132,6 +133,8 @@ if (isset($_GET["pageController"])) {
                 $lease->displayUpdateForm();
             } elseif ($_GET["action"] == "delete") {
                 $lease->delete();
+            } elseif ($_GET["action"] == "generate") {
+                $lease->generate();
             } else {
                 $page = new PageController();
                 $page->displayPageNotFound();
