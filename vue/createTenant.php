@@ -24,6 +24,7 @@ if (!empty($_POST)) {
             1,
             $_POST["cityName"],
             $_POST["postalCode"],
+            $_POST["country"],
             $_POST['phoneNumber'],
             $_POST['landlinePhoneNumber'],
             $_POST['email'],
@@ -57,7 +58,6 @@ if (!empty($_POST)) {
         <input type="text" name="company" id="company" value="<?php echo isset($_POST['company']) ? htmlspecialchars($_POST['company']) : ''; ?>">
     </div>
 
-
     <div>
         <label for="address">Adresse :</label>
         <input type="text" name="address" id="address" value="<?php echo isset($_POST['address']) ? htmlspecialchars($_POST['address']) : ''; ?>">
@@ -75,6 +75,10 @@ if (!empty($_POST)) {
         <label for="postalCode">Code postale :</label>
         <input type="text" name="postalCode" id="postalCode" value="<?php echo isset($_POST['postalCode']) ? htmlspecialchars($_POST['postalCode']) :""; ?>">
     </div>
+    <div>
+        <label for="country">Pays :</label>
+        <input type="text" name="country" id="country" value="<?php echo isset($_POST['country']) ? htmlspecialchars($_POST['country']) : 'France'; ?>">
+    </div>
 
     <div>
         <label for="phoneNumber">Téléphone :</label>
@@ -85,7 +89,6 @@ if (!empty($_POST)) {
         <label for="landlinePhoneNumber">Téléphone fixe :</label>
         <input type="tel" name="landlinePhoneNumber" id="landlinePhoneNumber" value="<?php echo isset($_POST['landlinePhoneNumber']) ? htmlspecialchars($_POST['landlinePhoneNumber']) : ''; ?>">
     </div>
-
 
     <div>
         <input type="checkbox" name="rgpd" id="rgpd" <?php echo isset($_POST['rgpd']) ? 'checked' : ''; ?>>

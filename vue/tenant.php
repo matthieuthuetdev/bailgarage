@@ -15,7 +15,7 @@ if (!empty($_POST["email"])) {
         $message = "le locataire a été ajouter avec succès ! Un mail vient de lui être envoyé avec le lien vers le formulaire.";
         $tenant->emailCreate($_SESSION["ownerId"], $_POST["email"]);
         $mail = new MailService();
-        $link = "https://app.bailgarage.fr/index.php?pageController=tenant&action=tenantForm&id=" . $tenant->searchTenantByEmail($_POST["email"])["id"] . "&ownerId" . $_SESSION["ownerId"] . "&email=" . $_POST["email"];
+        $link = "https://app.bailgarage.fr/index.php?pageController=tenant&action=tenantform&id=" . $tenant->searchTenantByEmail($_POST["email"])["id"] . "&ownerId" . $_SESSION["ownerId"] . "&email=" . $_POST["email"];
         $mail->sendTemplate($_POST["email"], "tenantForm", array("link" => $link));
         $message = "Email envoyer au locataire avec succès !";
     }
@@ -73,6 +73,9 @@ if (!empty($_GET["id"])) {
     echo "Entreprise  : " . htmlspecialchars($tenantInfo["company"]) . "<br>";
     echo "Adresse : " . htmlspecialchars($tenantInfo["address"]) . "<br>";
     echo "Complément d'adresse : " . htmlspecialchars($tenantInfo["additionalAddress"]) . "<br>";
+    echo "Ville : " . htmlspecialchars($tenantInfo["additionalAddress"]) . "<br>";
+    echo "Code postal : " . htmlspecialchars($tenantInfo["additionalAddress"]) . "<br>";
+    echo "Pays : " . htmlspecialchars($tenantInfo["country"]) . "<br>";
     echo "Téléphone : " . htmlspecialchars($tenantInfo["phoneNumber"]) . "<br>";
     echo "Téléphone fixe : " . htmlspecialchars($tenantInfo["landlinePhoneNumber"]) . "<br>";
     echo "Email : " . htmlspecialchars($tenantInfo["email"]) . "<br>";

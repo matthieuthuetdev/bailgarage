@@ -1,4 +1,5 @@
 <?php
+
 class Leases
 {
     private PDO $connection;
@@ -8,10 +9,31 @@ class Leases
         $this->connection = Database::getInstance();
     }
 
-    public function create($_tenantId, $_garageId, $_ownerId, $_madeThe, $_madeIn, $_startDate, $_duration, $_rentAmount, $_rentAmountInLetter, $_chargesAmount, $_chargesAmountInLetter, $_totalAmountMonthly, $_totalAmountMonthlyInLetter, $_prorata, $_prorataInLetter, $_caution, $_cautionInLetter, $_numberOfKey, $_numberOfBeep, $_status, $_ownerNote)
-    {
-        $request = "INSERT INTO leases (tenantId, garageId, ownerId, madeThe, madeIn, startDate, duration, rentAmount, rentAmountInLetter, chargesAmount, chargesAmountInLetter, totalAmountMonthly, totalAmountMonthlyInLetter, prorata, prorataInLetter, caution, cautionInLetter, numberOfKey, numberOfBeep, status, ownerNote) 
-                    VALUES (:tenantId, :garageId, :ownerId, :madeThe, :madeIn, :startDate, :duration, :rentAmount, :rentAmountInLetter, :chargesAmount, :chargesAmountInLetter, :totalAmountMonthly, :totalAmountMonthlyInLetter, :prorata, :prorataInLetter, :caution, :cautionInLetter, :numberOfKey, :numberOfBeep, :status, :ownerNote)";
+    public function create(
+        $_tenantId,
+        $_garageId,
+        $_ownerId,
+        $_madeThe,
+        $_madeIn,
+        $_startDate,
+        $_duration,
+        $_rentAmount,
+        $_rentAmountInLetter,
+        $_chargesAmount,
+        $_chargesAmountInLetter,
+        $_totalAmountMonthly,
+        $_totalAmountMonthlyInLetter,
+        $_prorata,
+        $_prorataInLetter,
+        $_caution,
+        $_cautionInLetter,
+        $_numberOfKey,
+        $_numberOfBeep,
+        $_status,
+        $_ownerNote,
+        $_reference
+    ) {
+        $request = "INSERT INTO leases (tenantId, garageId, ownerId, madeThe, madeIn, startDate, duration, rentAmount, rentAmountInLetter, chargesAmount, chargesAmountInLetter, totalAmountMonthly, totalAmountMonthlyInLetter, prorata, prorataInLetter, caution, cautionInLetter, numberOfKey, numberOfBeep, status, ownerNote, reference) VALUES (:tenantId, :garageId, :ownerId, :madeThe, :madeIn, :startDate, :duration, :rentAmount, :rentAmountInLetter, :chargesAmount, :chargesAmountInLetter, :totalAmountMonthly, :totalAmountMonthlyInLetter, :prorata, :prorataInLetter, :caution, :cautionInLetter, :numberOfKey, :numberOfBeep, :status, :ownerNote, :reference)";
 
         $rq = $this->connection->prepare($request);
 
@@ -36,6 +58,7 @@ class Leases
         $rq->bindValue(":numberOfBeep", $_numberOfBeep, PDO::PARAM_INT);
         $rq->bindValue(":status", $_status, PDO::PARAM_INT);
         $rq->bindValue(":ownerNote", $_ownerNote, PDO::PARAM_STR);
+        $rq->bindValue(":reference", $_reference, PDO::PARAM_STR);
 
         return $rq->execute();
     }
@@ -59,9 +82,31 @@ class Leases
         return $result;
     }
 
-    public function update($_leaseId, $_tenantId, $_garageId, $_madeThe, $_madeIn, $_startDate, $_duration, $_rentAmount, $_rentAmountInLetter, $_chargesAmount, $_chargesAmountInLetter, $_totalAmountMonthly, $_totalAmountMonthlyInLetter, $_prorata, $_prorataInLetter, $_caution, $_cautionInLetter, $_numberOfKey, $_numberOfBeep, $_status, $_ownerNote)
-    {
-        $request = "UPDATE leases SET tenantId = :tenantId, garageId = :garageId, madeThe = :madeThe, madeIn = :madeIn, startDate = :startDate, duration = :duration, rentAmount = :rentAmount, rentAmountInLetter = :rentAmountInLetter, chargesAmount = :chargesAmount, chargesAmountInLetter = :chargesAmountInLetter, totalAmountMonthly = :totalAmountMonthly, totalAmountMonthlyInLetter = :totalAmountMonthlyInLetter, prorata = :prorata, prorataInLetter = :prorataInLetter, caution = :caution, cautionInLetter = :cautionInLetter, numberOfKey = :numberOfKey, numberOfBeep = :numberOfBeep, status = :status, ownerNote = :ownerNote WHERE id = :leaseId";
+    public function update(
+        $_leaseId,
+        $_tenantId,
+        $_garageId,
+        $_madeThe,
+        $_madeIn,
+        $_startDate,
+        $_duration,
+        $_rentAmount,
+        $_rentAmountInLetter,
+        $_chargesAmount,
+        $_chargesAmountInLetter,
+        $_totalAmountMonthly,
+        $_totalAmountMonthlyInLetter,
+        $_prorata,
+        $_prorataInLetter,
+        $_caution,
+        $_cautionInLetter,
+        $_numberOfKey,
+        $_numberOfBeep,
+        $_status,
+        $_ownerNote,
+        $_reference
+    ) {
+        $request = "UPDATE leases SET tenantId = :tenantId, garageId = :garageId, madeThe = :madeThe, madeIn = :madeIn, startDate = :startDate, duration = :duration, rentAmount = :rentAmount, rentAmountInLetter = :rentAmountInLetter, chargesAmount = :chargesAmount, chargesAmountInLetter = :chargesAmountInLetter, totalAmountMonthly = :totalAmountMonthly, totalAmountMonthlyInLetter = :totalAmountMonthlyInLetter, prorata = :prorata, prorataInLetter = :prorataInLetter, caution = :caution, cautionInLetter = :cautionInLetter, numberOfKey = :numberOfKey, numberOfBeep = :numberOfBeep, status = :status, ownerNote = :ownerNote, reference = :reference WHERE id = :leaseId";
 
         $rq = $this->connection->prepare($request);
 
@@ -86,6 +131,7 @@ class Leases
         $rq->bindValue(":numberOfBeep", $_numberOfBeep, PDO::PARAM_INT);
         $rq->bindValue(":status", $_status, PDO::PARAM_INT);
         $rq->bindValue(":ownerNote", $_ownerNote, PDO::PARAM_STR);
+        $rq->bindValue(":reference", $_reference, PDO::PARAM_STR);
 
         return $rq->execute();
     }

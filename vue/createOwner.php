@@ -23,6 +23,7 @@ if (!empty($_POST)) {
     } else {
         $cityName = htmlspecialchars($_POST["cityName"]);
         $postalCode = htmlspecialchars($_POST["postalCode"]);
+        $country = htmlspecialchars($_POST["country"]);
 
         $owner = new Owners();
         $success = $owner->create(
@@ -34,6 +35,7 @@ if (!empty($_POST)) {
             $_POST['additionalAddress'],
             $cityName,
             $postalCode,
+            $country,
             $_POST['phoneNumber'],
             $_POST['iban'],
             $_POST['bic'],
@@ -100,6 +102,10 @@ if (!empty($_POST)) {
         <label for="postalCode">Code postal :</label>
         <input type="text" name="postalCode" id="postalCode" value="<?php echo isset($_POST['postalCode']) ? htmlspecialchars($_POST['postalCode']) : ""; ?>">
     </div>
+    <div>
+        <label for="country">Pays :</label>
+        <input type="text" name="country" id="country" value="<?php echo isset($_POST['country']) ? htmlspecialchars($_POST['country']) : 'France'; ?>">
+    </div>
 
     <div>
         <label for="phoneNumber">Numéro de téléphone :</label>
@@ -141,7 +147,6 @@ if (!empty($_POST)) {
             <option value="femme" <?php echo (isset($_POST['gender']) && $_POST['gender'] == 'femme') ? 'selected' : ''; ?>>Femme</option>
         </select>
     </div>
-
 
     <button type="submit">Envoyer</button>
 </form>

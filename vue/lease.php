@@ -62,7 +62,6 @@ if (!empty($_GET["id"])) {
     echo "Nombre de clés : " . htmlspecialchars($leaseInfo["numberOfKey"]) . "<br>";
     echo "Nombre de bip : " . htmlspecialchars($leaseInfo["numberOfBeep"]) . "<br>";
     echo "Statut : " . ($leaseInfo["status"] == 1 ? "Actif" : "Inactif") . "<br>";
-    echo "Pièce jointe : " . htmlspecialchars($leaseInfo["attachmentPath"]) . "<br>";
     echo "Note du propriétaire : " . (!empty($leaseInfo["ownerNote"]) ? htmlspecialchars($leaseInfo["ownerNote"]) : "Aucune") . "<br>";
 
     echo "<h3>Informations sur le locataire lié a ce bail : </h3>";
@@ -75,7 +74,6 @@ if (!empty($_GET["id"])) {
     echo "Téléphone fixe : " . htmlspecialchars($tenantInfo["landlinePhoneNumber"]) . "<br>";
     echo "Email : " . htmlspecialchars($tenantInfo["email"]) . "<br>";
     echo "RGPD : " . ($tenantInfo["rgpd"] ? "Accepté" : "Non accepté") . "<br>";
-    echo "Pièce jointe : " . htmlspecialchars($tenantInfo["attachmentPath"]) . "<br>";
     echo "Genre : " . ($tenantInfo["gender"] ? "Femme" : "Homme") . "<br>";
     echo "Quittance : " . ($tenantInfo["receipt"] ? "Oui" : "Non") . "<br>";
     echo "Note du propriétaire : " . (!empty($tenantInfo["ownerNote"]) ? htmlspecialchars($tenantInfo["ownerNote"]) : "Aucune") . "<br>";
@@ -91,7 +89,6 @@ if (!empty($_GET["id"])) {
     echo "Charges (€) : " . $garageInfo["charges"] . "<br>";
     echo "Surface (m²) : " . $garageInfo["surface"] . "<br>";
     echo "Référence : " . $garageInfo["reference"] . "<br>";
-    echo "Pièce jointe : " . $garageInfo["attachmentName"] . "<br>";
     echo "Syndic : " . $garageInfo["trustee"] . "<br>";
     echo "Caution (€) : " . $garageInfo["caution"] . "<br>";
     echo "Commentaire : " . (!empty($garageInfo["comment"]) ? $garageInfo["comment"] : "Aucun") . "<br>";
@@ -99,6 +96,7 @@ if (!empty($_GET["id"])) {
 
     echo "<br>";
     echo "<a href='index.php?pageController=lease&action=update&id=" . $leaseInfo["id"] . "' class='btnAction'>Modifier</a> ";
+    echo "<a href='index.php?pageController=lease&action=generate&id=" . $leaseInfo["id"] . "' class='btnAction'>Générer et envoyer</a>";
     echo "<a href='index.php?pageController=lease&action=delete&id=" . $leaseInfo["id"] . "' class='btnAction'>Supprimer</a>";
 }
 ?>

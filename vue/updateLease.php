@@ -28,7 +28,9 @@ if (!empty($_POST)) {
         $message = "Le montant des charges est obligatoire.";
     } elseif (empty($_POST['numberOfKey']) || !is_numeric($_POST['numberOfKey'])) {
         $message = "Le nombre de clés est obligatoire.";
-    } else {
+    } elseif (empty($_POST['reference'])) {
+    $message = " La référence du virement souhaité est obligatoire.";
+  } else {
         $rent = floatval($_POST['rentAmount']);
         $charges = floatval($_POST['chargesAmount']);
         $total = $rent + $charges;
@@ -68,7 +70,8 @@ if (!empty($_POST)) {
             $_POST['numberOfKey'],
             $_POST['numberOfBeep'],
             1,
-            $_POST['ownerNote']
+            $_POST['ownerNote'],
+            $_POST["reference"]
         );
 
         $message = $success
@@ -157,6 +160,10 @@ $jsonGarages = json_encode($garages);
 
         <div><label for="numberOfBeep">Nombre de bip :</label>
             <input type="number" name="numberOfBeep" id="numberOfBeep" value="<?= htmlspecialchars($currentLease['numberOfBeep']) ?>">
+        </div>
+        <div>
+            <label for="reference"> Références du virement souhaité</label>
+            <input type="text" name="reference" id="reference" value="<?php echo htmlspecialchars($_POST['reference'] ?? '') ?>">
         </div>
 
         <div><label for="ownerNote">Note propriétaire :</label>
