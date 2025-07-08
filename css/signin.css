@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.left {
+  flex: 1;
+  background: url('./../img/garage.png') no-repeat center center;
+  background-size: cover;
+  display: block;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 4rem;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.right > * {
+  width: 100%;
+  max-width: 400px;
+}
+
+.right img {
+  width: 90px;
+  margin-bottom: 2rem;
+  align-self: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+form input[type="email"],
+form input[type="password"] {
+  padding: 15px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  font-size: 15px;
+  width: 100%;
+}
+
+form input[type="submit"] {
+  padding: 12px;
+  background-color: #2f6287;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 180px;
+  margin: 0 auto;
+}
+
+p {
+  color: red;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+a {
+  color: #000;
+  text-decoration: underline;
+  text-align: center;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+/* Styles pour les boutons Admin/Propriétaire */
+.right > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 15px;
+}
+
+#btnAdmin, 
+#btnOwner {
+  width: 180px;
+  padding: 12px;
+  margin: 5px 0;
+  background: #e0e0e0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  text-align: center;
+}
