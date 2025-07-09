@@ -17,6 +17,7 @@ require "./Models/AdditionalIbans.php";
 require "./Models/Payments.php";
 require "./Models/PaymentHistories.php";
 require "./Models/EmailTemplates.php";
+require "./Models/Attachments.php";
 require "./Controllers/PageController.php";
 require "./Controllers/UserController.php";
 require "./Controllers/GarageController.php";
