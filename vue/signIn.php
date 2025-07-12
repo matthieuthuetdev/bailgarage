@@ -34,6 +34,7 @@ if (isset($_POST["email"], $_POST["password"])) {
     </div>
     <input type="submit" name="login-submit" value="Se connecter">
 </form>
+<a href="index.php?pageController=user&action=requestresetpassword">Mot de passe oublier ?</a>
 <div>
     <button id="btnAdmin">Admin</button>
 </div>

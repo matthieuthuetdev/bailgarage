@@ -45,7 +45,7 @@ if (!empty($_POST)) {
             $_POST['attachmentPath'],
             isset($_POST['gender']) ? $_POST["gender"] : 0,
             isset($_POST['receipt']) ? 1 : 0,
-            $_POST['ownerNote']
+            ""
         );
         $message = $success ? "Locataire modifié avec succès." : "Erreur lors de la modification du locataire.";
     }
@@ -128,10 +128,6 @@ if (!empty($_POST)) {
         <label for="receipt">Je souhaite recevoir une quittance de loyer chaque mois.</label>
     </div>
 
-    <div>
-        <label for="ownerNote">Note du propriétaire :</label>
-        <textarea name="ownerNote" id="ownerNote" rows="3"><?php echo htmlspecialchars($tenantInfo['ownerNote'] ?? ''); ?></textarea>
-    </div>
 
     <button type="submit">Enregistrer</button>
 </form>

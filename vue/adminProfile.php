@@ -14,9 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Email invalide.";
     } elseif ($_POST['email'] !== $userInfo['email'] && $users->searchUserByEmail($_POST['email'])) {
         $message = "Cet email est déjà utilisé par un autre utilisateur.";
-    } elseif (!empty($_POST['password']) && $_POST['password'] !== $_POST['confirmPassword']) {
-        $message = "Les mots de passe ne correspondent pas.";
-    } else {
+        } elseif (!empty($_POST['password']) && $_POST['password'] !== $_POST['confirmPassword']) {
+            $message = "Les mots de passe ne correspondent pas.";
+        } else {
         $success = $users->update(
             $userId,
             $_POST['firstName'],

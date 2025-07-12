@@ -11,10 +11,18 @@ class ComposerStaticInit53392300b2fc8add28382f7e8ce97fca
     );
 
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Sicaa\\NumberToFrWords\\' => 22,
+        ),
         'P' => 
         array (
             'Psr\\Container\\' => 14,
             'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'J' => 
+        array (
+            'JoanFabregat\\SecureTokenGenerator\\' => 34,
         ),
         'F' => 
         array (
@@ -23,6 +31,10 @@ class ComposerStaticInit53392300b2fc8add28382f7e8ce97fca
     );
 
     public static $prefixDirsPsr4 = array (
+        'Sicaa\\NumberToFrWords\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sicaa/number-to-fr-words/src',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
@@ -30,6 +42,10 @@ class ComposerStaticInit53392300b2fc8add28382f7e8ce97fca
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'JoanFabregat\\SecureTokenGenerator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/joanfabregat/secure-token-generator/src',
         ),
         'Faker\\' => 
         array (

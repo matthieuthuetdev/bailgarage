@@ -6,7 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Sicaa\\NumberToFrWords\\' => array($vendorDir . '/sicaa/number-to-fr-words/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'JoanFabregat\\SecureTokenGenerator\\' => array($vendorDir . '/joanfabregat/secure-token-generator/src'),
     'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
 );

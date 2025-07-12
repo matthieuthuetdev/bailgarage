@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require "./vendor/autoload.php";
 
+use Faker\Extension\Helper;
 use PHPMailer\PHPMailer\PHPMailer;
 
 require "./vue/header.php";
@@ -27,11 +28,13 @@ require "./Controllers/PaymentController.php";
 require "./Controllers/PaymentHistoryController.php";
 require "./Controllers/EmailTemplateController.php";
 require "./Services/MailService.php";
-if (!empty($_SESSION) && $_SESSION["role"] == "admin") {
-    require "./vue/adminMenu.php";
-} elseif (!empty($_SESSION) && $_SESSION["role"] == "owner") {
-    require "./vue/ownerMenu.php";
-} else {
+require "./Services/SendLeaseService.php";
+if (!empty($_SESSION["role"])) {
+    if ($_SESSION["role"] == "admin") {
+        require "./vue/adminMenu.php";
+    } else {
+        require "./vue/ownerMenu.php";
+    }
 }
 if (isset($_GET["pageController"])) {
     switch ($_GET["pageController"]) {
@@ -50,6 +53,10 @@ if (isset($_GET["pageController"])) {
                 $user->signOut();
             } elseif ($_GET["action"] == "profil") {
                 $user->displayProfil();
+            } elseif ($_GET["action"] == "requestresetpassword") {
+                $user->displayRequestResetPassword();
+            } elseif ($_GET["action"] == "resetpassword") {
+                $user->displayResetPassword();
             } else {
                 $page = new PageController();
                 $page->displayPageNotFound();
@@ -67,6 +74,10 @@ if (isset($_GET["pageController"])) {
                 $owner->displayUpdateForm();
             } elseif ($_GET["action"] == "delete") {
                 $owner->delete();
+            } elseif ($_GET["action"] == "help" && !empty($_SESSION["adminId"]) && empty($_SESSION["ownerId"])) {
+                $owner->startToHelp();
+            } elseif ($_GET["action"] == "stophelp" && $_SESSION["role"] == "helper") {
+                $owner->stopToHelp();
             } else {
                 $page = new PageController();
                 $page->displayPageNotFound();
@@ -74,11 +85,11 @@ if (isset($_GET["pageController"])) {
             break;
         case "garage":
             $garage = new GarageController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $garage->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $garage->displayGarage();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
                 $garage->displayCreateForm();
             } elseif ($_GET["action"] == "update") {
                 $garage->displayUpdateForm();
@@ -93,11 +104,11 @@ if (isset($_GET["pageController"])) {
             break;
         case "tenant":
             $tenant = new TenantsController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $tenant->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $tenant->displayTenant();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
                 $tenant->displayCreateForm();
             } elseif ($_GET["action"] == "update") {
                 $tenant->displayUpdateForm();
@@ -112,16 +123,18 @@ if (isset($_GET["pageController"])) {
             break;
         case "lease":
             $lease = new LeaseController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $lease->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $lease->displayLease();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
                 $lease->displayCreateForm();
             } elseif ($_GET["action"] == "update") {
                 $lease->displayUpdateForm();
             } elseif ($_GET["action"] == "delete") {
                 $lease->delete();
+            } elseif ($_GET["action"] == "generate") {
+                $lease->generate();
             } else {
                 $page = new PageController();
                 $page->displayPageNotFound();
@@ -129,11 +142,11 @@ if (isset($_GET["pageController"])) {
             break;
         case "additionalIban":
             $additionalIban = new AdditionalIbanController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && "additionalIban") {
+            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $additionalIban->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION)) {
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $additionalIban->displayAdditionalIban();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION)  && empty($_GET["id"])) {
+            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
                 $additionalIban->displayCreateForm();
             } elseif ($_GET["action"] == "update") {
                 $additionalIban->displayUpdateForm();
@@ -146,11 +159,11 @@ if (isset($_GET["pageController"])) {
             break;
         case "payment":
             $payment = new PaymentController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $payment->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $payment->displayTenant();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
                 $payment->displayCreateForm();
             } elseif ($_GET["action"] == "update") {
                 $payment->displayUpdateForm();
@@ -163,11 +176,11 @@ if (isset($_GET["pageController"])) {
             break;
         case "paymenthistory":
             $paymentHistory = new paymentHistoryController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $paymentHistory->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "owner") {
+            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
                 $paymentHistory->displayTenant();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "owner" && empty($_GET["id"])) {
+            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
                 $paymentHistory->displayCreateForm();
             } elseif ($_GET["action"] == "update") {
                 $paymentHistory->displayUpdateForm();
@@ -181,7 +194,6 @@ if (isset($_GET["pageController"])) {
 
         case "emailtemplate":
             $emailTemplate = new emailTemplateController();
-
             if ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
                 $emailTemplate->displayEmailTemplate();
             } elseif ($_GET["action"] == "update") {
@@ -192,7 +204,6 @@ if (isset($_GET["pageController"])) {
             }
             break;
 
-
         default:
             $page = new PageController();
             $page->displayPageNotFound();
@@ -202,7 +213,7 @@ if (isset($_GET["pageController"])) {
     if (empty($_SESSION)) {
         $user = new UserController();
         $user->displaySignInForm();
-    } elseif ($_SESSION["role"] == "prietaire") {
+    } elseif ($_SESSION["role"] == "owner") {
         $garage = new GarageController();
         $garage->displayGarage();
     } else {
