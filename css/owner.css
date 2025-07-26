@@ -1,0 +1,214 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Urbanist', system-ui, sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 280px;
+  padding: 3rem;
+  width: calc(100% - 280px);
+}
+
+.main-content h1 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+.main-content .admin {
+  color: #2f6287;
+  font-weight: 600;
+}
+
+/* Barre de recherche */
+.search-container {
+  position: relative;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-input {
+  padding: 14px 20px 14px 45px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+}
+
+/* Section titre + bouton */
+.title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.sub-title {
+  font-size: 1.4rem;
+  color: #2c3e50;
+}
+
+.btnAction {
+  background-color: #2f6287;
+  color: white;
+  padding: 14px 26px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.btnAction:hover {
+  background-color: #244e6a;
+}
+
+/* Tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 1.05rem;
+}
+
+th {
+  background-color: #2e5e84;
+  color: white;
+  font-weight: 500;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Liens d'action */
+.info-link,
+.edit-link,
+.delete-link {
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #306182;
+}
+
+
+.modal {
+  display: none;
+  /* ✅ KEEP ONLY THIS */
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 60%;
+}
+
+.card {
+  width: 100%;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.close-btn-info {
+  float: right;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.info-grid p {
+  margin: 8px 0;
+}
+
+
+/* Carte blanche des infos */
+.card {
+  background: white;
+  padding: 3rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  width: 80%;
+  min-width: 500px;
+}
+
+.card h2 {
+  color: #2e5e84;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 2rem;
+  font-size: 1rem;
+  color: #000;
+}
+
+/* Signature */
+.signature-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.signature-box {
+  background: white;
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 300px;
+  max-height: 120px;
+}
+
+.signature-box img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
