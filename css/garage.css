@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Urbanist', system-ui, sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+
+/* === MAIN CONTENT === */
+.main-content {
+    margin-left: 280px;
+    padding: 3rem;
+    width: calc(100% - 280px);
+}
+
+.main-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+}
+
+.main-content .proprio {
+    color: #2f6287;
+    font-weight: 600;
+}
+
+/* Barre de recherche */
+.search-container {
+    position: relative;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.search-input {
+    padding: 14px 20px 14px 45px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+/* === TITLE + BUTTON === */
+.title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.sub-title {
+    font-size: 1.4rem;
+    color: #2c3e50;
+}
+
+.btnAction {
+    background-color: #2f6287;
+    color: white;
+    padding: 14px 26px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btnAction:hover {
+    background-color: #244e6a;
+}
+
+/* === TABLE === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 1.05rem;
+}
+
+th {
+    background-color: #2e5e84;
+    color: white;
+    font-weight: 500;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* === TABLE ACTION LINKS === */
+a.info-link,
+a.edit-link,
+a.delete-link,
+a.duplicate-link {
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #306182;
+    text-decoration: none;
+}
+
+a.info-link:hover,
+a.edit-link:hover,
+a.delete-link:hover,
+a.duplicate-link:hover {
+    text-decoration: underline;
+}
+
+
+/* Modal overlay */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal box */
+.modal-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: #2e5e84;
+    cursor: pointer;
+}
+
+/* Reuse your card styling */
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+    color: #2e5e84;
+    margin-bottom: 1.5rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 2rem;
+    font-size: 1rem;
+}
+
+/* Ensure modal uses flex-centering
+.modal {
+  display: none; 
+  display: flex; 
+} */

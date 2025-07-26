@@ -1,0 +1,107 @@
+<main class="main-content">
+    <h1>Bienvenue <span class="proprio">Proprio</span>, vous êtes bien connecté en tant que propriétaire.</h1>
+    <!-- Barre de recherche seule en haut -->
+    <div class="search-container">
+        <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <input type="text" placeholder="Recherche..." class="search-input" />
+    </div>
+    <div class="title-section">
+        <h2 class="sub-title">Liste des garages</h2>
+        <a href="index.html?pageController=garage&action=create" class="btnAction">CRÉER UN GARAGE</a>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Adresse</th>
+                    <th>Complément</th>
+                    <th>Plus d’info</th>
+                    <th>Dupliquer</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>123 Rue Fictive</td>
+                    <td>Appartement 4B</td>
+                    <td><a href='index.html?pageController=garage&action=display&id=1' class="info-link"
+                            data-garage-id="1"><i class="fa-solid fa-info"></i></a></td>
+                    <td><a href='index.html?pageController=garage&action=duplicate&id=1' class="duplicate-link"><i
+                                class="fa-solid fa-copy"></i></a></td>
+                    <td><a href='index.html?pageController=garage&action=update&id=1' class="edit-link"><i
+                                class="fa-solid fa-pen-to-square"></i></a></td>
+                    <td><a href='index.html?pageController=garage&action=delete&id=1' class="delete-link"><i
+                                class="fa-solid fa-trash"></i></a></td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>456 Rue Imaginaire</td>
+                    <td>Suite 12</td>
+                    <td><a href='index.html?pageController=garage&action=display&id=2' class="info-link"
+                            data-garage-id="1"><i class="fa-solid fa-info"></i></a></td>
+                    <td><a href='index.html?pageController=garage&action=duplicate&id=2' class="duplicate-link"><i
+                                class="fa-solid fa-copy"></i></a></td>
+                    <td><a href='index.html?pageController=garage&action=update&id=2' class="edit-link"><i
+                                class="fa-solid fa-pen-to-square"></i></a></td>
+                    <td><a href='index.html?pageController=garage&action=delete&id=2' class="delete-link"><i
+                                class="fa-solid fa-trash"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="garageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="card">
+                <h2>Informations sur le garage</h2>
+                <div class="info-grid">
+                    <p><strong>Numéro du garage :</strong> 001</p>
+                    <p><strong>Adresse :</strong> 123 Rue Fictive</p>
+                    <p><strong>Complément :</strong> Appartement 4B</p>
+                    <p><strong>Ville :</strong> Paris</p>
+                    <p><strong>Code postal :</strong> 75001</p>
+                    <p><strong>Pays :</strong> France</p>
+                    <p><strong>Numéro de lot :</strong> 10</p>
+                    <p><strong>Loyer HC (€) :</strong> 120</p>
+                    <p><strong>Charges (€) :</strong> 15</p>
+                    <p><strong>Surface (m²) :</strong> 18</p>
+                    <p><strong>Référence :</strong> G12345</p>
+                    <p><strong>Syndic :</strong> Nexity</p>
+                    <p><strong>Caution (€) :</strong> 240</p>
+                    <p><strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123</p>
+                    <p><strong>Commentaire :</strong> Garage spacieux avec accès sécurisé</p>
+                    <p><strong>Note :</strong> Aucun</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const modal = document.getElementById('garageModal');
+    const closeBtn = document.querySelector('.close-btn');
+
+    // Only open modal when clicking a link with class "info-link"
+    document.querySelectorAll('.info-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Optional: You can fetch garage data dynamically using dataset.garageId
+            modal.style.display = 'flex';
+        });
+    });
+
+    // Close when clicking the close button
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // Close when clicking outside the modal content
+    window.addEventListener('click', e => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+</script>

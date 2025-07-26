@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr-fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <title>Bailgarage</title>
+    <link rel="stylesheet" href="/css/owner.css">
+</head>
+<!-- MENU LATÉRAL -->
+
+<body>
+    <main class="main-content">
+        <h1>Bienvenue <span class="admin">Admin</span>, vous êtes bien connecté en tant qu'administrateur.</h1>
+
+        <!-- Barre de recherche seule en haut -->
+        <div class="search-container">
+            <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" placeholder="Recherche..." class="search-input" />
+        </div>
+
+        <!-- Titre et bouton sous la barre de recherche -->
+        <div class="title-section">
+            <h2 class="sub-title">Liste des propriétaires (4)</h2>
+            <a href="index.html?pageController=owner&action=create" class="btnAction">CRÉER UN PROPRIÉTAIRE</a>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Téléphone</th>
+                        <th>Email</th>
+                        <th>Infos</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dupont</td>
+                        <td>Jean</td>
+                        <td>0601020304</td>
+                        <td>jean.dupont@example.com</td>
+                        <td><a href="#" class="info-link"><i class="fa-solid fa-info"></i></a></td>
+                        <td><a href="#" class="edit-link"> <i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="#" class="delete-link"><i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>Martin</td>
+                        <td>Claire</td>
+                        <td>0605060708</td>
+                        <td>claire.martin@example.com</td>
+                        <td><a href="index.html?pageController=owner&action=display&id=1" class="info-link"><i class="fa-solid fa-info"></i></a></td>
+                        <td><a href="index.html?pageController=owner&action=update&id=1" class="edit-link"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="index.html?pageController=owner&action=delete&id=1" class="delete-link"><i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>Martin</td>
+                        <td>Claire</td>
+                        <td>0605060708</td>
+                        <td>claire.martin@example.com</td>
+                        <td><a href="index.html?pageController=owner&action=display&id=1" class="info-link"><i class="fa-solid fa-info"></i></a></td>
+                        <td><a href="index.html?pageController=owner&action=update&id=1" class="edit-link"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="index.html?pageController=owner&action=delete&id=1" class="delete-link"><i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>Martin</td>
+                        <td>Claire</td>
+                        <td>0605060708</td>
+                        <td>claire.martin@example.com</td>
+                        <td><a href="index.html?pageController=owner&action=display&id=1" class="info-link"><i class="fa-solid fa-info"></i></a></td>
+                        <td><a href="index.html?pageController=owner&action=update&id=1" class="edit-link"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="index.html?pageController=owner&action=delete&id=1" class="delete-link"><i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn-info">&times;</span>
+                <div id="infoCardContent"></div>
+            </div>
+        </div>
+    </main>
+    <script>
+        const infoModal = document.getElementById('infoModal');
+        const infoContent = document.getElementById('infoCardContent');
+        const infoLinks = document.querySelectorAll('.info-link');
+        const closeInfoBtn = document.querySelector('.close-btn-info');
+
+        infoLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Example data — in real use, you'd pull this from data-* attributes or the table
+                const cardHTML = `
+  <div class="card">
+    <h2>Informations Complètes</h2>
+    <div class="info-grid">
+  <p><strong>Prénom :</strong> Jordan</p>
+  <p><strong>Adresse :</strong> 4 rue des gourdes</p>
+  <p><strong>Nom :</strong> Delage</p>
+  <p><strong>Ville :</strong> Paris</p>
+  <p><strong>Genre :</strong> Homme</p>
+  <p><strong>Code postal :</strong> 92000</p>
+  <p><strong>Entreprise :</strong> Non renseigné</p>
+  <p><strong>IBAN :</strong> Non renseigné</p>
+  <p><strong>Numéro de téléphone :</strong> 06 00 00 00 00</p>
+  <p><strong>BIC :</strong> 65</p>
+</div>
+    <div class="signature-section">
+      <div class="signature-box">
+        <img src="/img/signature.png" alt="Signature">
+      </div>
+    </div>
+  </div>
+`;
+                infoContent.innerHTML = cardHTML;
+                infoModal.style.display = 'block';
+            });
+        });
+
+        closeInfoBtn.addEventListener('click', function () {
+            infoModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function (e) {
+            if (e.target === infoModal) {
+                infoModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
