@@ -1,0 +1,264 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Urbanist', system-ui, sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+    background: #2e5e84;
+    color: white;
+    width: 300px;
+    padding: 2rem 1.5rem;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    width: 70px;
+    margin-bottom: 2rem;
+    align-self: center;
+}
+
+/* Menu navigation */
+.nav {
+    flex-grow: 1;
+}
+
+.nav h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav ul {
+    list-style: none;
+}
+
+.nav li {
+    margin: 0;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav li a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    font-size: 1rem;
+    min-width: 0;
+}
+
+.nav li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+.nav li i {
+    font-size: 1.2rem;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Logout button */
+.logout-container {
+    margin-top: auto;
+    /* pushes the logout button to the bottom */
+    padding-top: 1rem;
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    width: 100%;
+    font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    border-radius: 6px;
+}
+
+.logout:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logout i {
+    font-size: 1.2rem;
+}
+
+/* Structure principale */
+.main-content {
+    margin-left: 280px;
+    padding: 3rem;
+    width: calc(100% - 280px);
+}
+
+.main-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+}
+
+
+/* Barre de recherche */
+.search-container {
+    position: relative;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.search-input {
+    padding: 14px 20px 14px 45px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+.content {
+    margin-left: 280px;
+    padding: 2.5rem;
+    flex-grow: 1;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+}
+
+.title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.sub-title {
+    font-size: 1.4rem;
+    color: #2c3e50;
+}
+
+/* Barre de recherche */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: transparent;
+    padding-left: 0.5rem;
+}
+
+.search-bar button {
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+    color: #2e5e84;
+    cursor: pointer;
+}
+
+.btnAction {
+    background-color: #2f6287;
+    color: white;
+    padding: 14px 26px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btnAction:hover {
+    background-color: #244e6a;
+}
+
+/* Table */
+.lease-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.lease-table th,
+.lease-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 1.05rem;
+}
+
+.lease-table th {
+    background-color: #2e5e84;
+    color: white;
+    font-weight: 500;
+}
+
+.lease-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.lease-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.lease-table a {
+    color: #2e5e84;
+    text-decoration: underline;
+}
+
+.lease-table i {
+    font-size: 1.1rem;
+    color: #2e5e84;
+    cursor: pointer;
+}
+
+.lease-table i:hover {
+    color: #1d3f60;
+}
