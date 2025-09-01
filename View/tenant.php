@@ -3,7 +3,6 @@
         <?php
         echo "<h1>Liste des locataires</h1>";
 
-<<<<<<< Updated upstream
 if (!empty($_POST["email"])) {
     $message = "";
     if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
@@ -21,12 +20,6 @@ if (!empty($_POST["email"])) {
     echo $message;
 }
 ?>
-=======
-        $message = $_SESSION["message"];
-        $_SESSION["message"] = "";
-        $tenant = new Tenants();
-        $liste = $tenant->read($_SESSION["ownerId"]);
->>>>>>> Stashed changes
 
         if (!empty($_POST["email"])) {
             $message = "";

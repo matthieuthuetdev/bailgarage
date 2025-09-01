@@ -38,14 +38,14 @@ if (!empty($_POST)) {
             1,
             $_POST["cityName"],
             $_POST["postalCode"],
+            $_POST["country"],
             $_POST['phoneNumber'],
             $_POST['landlinePhoneNumber'],
             $_POST['email'],
             isset($_POST['rgpd']) ? 1 : 0,
-            $_POST['attachmentPath'],
             isset($_POST['gender']) ? $_POST["gender"] : 0,
             isset($_POST['receipt']) ? 1 : 0,
-            ""
+            $_POST['ownerNote']
         );
         $message = $success ? "Locataire modifié avec succès." : "Erreur lors de la modification du locataire.";
     }
@@ -96,6 +96,11 @@ if (!empty($_POST)) {
     </div>
 
     <div>
+        <label for="country">Pays :</label>
+        <input type="text" name="country" id="country" value="<?php echo htmlspecialchars($tenantInfo["country"] ?? ''); ?>">
+    </div>
+
+    <div>
         <label for="phoneNumber">Téléphone :</label>
         <input type="tel" name="phoneNumber" id="phoneNumber" required value="<?php echo htmlspecialchars($tenantInfo['phoneNumber'] ?? ''); ?>">
     </div>
@@ -111,11 +116,6 @@ if (!empty($_POST)) {
     </div>
 
     <div>
-        <label for="attachmentPath">Pièce jointe :</label>
-        <input type="text" name="attachmentPath" id="attachmentPath" value="<?php echo htmlspecialchars($tenantInfo['attachmentPath'] ?? ''); ?>">
-    </div>
-
-    <div>
         <label for="gender">Genre :</label>
         <select name="gender" id="gender">
             <option value="0" <?php echo ($tenantInfo['gender'] == 0) ? 'selected' : ''; ?>>Homme</option>
@@ -128,6 +128,10 @@ if (!empty($_POST)) {
         <label for="receipt">Je souhaite recevoir une quittance de loyer chaque mois.</label>
     </div>
 
+    <div>
+        <label for="ownerNote">Note propriétaire :</label>
+        <textarea name="ownerNote" id="ownerNote"><?php echo htmlspecialchars($tenantInfo['ownerNote'] ?? ''); ?></textarea>
+    </div>
 
     <button type="submit">Enregistrer</button>
 </form>

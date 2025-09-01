@@ -37,175 +37,206 @@ if (!empty($_SESSION["role"])) {
     }
 }
 if (isset($_GET["pageController"])) {
+    $user = new UserController();
+    $owner = new OwnerController();
+    $garage = new GarageController();
+    $tenant = new TenantsController();
+    $lease = new LeaseController();
+    $additionalIban = new AdditionalIbanController();
+    $payment = new PaymentController();
+    $paymentHistory = new paymentHistoryController();
+    $emailTemplate = new emailTemplateController();
+    $page = new PageController();
+
     switch ($_GET["pageController"]) {
         case "":
-            $user = new UserController();
             $user->displaySignInForm();
             break;
         case "user":
-            $user = new UserController();
             if (empty($_GET["action"])) {
-                $page = new PageController();
                 $page->displayPageNotFound();
             } elseif ($_GET["action"] == "signIn" && empty($_SESSION)) {
                 $user->displaySignInForm();
             } elseif ($_GET["action"] == "signOut") {
                 $user->signOut();
             } elseif ($_GET["action"] == "profil") {
-                $user->displayProfil();
+                if (empty($_SESSION["role"])) {
+                    $user->signOut();
+                } else {
+                    $user->displayProfil();
+                }
             } elseif ($_GET["action"] == "requestresetpassword") {
                 $user->displayRequestResetPassword();
             } elseif ($_GET["action"] == "resetpassword") {
                 $user->displayResetPassword();
             } else {
-                $page = new PageController();
                 $page->displayPageNotFound();
             }
             break;
         case "owner":
-            $owner = new OwnerController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
-                $owner->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
-                $owner->displayOwner();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "admin" && empty($_GET["id"])) {
-                $owner->displayCreateForm();
-            } elseif ($_GET["action"] == "update") {
-                $owner->displayUpdateForm();
-            } elseif ($_GET["action"] == "delete") {
-                $owner->delete();
-            } elseif ($_GET["action"] == "help" && !empty($_SESSION["adminId"]) && empty($_SESSION["ownerId"])) {
-                $owner->startToHelp();
-            } elseif ($_GET["action"] == "stophelp" && $_SESSION["role"] == "helper") {
-                $owner->stopToHelp();
+            if (!empty($_SESSION["role"])) {
+                if ($_GET["action"] == "create" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
+                    $owner->displayCreateForm();
+                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
+                    $owner->displayOwner();
+                } elseif (empty($_GET["action"]) && !empty($_SESSION) && $_SESSION["role"] == "admin" && empty($_GET["id"])) {
+                    $owner->displayCreateForm();
+                } elseif ($_GET["action"] == "update") {
+                    $owner->displayUpdateForm();
+                } elseif ($_GET["action"] == "delete") {
+                    $owner->delete();
+                } elseif ($_GET["action"] == "help" && !empty($_SESSION["adminId"]) && empty($_SESSION["ownerId"])) {
+                    $owner->startToHelp();
+                } elseif ($_GET["action"] == "stophelp" && $_SESSION["role"] == "helper") {
+                    $owner->stopToHelp();
+                } else {
+                    $page->displayPageNotFound();
+                }
             } else {
-                $page = new PageController();
-                $page->displayPageNotFound();
+                $user->displaySignInForm;
             }
+
             break;
         case "garage":
-            $garage = new GarageController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $garage->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $garage->displayGarage();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
-                $garage->displayCreateForm();
-            } elseif ($_GET["action"] == "update") {
-                $garage->displayUpdateForm();
-            } elseif ($_GET["action"] == "delete") {
-                $garage->delete();
-            } elseif ($_GET["action"] == "duplicate") {
-                $garage->displayDuplicateForm();
+            if (!empty($_SESSION["role"])) {
+                if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $garage->displayCreateForm();
+                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $garage->displayGarage();
+                } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
+                    $garage->displayCreateForm();
+                } elseif ($_GET["action"] == "update") {
+                    $garage->displayUpdateForm();
+                } elseif ($_GET["action"] == "delete") {
+                    $garage->delete();
+                } elseif ($_GET["action"] == "duplicate") {
+                    $garage->displayDuplicateForm();
+                } else {
+                    $page->displayPageNotFound();
+                }
             } else {
-                $page = new PageController();
-                $page->displayPageNotFound();
+                $user->displaySignInForm();
             }
             break;
         case "tenant":
-            $tenant = new TenantsController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $tenant->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $tenant->displayTenant();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
-                $tenant->displayCreateForm();
-            } elseif ($_GET["action"] == "update") {
-                $tenant->displayUpdateForm();
-            } elseif ($_GET["action"] == "delete") {
-                $tenant->delete();
-            } elseif ($_GET["action"] == "tenantform") {
-                $tenant->displayTenantForm();
+            if (!empty($_SESSION["role"])) {
+                if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $tenant->displayCreateForm();
+                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $tenant->displayTenant();
+                } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
+                    $tenant->displayCreateForm();
+                } elseif ($_GET["action"] == "update") {
+                    $tenant->displayUpdateForm();
+                } elseif ($_GET["action"] == "delete") {
+                    $tenant->delete();
+                } elseif ($_GET["action"] == "tenantform") {
+                    $tenant->displayTenantForm();
+                } else {
+                    $page->displayPageNotFound();
+                }
             } else {
-                $page = new PageController();
-                $page->displayPageNotFound();
+                $user->displaySignInForm;
             }
+
             break;
         case "lease":
-            $lease = new LeaseController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $lease->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $lease->displayLease();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
-                $lease->displayCreateForm();
-            } elseif ($_GET["action"] == "update") {
-                $lease->displayUpdateForm();
-            } elseif ($_GET["action"] == "delete") {
-                $lease->delete();
-            } elseif ($_GET["action"] == "generate") {
-                $lease->generate();
+            if (!empty($_SESSION["role"])) {
+                if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $lease->displayCreateForm();
+                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $lease->displayLease();
+                } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
+                    $lease->displayCreateForm();
+                } elseif ($_GET["action"] == "update") {
+                    $lease->displayUpdateForm();
+                } elseif ($_GET["action"] == "delete") {
+                    $lease->delete();
+                } elseif ($_GET["action"] == "generate") {
+                    $lease->generate();
+                } else {
+                    $page->displayPageNotFound();
+                }
             } else {
-                $page = new PageController();
-                $page->displayPageNotFound();
+                $user->displaySignInForm;
             }
+
             break;
         case "additionalIban":
-            $additionalIban = new AdditionalIbanController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $additionalIban->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $additionalIban->displayAdditionalIban();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
-                $additionalIban->displayCreateForm();
-            } elseif ($_GET["action"] == "update") {
-                $additionalIban->displayUpdateForm();
-            } elseif ($_GET["action"] == "delete") {
-                $additionalIban->delete();
+            if (!empty($_SESSION["role"])) {
+                if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $additionalIban->displayCreateForm();
+                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $additionalIban->displayAdditionalIban();
+                } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
+                    $additionalIban->displayCreateForm();
+                } elseif ($_GET["action"] == "update") {
+                    $additionalIban->displayUpdateForm();
+                } elseif ($_GET["action"] == "delete") {
+                    $additionalIban->delete();
+                } else {
+                    $page->displayPageNotFound();
+                }
             } else {
-                $page = new PageController();
-                $page->displayPageNotFound();
+                $user->displaySignInForm;
             }
+
             break;
         case "payment":
-            $payment = new PaymentController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $payment->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $payment->displayTenant();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
-                $payment->displayCreateForm();
-            } elseif ($_GET["action"] == "update") {
-                $payment->displayUpdateForm();
-            } elseif ($_GET["action"] == "delete") {
-                $payment->delete();
+            if (!empty($_SESSION["role"])) {
+                if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $payment->displayCreateForm();
+                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $payment->displayTenant();
+                } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
+                    $payment->displayCreateForm();
+                } elseif ($_GET["action"] == "update") {
+                    $payment->displayUpdateForm();
+                } elseif ($_GET["action"] == "delete") {
+                    $payment->delete();
+                } else {
+                    $page->displayPageNotFound();
+                }
             } else {
-                $page = new PageController();
-                $page->displayPageNotFound();
+                $user->displaySignInForm;
             }
+
             break;
         case "paymenthistory":
-            $paymentHistory = new paymentHistoryController();
-            if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $paymentHistory->displayCreateForm();
-            } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
-                $paymentHistory->displayTenant();
-            } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
-                $paymentHistory->displayCreateForm();
-            } elseif ($_GET["action"] == "update") {
-                $paymentHistory->displayUpdateForm();
-            } elseif ($_GET["action"] == "delete") {
-                $paymentHistory->delete();
+            if (!empty($_SESSION["role"])) {
+                if ($_GET["action"] == "create" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $paymentHistory->displayCreateForm();
+                } elseif ($_GET["action"] == "display" && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper")) {
+                    $paymentHistory->displayTenant();
+                } elseif (empty($_GET["action"]) && !empty($_SESSION) && ($_SESSION["role"] == "owner" || $_SESSION["role"] == "helper") && empty($_GET["id"])) {
+                    $paymentHistory->displayCreateForm();
+                } elseif ($_GET["action"] == "update") {
+                    $paymentHistory->displayUpdateForm();
+                } elseif ($_GET["action"] == "delete") {
+                    $paymentHistory->delete();
+                } else {
+                    $page->displayPageNotFound();
+                }
             } else {
-                $page = new PageController();
-                $page->displayPageNotFound();
+                $user->displaySignInForm;
             }
-            break;
 
+            break;
         case "emailtemplate":
-            $emailTemplate = new emailTemplateController();
-            if ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
-                $emailTemplate->displayEmailTemplate();
-            } elseif ($_GET["action"] == "update") {
-                $emailTemplate->displayUpdateForm();
+            if (!empty($_SESSION["role"])) {
+                if ($_GET["action"] == "display" && !empty($_SESSION) && $_SESSION["role"] == "admin") {
+                    $emailTemplate->displayEmailTemplate();
+                } elseif ($_GET["action"] == "update") {
+                    $emailTemplate->displayUpdateForm();
+                } else {
+                    $page->displayPageNotFound();
+                }
             } else {
-                $page = new PageController();
-                $page->displayPageNotFound();
+                $user->displaySignInForm;
             }
-            break;
 
+            break;
         default:
-            $page = new PageController();
             $page->displayPageNotFound();
             break;
     }

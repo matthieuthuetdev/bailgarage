@@ -21,7 +21,7 @@ if (!empty($_POST)) {
             $_POST['company'],
             $_POST['address'],
             $_POST['additionalAddress'],
-            1,
+            $_POST["cityId"],
             $_POST["cityName"],
             $_POST["postalCode"],
             $_POST["country"],
@@ -29,7 +29,7 @@ if (!empty($_POST)) {
             $_POST['landlinePhoneNumber'],
             $_POST['email'],
             isset($_POST['rgpd']) ? 1 : 0,
-            isset($_POST['gender']) ? 1 : 0,
+            $_POST['gender'],
             isset($_POST['receipt']) ? 1 : 0,
             $_POST['ownerNote']
         );
@@ -117,6 +117,8 @@ if (!empty($_POST)) {
         <label for="ownerNote">Note du propriétaire :</label>
         <textarea name="ownerNote" id="ownerNote" rows="3"><?php echo isset($_POST['ownerNote']) ? htmlspecialchars($_POST['ownerNote']) : ''; ?></textarea>
     </div>
+
+    <input type="hidden" name="cityId" value="1">
 
     <button type="submit">Enregistrer</button>
 </form>
