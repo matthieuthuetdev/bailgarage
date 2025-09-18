@@ -1,14 +1,52 @@
 <?php
 
+/**
+ * Classe pour gérer les baux (leases) : opérations CRUD sur la table leases.
+ */
 class Leases
 {
+    /**
+     * @var PDO Connexion PDO à la base de données.
+     */
     private PDO $connection;
 
+    /**
+     * Leases constructor.
+     * Initialise la connexion à la base de données via la méthode singleton Database::getInstance()
+     */
     public function __construct()
     {
         $this->connection = Database::getInstance();
     }
 
+    /**
+     * Crée un bail (lease) en base de données.
+     *
+     * @param int         $_tenantId                  Identifiant du locataire
+     * @param int         $_garageId                  Identifiant du garage
+     * @param int         $_ownerId                   Identifiant du propriétaire
+     * @param string      $_madeThe                   Date de rédaction (format chaîne, ex: "YYYY-MM-DD")
+     * @param string      $_madeIn                    Lieu de rédaction
+     * @param string      $_startDate                 Date de début du bail (format chaîne)
+     * @param int         $_duration                  Durée du bail (nombre d’unités, ex : mois ou années selon ta logique)
+     * @param string      $_rentAmount                Montant du loyer (format chaîne, ex: “1000.00”)
+     * @param string      $_rentAmountInLetter        Montant du loyer en lettres
+     * @param string      $_chargesAmount             Montant des charges
+     * @param string      $_chargesAmountInLetter     Montant des charges en lettres
+     * @param string      $_totalAmountMonthly        Montant total mensuel (loyer + charges)
+     * @param string      $_totalAmountMonthlyInLetter Montant total mensuel en lettres
+     * @param string      $_prorata                   Montant au prorata (s’il y en a)
+     * @param string      $_prorataInLetter           Montant au prorata en lettres
+     * @param string      $_caution                   Montant de la caution
+     * @param string      $_cautionInLetter           Montant de la caution en lettres
+     * @param int         $_numberOfKey               Nombre de clés remises
+     * @param int         $_numberOfBeep              Nombre de badges / télécommandes (beep)
+     * @param int         $_status                    Statut du bail (ex : actif, terminé, etc.)
+     * @param string|null $_ownerNote                 Note privée du propriétaire
+     * @param string|null $_reference                 Référence du bail
+     *
+     * @return bool True si l’insertion réussit, false sinon
+     */
     public function create(
         $_tenantId,
         $_garageId,
@@ -63,6 +101,14 @@ class Leases
         return $rq->execute();
     }
 
+    /**
+     * Lit les baux pour un propriétaire donné, ou un bail spécifique.
+     *
+     * @param int      $_ownerId Identifiant du propriétaire
+     * @param int|null $_leaseId Identifiant du bail (facultatif). Si null, retourne tous les baux du propriétaire.
+     *
+     * @return array|false Tableau associatif(s) des données du/des bail(s), ou false en cas d'erreur
+     */
     public function read($_ownerId, $_leaseId = null)
     {
         if (is_null($_leaseId)) {
@@ -82,6 +128,34 @@ class Leases
         return $result;
     }
 
+    /**
+     * Met à jour un bail existant.
+     *
+     * @param int         $_leaseId                  Identifiant du bail à mettre à jour
+     * @param int         $_tenantId                 Identifiant du locataire
+     * @param int         $_garageId                 Identifiant du garage
+     * @param string      $_madeThe                  Date de rédaction
+     * @param string      $_madeIn                   Lieu de rédaction
+     * @param string      $_startDate                Date de début
+     * @param int         $_duration                 Durée du bail
+     * @param string      $_rentAmount               Montant du loyer
+     * @param string      $_rentAmountInLetter       Montant du loyer en lettres
+     * @param string      $_chargesAmount            Montant des charges
+     * @param string      $_chargesAmountInLetter    Montant des charges en lettres
+     * @param string      $_totalAmountMonthly       Montant total mensuel
+     * @param string      $_totalAmountMonthlyInLetter Montant total mensuel en lettres
+     * @param string      $_prorata                  Montant prorata
+     * @param string      $_prorataInLetter          Montant prorata en lettres
+     * @param string      $_caution                  Montant de la caution
+     * @param string      $_cautionInLetter          Montant de la caution en lettres
+     * @param int         $_numberOfKey              Nombre de clés
+     * @param int         $_numberOfBeep             Nombre de badges / télécommandes
+     * @param int         $_status                   Statut
+     * @param string|null $_ownerNote                Note du propriétaire
+     * @param string|null $_reference                Référence
+     *
+     * @return bool True si la mise à jour réussit, false sinon
+     */
     public function update(
         $_leaseId,
         $_tenantId,
@@ -136,6 +210,13 @@ class Leases
         return $rq->execute();
     }
 
+    /**
+     * Supprime un bail de la base par son identifiant.
+     *
+     * @param int $_leaseId Identifiant du bail à supprimer
+     *
+     * @return bool True si la suppression réussit, false sinon
+     */
     public function delete($_leaseId)
     {
         $request = "DELETE FROM leases WHERE id = :leaseId";

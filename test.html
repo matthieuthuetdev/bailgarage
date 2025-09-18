@@ -1,116 +1,160 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-fr">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Boutons Autonomes</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f0f0f0;
-    }
-    #zone {
-      position: relative;
-      width: 600px;
-      height: 600px;
-      border: 2px solid #333;
-      overflow: hidden;
-      background-color: #fff;
-    }
-    .boutonAutonome {
-      position: absolute;
-      padding: 10px 20px;
-      font-size: 14px;
-      cursor: pointer;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      transition: top 0.05s linear, left 0.05s linear;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <title>Bailgarage</title>
 </head>
-<body>
-  <div id="zone">
-    <button class="boutonAutonome">Clique-moi !</button>
-  </div>
 
-  <script>
-    const vitesse = 5; // pixels par intervalle
-    const intervalle = 20; // millisecondes entre chaque mouvement
-    const zone = document.getElementById('zone');
+<header>
+    <link rel="stylesheet" href="./css/ownerMenu.css">
+    <aside class="sidebar">
+        <img src="./img/logo.png" alt="Logo" class="logo" />
+        <nav class="nav">
+            <h3>MENU</h3>
+            <ul>
+                <li>
+                    <a href="index.php?pageController=garage&action=display">
+                        <i class="fa-solid fa-warehouse"></i> GARAGE
+                    </a>
+                </li>
+                <li>
+                    <a href="index.php?pageController=tenant&action=display">
+                        <i class="fa-solid fa-users"></i> LOCATAIRES
+                    </a>
+                </li>
+                <li>
+                    <a href="index.php?pageController=lease&action=display">
+                        <i class="fa-solid fa-file-contract"></i> BAUX
+                    </a>
+                </li>
+                <li>
+                    <a href="index.php?pageController=payment&action=display">
+                        <i class="fa-solid fa-euro-sign"></i> DEMANDES DE PAIEMENT
+                    </a>
+                </li>
+                <li>
+                    <a href="index.?pageController=paymenthistory&action=display">
+                        <i class="fa-solid fa-clock-rotate-left"></i> HISTORIQUE DE PAIEMENT
+                    </a>
+                </li>
+                <li>
+                    <a href="index.php?pageController=user&action=profil">
+                        <i class="fa-solid fa-user"></i> PROFIL
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="logout-container">
+            <a href="index.php?pageController=user&action=signOut" class="logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Se déconnecter
+            </a>
+        </div>
+    </aside>
+</header>
 
-    function creerBouton(x, y, angle) {
-      const bouton = document.createElement('button');
-      bouton.className = 'boutonAutonome';
-      bouton.textContent = 'Clique-moi !';
-      zone.appendChild(bouton);
+<link rel="stylesheet" href="./css/forms.css">
+<main class="main-content">
+    <h1>Créer un garage</h1>
+    <form class="form-card" action="" method="post">
+        <div class="form-sections">
+            <div class="form-left">
+                <div>
+                    <label for="address">Adresse :</label>
+                    <input type="text" name="address" id="address" required value="">
+                </div>
 
-      // Position initiale
-      bouton.style.left = `${x}px`;
-      bouton.style.top = `${y}px`;
+                <div>
+                    <label for="additionalAddress">Complément d'adresse :</label>
+                    <input type="text" name="additionalAddress" id="additionalAddress" value="">
+                </div>
+                <div>
+                    <label for="cityName">Ville :</label>
+                    <input type="text" name="cityName" id="cityName" value="">
+                </div>
+                <div>
+                    <label for="postalCode">Code postale :</label>
+                    <input type="text" name="postalCode" id="postalCode" value="">
+                </div>
 
-      // Direction aléatoire si non spécifiée
-      if (angle === undefined) {
-        angle = Math.random() * 2 * Math.PI;
-      }
+                <div>
+                    <label for="country">Pays :</label>
+                    <input type="text" name="country" id="country" required value="France">
+                </div>
 
-      // Stocker les données de direction
-      bouton.dataset.angle = angle;
+                <div>
+                    <label for="garageNumber">Numéro de garage :</label>
+                    <input type="number" name="garageNumber" id="garageNumber" required value="">
+                </div>
 
-      return bouton;
-    }
+                <div>
+                    <label for="lotNumber">Numéro de lot :</label>
+                    <input type="number" name="lotNumber" id="lotNumber" value="">
+                </div>
 
-    function deplacerBouton(bouton) {
-      let angle = parseFloat(bouton.dataset.angle);
-      let x = bouton.offsetLeft;
-      let y = bouton.offsetTop;
+                <div>
+                    <label for="rentWithoutCharges">Loyer hors charges (€) :</label>
+                    <input type="number" step="0.01" name="rentWithoutCharges" id="rentWithoutCharges" required value="">
+                </div>
 
-      const dx = Math.cos(angle) * vitesse;
-      const dy = Math.sin(angle) * vitesse;
+                <div>
+                    <label for="charges">Charges (€) :</label>
+                    <input type="number" step="0.01" name="charges" id="charges" required value="">
+                </div>
+            </div>
 
-      x += dx;
-      y += dy;
+            <div class="form-right">
+                <div>
+                    <label for="surface">Surface (m²) :</label>
+                    <input type="number" name="surface" id="surface" required value="">
+                </div>
 
-      // Vérifier les limites de la zone
-      const zoneRect = zone.getBoundingClientRect();
-      const rect = bouton.getBoundingClientRect();
+                <div>
+                    <label for="reference">Référence :</label>
+                    <input type="text" name="reference" id="reference" value="">
+                </div>
 
-      if (
-        x < 0 || x + rect.width > zone.clientWidth ||
-        y < 0 || y + rect.height > zone.clientHeight
-      ) {
-        // Revenir au centre
-        x = (zone.clientWidth - rect.width) / 2;
-        y = (zone.clientHeight - rect.height) / 2;
+                <div>
+                    <label for="attachmentName">Pièce jointe :</label>
+                    <input type="text" name="attachmentName" id="attachmentName" value="">
+                </div>
 
-        // Créer un nouveau bouton avec une direction aléatoire
-        creerBouton(x, y);
-      }
+                <div>
+                    <label for="trustee">Syndic :</label>
+                    <input type="text" name="trustee" id="trustee" value="">
+                </div>
 
-      bouton.style.left = `${x}px`;
-      bouton.style.top = `${y}px`;
-    }
+                <div>
+                    <label for="caution">Caution (€) :</label>
+                    <input type="number" step="0.01" name="caution" id="caution" value="">
+                </div>
 
-    // Initialiser le premier bouton
-    const boutonInitial = document.querySelector('.boutonAutonome');
-    const zoneRect = zone.getBoundingClientRect();
-    const rectInitial = boutonInitial.getBoundingClientRect();
-    boutonInitial.style.left = `${(zone.clientWidth - rectInitial.width) / 2}px`;
-    boutonInitial.style.top = `${(zone.clientHeight - rectInitial.height) / 2}px`;
-    boutonInitial.dataset.angle = Math.random() * 2 * Math.PI;
+                <div>
+                    <label for="additionalIbanId">IBAN à utiliser pour ce garage:</label>
+                    <select name="additionalIbanId" id="additionalIbanId" required>
+                        <option value="0">Principal</option>
+                    </select>
+                </div>
 
-    // Déplacer tous les boutons à intervalles réguliers
-    setInterval(() => {
-      const boutons = document.querySelectorAll('.boutonAutonome');
-      boutons.forEach((bouton) => {
-        deplacerBouton(bouton);
-      });
-    }, intervalle);
-  </script>
+                <div>
+                    <label for="ownerNote">Note du propriétaire :</label>
+                    <textarea name="ownerNote" id="ownerNote" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <button type="submit">Enregistrer</button>
+        </div>
+    </form>
+</main>
+
+<footer></footer>
 </body>
 </html>
-    

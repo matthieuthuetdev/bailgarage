@@ -2,7 +2,8 @@
 <main class="main-content">
         <?php
         echo "<h1>Liste des locataires</h1>";
-
+$tenant = new Tenants();
+$liste = $tenant->read($_SESSION["ownerId"]);
 if (!empty($_POST["email"])) {
     $message = "";
     if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
@@ -20,24 +21,6 @@ if (!empty($_POST["email"])) {
     echo $message;
 }
 ?>
-
-        if (!empty($_POST["email"])) {
-            $message = "";
-            if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-                $message = "Email invalide";
-            } elseif (!empty($tenant->searchTenantByEmail($_POST["email"]))) {
-                $message = "l'email est déjà en base de donnée";
-            } else {
-                $message = "le locataire a été ajouter avec succès ! Un mail vient de lui être envoyé avec le lien vers le formulaire.";
-                $tenant->emailCreate($_SESSION["ownerId"], $_POST["email"]);
-                $mail = new MailService();
-                $link = "https://app.bailgarage.fr/index.php?pageController=tenant&action=tenantform&id=" . $tenant->searchTenantByEmail($_POST["email"])["id"] . "&ownerId=" . $_SESSION["ownerId"] . "&email=" . $_POST["email"];
-                $mail->sendTemplate($_POST["email"], "tenantForm", array("link" => $link));
-                $message = "Email envoyer au locataire avec succès !";
-            }
-            echo "<div class='message success'>{$message}</div>";
-        }
-        ?>
 
         <h3>Envoyer le lien du formulaire par email au locataire</h3>
         <div class="form-action-row">
